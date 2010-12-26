@@ -4,6 +4,7 @@ About R
 You may use any software in the course to complete the assignments and take-home exams (for example, you will not be asked to submit the code you used to generate your results). 
 
 Other software alternatives you might consider:
+
 * Minitab
 * Python
 * MATLAB / Octave
@@ -11,6 +12,7 @@ Other software alternatives you might consider:
 Microsoft Excel is not recommended: it cannot perform some of the calculations and plots that you will require in the course, and its `statistical accuracy is very poor <http://dx.doi.org/10.1016/j.csda.2008.03.004>`_ (the article documents several functions that produce incorrect results).
 
 Other reasons to use R:
+
 * Many companies already use it as a standard package now (as reported in this New York Times article, R is used by Google, Shell, Pfizer, Merck, Bank of America, and others)
 * It can run on Windows, Linux and Mac computers (students are increasingly using Mac and Linux platforms)
 * Commercial software support is available from 3rd parties
