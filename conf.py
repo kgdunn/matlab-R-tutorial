@@ -18,12 +18,7 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('.'))
 
-extensions.append('ucomment-extension')
-html_translator_class = 'ucomment-extension.ucomment_html_translator'
 
-# Point to your Django application, which contains all the other settings required.
-ucomment = {}
-ucomment['django_application_path'] = '/home/kevindunn/webapps/cmv_django_apps/all_django_apps/tutorialsapp'
 
 # -- General configuration -----------------------------------------------------
 
@@ -33,6 +28,14 @@ ucomment['django_application_path'] = '/home/kevindunn/webapps/cmv_django_apps/a
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = []
+
+# Ucomment extension
+extensions.append('ucomment-extension')
+html_translator_class = 'ucomment-extension.ucomment_html_translator'
+
+# Point to your Django application, which contains all the other settings required.
+ucomment = {}
+ucomment['django_application_path'] = '/home/kevindunn/webapps/cmv_django_apps/all_django_apps/tutorialsapp'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
