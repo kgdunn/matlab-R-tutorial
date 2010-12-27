@@ -24,3 +24,18 @@ Other reasons to use R:
 * It promotes good statistical practice of writing a code file, and then running it (like MATLAB). The code file documents what you have done, and you can always repeat your analysis on a new data set, or share the code with colleagues. Other software packages tend to promote a more point-and-click approach, so you can't always retrace your steps.
 * There are multicore and 64-bit versions of R available to process large data sets, and do parallel data processing
 
+Getting started 
+===============
+
+.. note:: Any line beginning with the ``#`` character is a comment and is ignored by R.  I use these comments to show the expected output from R.
+
+This tutorial assumes you have an internet connection. Start the R software, and type the following line into R (you can copy and paste, but don't paste in the ">" character)::
+  
+    > help.start()
+
+The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
+
+Read in data
+==============
+
+The data could be in a file on your computer, or available somewhere on the internet. We will look at both cases.
