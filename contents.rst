@@ -1,8 +1,8 @@
 .. toctree::
    :maxdepth: 2
 
-   r-tutorial
-   python-tutorial
+   r-tutorial/index
+   python-matlab-tutorial/index
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`
