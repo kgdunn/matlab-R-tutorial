@@ -3,6 +3,8 @@ About R
 
 You may use any software in the course to complete the assignments and take-home exams (for example, you will not be asked to submit the code you used to generate your results). 
 
+.. ucomment:: ULUUWA: 4u*,
+
 Other software alternatives you might consider:
 
 * Minitab
@@ -39,3 +41,4 @@ Read in data
 ==============
 
 The data could be in a file on your computer, or available somewhere on the internet. We will look at both cases.
+
