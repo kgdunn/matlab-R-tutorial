@@ -176,6 +176,9 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'Tutorialsdoc'
 
+# Permalinks (those strange characters next to headings)
+html_add_permalinks = None
+
 
 # -- Options for LaTeX output --------------------------------------------------
 
