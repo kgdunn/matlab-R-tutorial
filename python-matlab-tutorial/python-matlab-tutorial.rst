@@ -8,7 +8,7 @@ Getting started with Python
 
 Getting started.  See the :ref:`reading data <python-read-data>` section.
 
-.. ucomment:: pBfcQc: df*,
+.. ucomment:: pBfcQc: df,
 
 
 .. _python-read-data:
