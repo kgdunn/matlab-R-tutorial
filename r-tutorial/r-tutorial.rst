@@ -35,6 +35,8 @@ This tutorial assumes you have an internet connection. Start the R software, and
 
 ::
   
+.. ucomment:: kSMF3Q: Ux*,
+
     > help.start()
 
 .. ucomment:: e3a7GY: mT*, wL*, Ep*,
