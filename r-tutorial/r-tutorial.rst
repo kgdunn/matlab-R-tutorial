@@ -35,11 +35,13 @@ This tutorial assumes you have an internet connection. Start the R software, and
 
 ::
   
-.. ucomment:: kSMF3Q: Ux*,
+.. ucomment: kSMF3Q: Ux*,
+
+::
 
     > help.start()
 
-.. ucomment:: e3a7GY: mT*, wL*, Ep*, zv*,
+.. ucomment:: e3a7GY: mT*, wL*, Ep*, zv*, m2*,
 
 The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
 
