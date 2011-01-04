@@ -80,6 +80,8 @@ Getting started
 
 So start R and type the following:
 
+..  code-block:: s
+
     > help.start()
 
 The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
@@ -87,9 +89,9 @@ The above line starts the web-browser on your computer and shows you the Help sy
 Reading data into R
 ====================
 
-The most interesting uses of R will be on your own data.  How do we pull data into R?    We will look at when the data file is on your computer, or when the data is available somewhere on the internet.
+The most interesting data to analyze is always your own.  How do we read your own data files into R?    We will look at when the data file is on your computer, or when the data is available somewhere on the internet.
 
-.. note:: For now we only consider comma separated values (CSV) files.  R can read other files types, such as XML, directly from databases, and other sources.
+.. note:: For now we only consider comma separated values (CSV) files.  R can read other files types, such as XML files, directly from databases, and other sources.  All the `details are here <http://cran.r-project.org/doc/manuals/R-data.html>`_.
 
 Data on your hard drive
 ---------------------------
@@ -99,7 +101,7 @@ and remember the location.  For example:  ``C:/Courses/ConnectMV/data/website-tr
 
 .. notes:: You must use "``/``" character to separate directories (folders), not "``\``", even in Windows.
 
-We will use the ``read.csv`` command to read these comma-separated values (CSV) files. If you look inside the <tt>website-traffic.csv</tt> file you will how the data is stored: each column is separated by a comma, and each row is a new line.
+We will use the ``read.csv`` command to read these comma-separated values (CSV) files. If you look inside the ``website-traffic.csv`` file you will how the data is stored: each column is separated by a comma, and each row is a new line.
 
 ..  code-block:: s
 	
@@ -156,3 +158,14 @@ Before continuing further, if you ever need help with an R command type ``help("
 
 This will pop up a new window and tell you what ``read.csv`` does and *shows examples* of how to use it.
 
+Next steps (coming soon)
+=========================
+
+* How to manipulate data
+* How to plot data, and add labels, grids, lines and arrows to plots
+* Histograms, probability, distributions, 
+* Extending R's capabilities with packages
+* Dealing with vectors and matrices 
+* Linear models in R 
+* Analysis of designed experiments using R 
+* Principal component analysis using R
