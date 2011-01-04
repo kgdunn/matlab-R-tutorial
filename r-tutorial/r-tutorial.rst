@@ -31,9 +31,13 @@ Getting started
 
 .. note:: Any line beginning with the ``#`` character is a comment and is ignored by R.  I use these comments to show the expected output from R.
 
-This tutorial assumes you have an internet connection. Start the R software, and type the following line into R (you can copy and paste, but don't paste in the ">" character)::
+This tutorial assumes you have an internet connection. Start the R software, and type the following line into R (you can copy and paste, but don't paste in the ">" character):
+
+::
   
     > help.start()
+
+.. ucomment:: e3a7GY: mT*,
 
 The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
 
