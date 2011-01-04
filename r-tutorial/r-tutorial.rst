@@ -3,7 +3,7 @@ About R
 
 You may use any software in the course to complete the assignments and take-home exams (for example, you will not be asked to submit the code you used to generate your results). 
 
-.. ucomment:: ULUUWA: 4u,
+.. ucomment:: ULUUWA: 4u, 7b*,
 
 Other software alternatives you might consider:
 
