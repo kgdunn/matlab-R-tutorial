@@ -86,7 +86,7 @@ So start R and type the following:
 ..  code-block:: s
 
 	# This is how to start the main help system in R
-    > help.start()
+	> help.start()
 
 The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
 
@@ -140,7 +140,6 @@ The ``<-`` operation means *assign the result of the expression on the right to 
 Reading data from the internet
 ------------------------------
 
-
 You can read the data directly from the internet.  Go to the datasets website again and right-click on the CSV link for the data set you want to download.  Your web browser should have the right-click option :menuselection:`Copy Link Location`, or :menuselection:`Copy Shortcut` or something similar.
 
 This will copy the address of the data set to your clipboard.  Then in R, you type:
@@ -162,10 +161,131 @@ Before continuing further, if you ever need help with an R command type ``help("
 
 This will pop up a new window and tell you what ``read.csv`` does and *shows examples* of how to use it.
 
+Basic data manipulation in R
+=============================
+
+Continuing the previous example: when you loaded the ``website`` data you saw there were 4 columns (``DayOfWeek``, ``MonthDay``, ``Year``, ``Visits``) and 214 rows.  You can get this information more quickly:
+
+..  code-block:: s
+	
+	> website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
+	> ncol(website)
+	[1] 4
+	> nrow(website)
+	[1] 214
+
+To get a summary of each column in the data frame (that is the term R uses for a collection of data):
+
+..  code-block:: s
+
+	> summary(website)
+
+	    DayOfWeek        MonthDay        Year          Visits     
+	Friday   :30    August 1 :  1   Min.   :2009   Min.   : 3.00  
+	Monday   :31    August 10:  1   1st Qu.:2009   1st Qu.:16.25  
+	Saturday :30    August 11:  1   Median :2009   Median :22.00  
+	Sunday   :30    August 12:  1   Mean   :2009   Mean   :22.23  
+	Thursday :31    August 13:  1   3rd Qu.:2009   3rd Qu.:27.75  
+	Tuesday  :31    August 14:  1   Max.   :2009   Max.   :48.00  
+	Wednesday:31   (Other)   :208
+
+Compare the summary printout above with the actual data and make sure you understand what every line means.
+
+Let's say you are interested only in one column from the data, e.g. ``Visits``.  You can access just that column by using the ``$`` symbol.  This next code snippet shows how to calculate a summary just for the ``Visits`` variable:
+
+..  code-block:: s
+
+	> summary(website$Visits)
+
+	Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+	3.00   16.25   22.00   22.23   27.75   48.00
+
+Another way to access all the data from the ``Visits`` column (column 4 in the table) is:
+
+.. code-block:: s
+
+	> web.visits <- website[,4]
+
+
+You can interpret the above command as saying "*give me all rows in the website data set and only the values in column 4*"
+
+Take a look at this new variable (note that R variables can have periods in their names)
+
+.. code-block:: s
+	
+	> web.visits
+  [1] 27 31 38 38 31 24 21 29 30 22 24 17  7 13 20 17 11 19 15  3 12 25
+ [23] 17 24 30 22 15 14 29 10 19 34 12  5 14 26  8 16 11 10 12 11 14 23
+ [45] 30 19 21 14 18 27 26 27 23 16  5 18 29 35 22 22 10  7 12 23 38 43
+ [67] 26 19 18 10 19 19 38 22 25 18 24 21 28 30 21 26 11 12 20 21 23 25
+ [89] 19 14 17 21 38 27 21 18 19 20 18 26 28 30 28 29 16 30 23 24 44 28
+[111] 20 20 16 22 31 31 30 30 29 27 37 35 22 28 23 48 46 35 40 22 26 14
+[133] 19 26 25 21 29 34 15 16 19 29 32 25 24 17 23 42 28 23 27 26 22 15
+[155] 32 22 29 25 15 18 28 27 35 26 26 20 22 13 22 25 29 20 12 14 13 38
+[177] 35 25 24 17 22 21 32 26 30 21 27 13 14 21 19 30 16 20  8 10 13 31
+[199] 24 18 17  7 13 22 22 22 13 10 12 15 24 18 10  7
+
+
+What if we want to access the number in the first row and fourth column of ``website``? 
+
+.. code-block:: s
+
+	> website[1, 4]
+	[1] 27
+
+Or in the second row and first column?
+
+.. code-block:: s
+
+	> website[2, 1]
+	[1] Tuesday
+	Levels: Friday Monday Saturday Sunday Thursday Tuesday Wednesday
+
+Now let's say you want all rows from ``website`` where the column value for ``DayOfWeek`` is ``Monday``.  
+
+We do this in 2 steps.  First, we introduce the "``==``" operation, which means "*is equal to*"
+
+.. code-block:: s
+	
+	website$DayOfWeek == "Monday"
+	
+	  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+	 [13] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+	 [25] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+	 [37] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+	 [49] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+	 [61] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+	 [73] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+	 [85]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+	 [97] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+	[109] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+	[121] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+	[133] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+	[145] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+	[157] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+	[169]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+	[181] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+	[193] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+	[205] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+
+
+It returns a logical (true/false) array with TRUE where the condition is met. Now we can use this array to access all rows where this condition is met:
+
+.. code-block:: s
+
+	Mondays.rows <- website[website$DayOfWeek == "Monday", ]
+
+
+The above command gives you all data which are recorded for Mondays.  Now, what if you want to break that down further - you only want the number of visits on a Monday? Then you need to ask for column 4 only:
+
+.. code-block:: s
+
+	Mondays.visits <- website[website$DayOfWeek == "Monday", 4]
+
+
 Next steps (coming soon)
 =========================
 
-* How to manipulate data
 * How to plot data, and add labels, grids, lines and arrows to plots
 * Histograms, probability, distributions, 
 * Extending R's capabilities with packages
