@@ -51,6 +51,9 @@ Windows installation
 After installing Tinn-R you need to configure Tinn-R to communicate with R:
 
 * *Vista and Windows 7 users*: right-click on the Tinn-R icon and choose ``Run as Administrator``.  For *Windows XP users*: just start Tinn-R by clicking on the icon.
+
+  .. ucomment:: QQ8FJ4: Hu*,
+
 * Go to the menu at the top, click on ``R``
 * Then ``Configure``
 * Then ``Permanent``
