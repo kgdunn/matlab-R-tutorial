@@ -3,16 +3,16 @@ About R
 
 R is a software package for statistical computing and graphics.  It has become a standard among statistical programming languages.
 
-* Many companies already use it as a standard package now (as reported in this New York Times article, R is used by Google, Shell, Pfizer, Merck, Bank of America, and others)
-* It can run on Windows, Linux and Mac computers (students are increasingly using Mac and Linux platforms)
-* Commercial software support is available from 3rd parties
-* The software can be installed on a local desktop, or in a networked environment and run remotely
-* It is free (both for academic and commercial use), so it can used after you graduate
-* Installation is straightforward
-* The license is not restrictive: you can legally modify and improve the software
-* There are excellent add-on libraries for almost anything related to data analysis
+* Many companies already use it as a standard package now (as reported in `this New York Times article <http://www.ece.virginia.edu/~mv/edu/D2K/lectures/NYTimesR.pdf>`_, R is used by Google, Shell, Pfizer, Merck, Bank of America, and others).
+* It can run on Windows, Linux and Mac computers.
+* Commercial software support is available from 3rd parties.
+* The software can be installed on a local desktop, or in a networked environment and run remotely.
+* It is free (both for academic and commercial use), so it can be used in any academic or corporate environment.
+* Installation is straightforward,
+* The license is not restrictive: you can legally modify and improve the software.
+* There are excellent add-on libraries for almost anything related to data analysis.
 * It promotes good statistical practice of writing a code file, and then running it (like MATLAB). The code file documents what you have done, and you can always repeat your analysis on a new data set, or share the code with colleagues. Other software packages tend to promote a more point-and-click approach, so you can't always retrace your steps.
-* There are multicore and 64-bit versions of R available to process large data sets, and do parallel data processing
+* There are multicore and 64-bit versions of R available to process large data sets, and do parallel data processing.
 
 Alternatives
 ------------
@@ -24,7 +24,7 @@ Other software alternatives you might consider are Minitab, MATLAB or Python.  M
 Installing R
 =============
 
-R is a standalone package.  However you must install a good text editor that works with R to get the most benefit.  
+R is a standalone package.  However, to get the most benefit, you must install a good text editor that works with R also.  
 
 If you are having trouble installing R, please `email us for assistance <mailto:kevin.dunn@connectmv.com>`_.
 
@@ -47,6 +47,7 @@ Windows installation
 **Configuration**
 
 After installing Tinn-R you need to configure Tinn-R to communicate with R:
+
 * *Vista and Windows 7 users*: right-click on the Tinn-R icon and choose ``Run as Administrator``.  For *Windows XP users*: just start Tinn-R by clicking on the icon.
 * Go to the menu at the top, click on ``R``
 * Then ``Configure``
@@ -56,7 +57,7 @@ After installing Tinn-R you need to configure Tinn-R to communicate with R:
 * The Tinn-R software will continue to install several updates
 
 
-Apple Mac installation
+Mac installation
 ------------------------
 
 * Download and install the latest R package file from http://cran.r-project.org/bin/macosx/
@@ -82,6 +83,7 @@ So start R and type the following:
 
 ..  code-block:: s
 
+	# This is how to start the main help system in R
     > help.start()
 
 The above line starts the web-browser on your computer and shows you the Help system for R. You can click on the links to get different levels of help.
@@ -137,7 +139,7 @@ Reading data from the internet
 ------------------------------
 
 
-You can read the data directly from the internet.  Go to the datasets website again and right-click on the CSV link for the data set you want to download.  Your web browser should have the option :menuselection:`Copy Link Location`, or :menuselection:`Copy Shortcut` or something similar.
+You can read the data directly from the internet.  Go to the datasets website again and right-click on the CSV link for the data set you want to download.  Your web browser should have the right-click option :menuselection:`Copy Link Location`, or :menuselection:`Copy Shortcut` or something similar.
 
 This will copy the address of the data set to your clipboard.  Then in R, you type:
 

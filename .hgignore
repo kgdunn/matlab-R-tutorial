@@ -2,3 +2,4 @@ _build
 .*\.pyc
 ucomment-extension.py
 .*\.ucomment
+.*\.tmproj
