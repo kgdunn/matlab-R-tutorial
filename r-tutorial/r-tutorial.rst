@@ -195,7 +195,7 @@ Let's say you are interested only in one column from the data, e.g. ``Visits``. 
 
 ..  code-block:: s
 
-	> summary(website$Visits)
+	summary(website$Visits)
 
 	Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 	3.00   16.25   22.00   22.23   27.75   48.00
@@ -204,7 +204,7 @@ Another way to access all the data from the ``Visits`` column (column 4 in the t
 
 .. code-block:: s
 
-	> web.visits <- website[,4]
+	web.visits <- website[,4]
 
 
 You can interpret the above command as saying "*give me all rows in the website data set and only the values in column 4*"
@@ -213,31 +213,31 @@ Take a look at this new variable (note that R variables can have periods in thei
 
 .. code-block:: s
 	
-	> web.visits
-  [1] 27 31 38 38 31 24 21 29 30 22 24 17  7 13 20 17 11 19 15  3 12 25
- [23] 17 24 30 22 15 14 29 10 19 34 12  5 14 26  8 16 11 10 12 11 14 23
- [45] 30 19 21 14 18 27 26 27 23 16  5 18 29 35 22 22 10  7 12 23 38 43
- [67] 26 19 18 10 19 19 38 22 25 18 24 21 28 30 21 26 11 12 20 21 23 25
- [89] 19 14 17 21 38 27 21 18 19 20 18 26 28 30 28 29 16 30 23 24 44 28
-[111] 20 20 16 22 31 31 30 30 29 27 37 35 22 28 23 48 46 35 40 22 26 14
-[133] 19 26 25 21 29 34 15 16 19 29 32 25 24 17 23 42 28 23 27 26 22 15
-[155] 32 22 29 25 15 18 28 27 35 26 26 20 22 13 22 25 29 20 12 14 13 38
-[177] 35 25 24 17 22 21 32 26 30 21 27 13 14 21 19 30 16 20  8 10 13 31
-[199] 24 18 17  7 13 22 22 22 13 10 12 15 24 18 10  7
+	web.visits
+	  [1] 27 31 38 38 31 24 21 29 30 22 24 17  7 13 20 17 11 19 15  3 12 25
+	 [23] 17 24 30 22 15 14 29 10 19 34 12  5 14 26  8 16 11 10 12 11 14 23
+	 [45] 30 19 21 14 18 27 26 27 23 16  5 18 29 35 22 22 10  7 12 23 38 43
+	 [67] 26 19 18 10 19 19 38 22 25 18 24 21 28 30 21 26 11 12 20 21 23 25
+	 [89] 19 14 17 21 38 27 21 18 19 20 18 26 28 30 28 29 16 30 23 24 44 28
+	[111] 20 20 16 22 31 31 30 30 29 27 37 35 22 28 23 48 46 35 40 22 26 14
+	[133] 19 26 25 21 29 34 15 16 19 29 32 25 24 17 23 42 28 23 27 26 22 15
+	[155] 32 22 29 25 15 18 28 27 35 26 26 20 22 13 22 25 29 20 12 14 13 38
+	[177] 35 25 24 17 22 21 32 26 30 21 27 13 14 21 19 30 16 20  8 10 13 31
+	[199] 24 18 17  7 13 22 22 22 13 10 12 15 24 18 10  7
 
 
 What if we want to access the number in the first row and fourth column of ``website``? 
 
 .. code-block:: s
 
-	> website[1, 4]
+	website[1, 4]
 	[1] 27
 
 Or in the second row and first column?
 
 .. code-block:: s
 
-	> website[2, 1]
+	website[2, 1]
 	[1] Tuesday
 	Levels: Friday Monday Saturday Sunday Thursday Tuesday Wednesday
 
