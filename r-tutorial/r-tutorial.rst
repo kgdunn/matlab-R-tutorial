@@ -41,7 +41,7 @@ Windows installation
 
 **R-compatible text editor**
 
-.. ucomment:: MbQrKP: vy*,
+.. ucomment:: MbQrKP: vy,
 
 * Visit the `Tinn-R website <http://sourceforge.net/projects/tinn-r/>`_  to get the latest version; click on the "Download Now" button
 * Save and install the EXE file 
