@@ -3,7 +3,7 @@ Python Tutorial
 
 About Python.
 
-.. ucomment:: dcChB5: 96*,
+.. ucomment:: dcChB5: 96*, LF*,
 
 Getting started with Python
 ==============================
