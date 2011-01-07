@@ -83,6 +83,8 @@ However, we highly recommend you use the Enthought Python distribution, which is
 		:scale: 100
 		:align: center
 
+	.. ucomment:: bJJ9Jd: Ut*,
+
 #.	Download and install the software.
 #.	It will take some time, because it installs Python and a large collection of libraries (modules).
 
