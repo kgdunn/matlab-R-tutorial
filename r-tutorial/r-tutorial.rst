@@ -293,6 +293,9 @@ Next steps (coming soon)
 * Histograms, probability, distributions, 
 * Extending R's capabilities with packages
 * Dealing with vectors and matrices 
+
+  .. ucomment:: E6GnQb: MY*,
+
 * Linear models in R 
 * Analysis of designed experiments using R 
 * Principal component analysis using R
