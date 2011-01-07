@@ -52,7 +52,7 @@ Python is an open source software. Because of this, various groups have "package
 * IronPython: http://ironpython.net/
 * JPython: http://www.jython.org/
 
-For this course we recommend you use the version distributed from http://www.pythonxy.com/, and called Python(X,Y).   If you are an experienced programmer, comfortable with the command prompt, then we actually recommend you use `Enthought's Python distribution <http://www.enthought.com/epd>`_: see the :ref:`Mac/Linux instructions <matpy-mac-linux-install>` below.
+For this tutorial we recommend you use the version distributed from http://www.pythonxy.com/, and called Python(X,Y).   If you are an experienced programmer, comfortable with the command prompt, then we actually recommend you use `Enthought's Python distribution <http://www.enthought.com/epd>`_: see the :ref:`Mac/Linux instructions <matpy-mac-linux-install>` below.
 
 **Python(X,Y) installation**
 
@@ -75,7 +75,7 @@ Mac and Linux users
 
 Python is already installed on all Mac computers and most (all?) Linux computers. If you go to your command prompt (the program is called "Terminal" on Macs), you can type ``python`` and it will start a bare-bones Python session.
 
-However, we highly recommend you use the Enthought Python distribution, which is better suited to our course. It contains all the tools that we require. Please follow these instructions to install it.
+However, we highly recommend you use the Enthought Python distribution, which is better suited to our requirements. It contains all the tools that we require. Please follow these instructions to install it.
 
 #.	Visit the academic download section of Enthought's website if you are a student, or download the 30-day trial, or purchase a regular license.
 
@@ -109,11 +109,11 @@ If MATLAB does not open exactly like this you can easily modify which regions ar
 	:width: 400px
 	:align: center
 
-The core MATLAB setup has 6 main sections of interest that you will become very familiar with by the end of this course:
+The core MATLAB setup has 6 main sections of interest:
 
 .. figure:: images/MATLAB_Windows_Labeled.png
 	:scale: 100
-	:width: 4000px
+	:width: 400px
 	:align: center
 
 
