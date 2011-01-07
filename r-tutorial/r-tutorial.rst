@@ -349,7 +349,7 @@ The basic boxplot syntax is:
 
 	boxplot(website$Visits)
 
-To get boxplots for each day of the week, side-by-side we rely on the fact the column, ``DayOfWeek`` is a categorical variable.  R calls these ``factor`` variables, and you can confirm this:  ``is.factor(website$DayOfWeek)`` returns ``TRUE``.  We can then tell the ``boxplot`` command to group the boxplots by a factor variable::
+To get boxplots for each day of the week, side-by-side we rely on the fact the column, ``DayOfWeek`` is a categorical variable.  R calls these ``factor`` variables, and you can confirm this:  ``is.factor(website$DayOfWeek)`` returns ``TRUE``.  We can then tell the ``boxplot`` command to group the boxplots by a factor variable:
 
 .. code-block:: s
 
