@@ -301,5 +301,8 @@ Next steps (coming soon)
 
 * Linear models in R 
 * Analysis of designed experiments using R 
+
+  .. ucomment:: SrypaW: 74*,
+
 * Principal component analysis using R
 
