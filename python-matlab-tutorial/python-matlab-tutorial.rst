@@ -1,13 +1,13 @@
 About MATLAB and Python
 ========================
 
-MATLAB
--------
+..rubric:: MATLAB
+
 
 `From Wikipedia <http://en.wikipedia.org/wiki/MATLAB>`_:  MATLAB (MATrix LABoratory) is a high level computer language/interactive software package developed and distributed by MathWorks. MATLAB was first developed in the 1970s by Cleve Molar. Cleve was later joined by John N. Little and Steve Bangert and the three went on to found MathWorks. MATLAB excels at performing matrix operations and can handle large data sets (stored as matrices) very easily. MATLAB was originally designed as a user friendly interface for `LINPACK <http://en.wikipedia.org/wiki/LINPACK>`_ and `EISPACK <http://en.wikipedia.org/wiki/EISPACK>`_ and so was intended for linear algebra application. Since then MATLAB has greatly expanded it's core abilities to encompass a large array of graphic and numeric applications. These core abilities are expanded through the addition of specialized "tool boxes".
 
-Python
--------
+..rubric:: Python
+
 
 `From Wikipedia <http://en.wikipedia.org/wiki/Python_(programming_language)>`_: Python is a high-level programming language whose design philosophy emphasizes code readability. Python aims to combine "remarkable power with very clear syntax", and its standard library of built-in functions is large and comprehensive.  
 
@@ -32,13 +32,11 @@ You might not be familiar with Python.  Here is a comparison with MATLAB:
 Installing MATLAB or Python
 =============================
 
-MATLAB
-------
+..rubric:: MATLAB
 
 MATLAB may be purchased from `The Mathworks <http://mathworks.com>`_ either as the commercial version or student version.  You will also require the Statistics Toolbox for this tutorial.
 
-Python
-------
+..rubric:: Python
 
 Python is freely available. The latest stable version that we recommend for this tutorial is version 2.6, because it is compatible with the external libraries that we will use.
 
@@ -93,8 +91,7 @@ However, we highly recommend you use the Enthought Python distribution, which is
 Getting started
 ==============================
 
-MATLAB
--------
+..rubric:: MATLAB
 
 When you launch MATLAB the following window will open:
 
@@ -143,8 +140,7 @@ The core MATLAB setup has 6 main sections of interest:
 
 	When the MATLAB plot tools are used the resulting graphics are displayed in separate plot windows.
 
-Python
--------
+..rubric:: Python
 
 Windows users
 ^^^^^^^^^^^^^^^^^
@@ -392,11 +388,23 @@ Save the plot in the `PNG file format <http://en.wikipedia.org/wiki/Portable_Net
 
 If you plan to use Python more frequently, then you will benefit from this book: `Beginning Python Visualization <http://www.springerlink.com/content/978-1-4302-1843-2>`_ - many universities have free access to the PDF version from campus computers.
 
+
 Read data into MATLAB or Python
 =================================
 
-More to come soon.
+..  Web-based reading in MATLAB
 
-.. 
 	website_raw = urlread('http://datasets.connectmv.com/file/website-traffic.csv')
 	readData = textscan(website_raw, ‘%s %s %d %d’, ‘delimiter’, ',');
+
+The most interesting data to analyze is always your own.  How do we read your own data files into MATLAB or Python?    We will look at the case when the data file is on your computer
+
+.. note:: 
+
+	We only consider comma separated values (CSV) files in this section. 
+	
+MATLAB and Python are very capable at reading other files formats, such as XML files, directly from databases, and other sources, such as Excel. 
+
+* MATLAB: `see documentation for all formats <http://www.mathworks.com/help/techdoc/ref/f16-5702.html>`_.
+* Python: separate pages for `XML <http://docs.python.org/library/xml.sax.html>`_ files, `CSV <http://docs.python.org/library/csv.html>`_ files, `arbitrary databases <http://www.sqlalchemy.org/>`_, and `Excel files <http://www.python-excel.org/>`_.
+

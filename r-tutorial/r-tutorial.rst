@@ -106,7 +106,7 @@ Data on your hard drive
 Go to the `datasets website <http://datasets.connectmv.com>`_ and download any data set, for example the **Website traffic** datasets.  Save the file, 
 and remember the location.  For example:  ``C:/Courses/ConnectMV/data/website-traffic.csv``
 
-.. note:: You must use "``/``" character to separate directories (folders), not "``\``", even in Windows.
+.. note:: You must use "``/``" character in R to separate directories (folders), not the "``\``" character, even in Windows.
 
 We will use the ``read.csv`` command to read these comma-separated values (CSV) files. If you look inside the ``website-traffic.csv`` file you will how the data is stored: each column is separated by a comma, and each row is a new line.
 
@@ -119,7 +119,6 @@ Linux and Mac users will have something like:
 ..  code-block:: s
 	
 	> website <- read.csv('/home/yourname/ConnectMV/data/website-traffic.csv')
-
 
 You will get **NO** output to the screen if the data are successfully read in; you only will see something if an error occurred.
 
@@ -277,13 +276,125 @@ It returns a logical (true/false) array with TRUE where the condition is met. No
 .. code-block:: s
 
 	Mondays.rows <- website[website$DayOfWeek == "Monday", ]
-
-
+	Mondays.rows 
+	
+	    DayOfWeek      MonthDay Year Visits
+	1      Monday        June 1 2009     27
+	8      Monday        June 8 2009     29
+	15     Monday       June 15 2009     20
+	...
+	204    Monday   December 21 2009     22
+	211    Monday   December 28 2009     24
+	
 The above command gives you all data which are recorded for Mondays.  Now, what if you want to break that down further - you only want the number of visits on a Monday? Then you need to ask for column 4 only:
 
 .. code-block:: s
 
 	Mondays.visits <- website[website$DayOfWeek == "Monday", 4]
+	
+	Mondays.visits
+	[1] 27 29 20 25 29 26 14 27 29 23 19 21 20 21 18 30 16 27 46 26 19 42 32 27 22 38 32 21 13 22 24
+
+Basic plots in R
+=================
+
+Basic sequence plot
+--------------------
+
+We will continue on with the data set described in the previous section.  Load the dataset and let's plot the column called ``Visits`` - there are 4 columns in the dataset, so we must be specific on which one to plot.
+
+.. code-block:: s
+
+	website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
+	plot(website$Visits)
+	
+
+Which produces this figure.  Note that the defaults in R are to leave a lot of white space around the figure.  We will show later how to remove that.
+
+.. figure:: images/website-traffic-base.jpg
+	:alt:	code/website-traffic-example.R
+	:scale: 100
+	:align: center
+
+
+That plot shows only the points (markers), in the order of the data set.  What if you want lines between the points?  Type ``help(plot)`` to find out more about the ``plot`` command.  For example, it tells you there that ``type="p"`` will just show the points (the default setting for ``plot``): 
+
+.. code-block:: s
+	
+	plot(website$Visits, type="p")
+
+
+If you use ``type="l"`` you get a line plot:
+
+.. code-block:: s
+	
+	plot(website$Visits, type="l")
+
+and ``type="b"`` will show both lines and points, leaving a space between the point and the line connections
+
+.. code-block:: s
+	
+	plot(website$Visits, type="b")
+	
+and ``type="o"`` will connect (overplot) the lines and points.  
+
+
+
+Box plots
+--------------------
+
+The basic boxplot syntax is:
+
+.. code-block:: s
+
+	boxplot(website$Visits)
+
+To get boxplots for each day of the week, side-by-side we rely on the fact the column, ``DayOfWeek`` is a categorical variable.  R calls these ``factor`` variables, and you can confirm this:  ``is.factor(website$DayOfWeek)`` returns ``TRUE``.  We can then tell the ``boxplot`` command to group the boxplots by a factor variable::
+
+.. code-block:: s
+
+	boxplot(website$Visits ~ website$DayOfWeek)
+
+.. figure:: images/website-traffic-boxplot-default.jpg
+	:alt:	code/website-traffic-example.R
+	:scale: 100
+	:align: center
+
+
+Read the help text ``help(boxplot)`` and for ``help(factor)`` to understand this more clearly.
+
+
+Saving your plots manually
+---------------------------
+
+Once you have drawn your plot, you can go to the menu on the top, and click ``File``, then ``Save as``.  We will show :ref:`later on how to save plots programmatically <r-saving-plots>`.
+
+Dealing with factors (categorical variables)
+==============================================
+
+This section shows a bit about R's ability to deal with factors.  Factors are variables that are coded for categories: e.g. ``male`` and ``female``, or another example could be day of the week: ``Monday, Tuesday, ..., Sunday``.
+
+When you loaded the website data, not all of the raw data (take a look inside the CSV file) is numeric.  The ``DayOfWeek`` is text, so R assumes this is a factor.  It automatically goes and finds all unique values in that column (the names of the 7 days in the week in this case), and codes that as factor variable.  But it sorts them alphabetically, ``Friday, Monday, ..., Wednesday``.  If you want them in a different order, use the ``levels`` input option to tell R your preferred order:
+
+.. code-block:: s
+	
+	day.names <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" )
+	days <- factor(website$DayOfWeek, level=day.names)
+	boxplot(website$Visits ~ days)
+
+Now that boxplot will be ordered in a more useful way to see the weekly trends:
+
+.. figure:: images/website-traffic-boxplot-ordered.jpg
+	:alt:	code/website-traffic-example.R
+	:scale: 100
+	:align: center
+
+The ``c()`` command creates a combination of items and the ``factor()`` command creates a factor variable.
+
+.. _r-saving-plots:
+
+Saving plots in R
+==================
 
 
 Next steps (coming soon)
