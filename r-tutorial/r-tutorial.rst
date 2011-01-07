@@ -314,6 +314,7 @@ Which produces this figure.  Note that the defaults in R are to leave a lot of w
 .. figure:: images/website-traffic-base.jpg
 	:alt:	code/website-traffic-example.R
 	:scale: 100
+	:width: 500px
 	:align: center
 
 
@@ -339,7 +340,6 @@ and ``type="b"`` will show both lines and points, leaving a space between the po
 and ``type="o"`` will connect (overplot) the lines and points.  
 
 
-
 Box plots
 --------------------
 
@@ -358,6 +358,7 @@ To get boxplots for each day of the week, side-by-side we rely on the fact the c
 .. figure:: images/website-traffic-boxplot-default.jpg
 	:alt:	code/website-traffic-example.R
 	:scale: 100
+	:width: 500px
 	:align: center
 
 
@@ -387,6 +388,7 @@ Now that boxplot will be ordered in a more useful way to see the weekly trends:
 .. figure:: images/website-traffic-boxplot-ordered.jpg
 	:alt:	code/website-traffic-example.R
 	:scale: 100
+	:width: 500px
 	:align: center
 
 The ``c()`` command creates a combination of items and the ``factor()`` command creates a factor variable.
