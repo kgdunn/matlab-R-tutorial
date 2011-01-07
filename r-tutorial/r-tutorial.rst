@@ -106,7 +106,7 @@ Data on your hard drive
 Go to the `datasets website <http://datasets.connectmv.com>`_ and download any data set, for example the **Website traffic** datasets.  Save the file, 
 and remember the location.  For example:  ``C:/Courses/ConnectMV/data/website-traffic.csv``
 
-.. notes:: You must use "``/``" character to separate directories (folders), not "``\``", even in Windows.
+.. note:: You must use "``/``" character to separate directories (folders), not "``\``", even in Windows.
 
 We will use the ``read.csv`` command to read these comma-separated values (CSV) files. If you look inside the ``website-traffic.csv`` file you will how the data is stored: each column is separated by a comma, and each row is a new line.
 
