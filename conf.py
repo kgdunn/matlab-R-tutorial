@@ -25,8 +25,11 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.mathjax']
-mathjax_path = 'http://mathjax.connectmv.com/MathJax.js'
+extensions = []
+
+if not os.path.exists('mathjax.py'):
+    extensions.append('sphinx.ext.mathjax')
+    mathjax_path = 'http://mathjax.connectmv.com/MathJax.js'
 
 # Ucomment extension
 if os.path.exists('ucomment-extension.py'):
