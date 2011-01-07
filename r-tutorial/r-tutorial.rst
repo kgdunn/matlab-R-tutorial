@@ -396,12 +396,13 @@ The ``c()`` command creates a combination of items and the ``factor()`` command 
 Saving plots in R
 ==================
 
+More details to come.
 
 Next steps (coming soon)
 =========================
 
-* How to plot data, and add labels, grids, lines and arrows to plots
-* Histograms, probability, distributions, 
+* How to add labels, grids, lines and arrows to plots
+* Histograms, probability, distributions
 * Extending R's capabilities with packages
 * Dealing with vectors and matrices 
 * Linear models in R 
