@@ -237,8 +237,8 @@ and you should get something similar to this window (screen shot from Ubuntu Lin
 
 where you can type in Python commands.
 
-My first program
-======================
+My first program: creating a plot
+===================================
 
 In this part of the tutorial you are required to create a plot with 10 points (a vector), consisting of the numbers :math:`x = [0, 2, 4, ... 18]`. Then we will also create a corresponding vector :math:`y = (x-8)^2 - 40` and plot these :math:`(x,y)` points, pairwise, on a plot.
 
@@ -268,7 +268,7 @@ Now create the corresponding :math:`y`-vector using MATLAB's ability to do vecto
 
 .. rubric:: Python
 
-There are several ways we can create our vector :math:`x` in Python.
+There are several ways we can create our vector :math:`x` in Python. 
 
 .. code-block:: python
 
@@ -333,9 +333,65 @@ Finally, we are ready to plot these :math:`(x,y)` points.  Notice that the code 
 		import numpy as np
 		from matplotlib.pylab import *
 
-	The reason for ``import`` is due to a technical issue related to `Python namespaces <http://bytebaker.com/2008/07/30/python-namespaces/>`_
+	The reason for ``import`` is due to a technical issue related to `Python namespaces <http://bytebaker.com/2008/07/30/python-namespaces/>`_.
 
- 
+Saving a plot
+================
+
+This section looks at saving a plot programatically, i.e. saving the plot using a source code command, rather than saving it manually.
+
+The function for saving plots in MATLAB is: ``print(...)``
+
+We will save the plot in the `PNG file format <http://en.wikipedia.org/wiki/Portable_Network_Graphics>`_:
+
+.. code-block:: matlab
+
+	% ...	
+	% Various commands to generate the plot
+	% ...
+	print('-dpng', 'name_of_plot.png')
+
+
+The only other file format that MATLAB can usefully save a plot to is the `JPEG file format <http://en.wikipedia.org/wiki/JPEG>`_: ``print('-djpeg', 'name_of_file.jpg')``
+
+.. rubric:: Python
+
+The function for saving plots in Python is: ``fig.savefig(...)``
+
+Save the plot in the `PNG file format <http://en.wikipedia.org/wiki/Portable_Network_Graphics>`_:
+
+.. code-block:: python
+
+	from matplotlib.pylab import *
+	fig = figure()
+	# ...
+	# Various commands to generate the plot
+	# ...
+	fig.savefig('name_of_plot.png') 
+
+``matplotlib`` can save figures to a variety of formats.  It detects the file format from the file extension:
+
+* ``'name_of_plot.jpg'``:  `JPEG file <http://en.wikipedia.org/wiki/JPEG>`_
+* ``'name_of_plot.svg'``:  `SVG file  <http://en.wikipedia.org/wiki/SVG>`_
+* ``'name_of_plot.bmp'``:  `BMP file  <http://en.wikipedia.org/wiki/BMP_file_format>`_
+* ``'name_of_plot.pdf'``:  `PDF file  <http://en.wikipedia.org/wiki/PDF>`_
+
+``matplotlib`` can customize how the figures is saved.  For example, this command will save the figure as a PDF file:
+
+* using 300 DPI resolution (a higher number has greater resolution: DPI = dots per inch)
+* use a white background (``w``)  for the figure face colour
+* on portrait orientation
+* using a letter size page
+
+.. code-block:: python
+
+	fig.savefig('name_of_plot.pdf', 
+	             dpi=300, facecolor='w', 
+	             edgecolor='w', orientation='portrait', 
+	             papertype='letter')
+
+If you plan to use Python more frequently, then you will benefit from this book: `Beginning Python Visualization <http://www.springerlink.com/content/978-1-4302-1843-2>`_ - many universities have free access to the PDF version from campus computers.
+
 Read data into MATLAB or Python
 =================================
 
