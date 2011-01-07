@@ -237,8 +237,110 @@ and you should get something similar to this window (screen shot from Ubuntu Lin
 
 where you can type in Python commands.
 
+My first program
+======================
+
+In this part of the tutorial you are required to create a plot with 10 points (a vector), consisting of the numbers :math:`x = [0, 2, 4, ... 18]`. Then we will also create a corresponding vector :math:`y = (x-8)^2 - 40` and plot these :math:`(x,y)` points, pairwise, on a plot.
+
+.. rubric:: MATLAB
+
+There are several ways we can create our vector :math:`x` in MATLAB.
+
+.. code-block:: matlab
+
+	>> x = [0 2 4 6 8 10 12 14 16 18];
+	>> x = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18];
+	>> x = linspace(0, 18, 10); % easiest method
+	>> x
+	x =
+	     0     2     4     6     8    10    12    14    16    18
+
+Now create the corresponding :math:`y`-vector using MATLAB's ability to do vector operations.  We can write
+
+.. code-block:: matlab
+
+	>> y = (x-8).^2 - 40;
+	>> y
+	y =
+	    24    -4   -24   -36   -40   -36   -24    -4    24    60
+
+**Note**: that we must use ``.^`` to calculate the exponent.  If you just write ``^`` by itself, MATLAB will assume you want to calculate the matrix exponent, which is defined quite differently.  In fact, any *element-by-element* calculation must use the "." notation to tell MATLAB *not* to use its default **matrix** calculations. For example, use ``.*`` for element-by-element matrix multiplication.  
+
+.. rubric:: Python
+
+There are several ways we can create our vector :math:`x` in Python.
+
+.. code-block:: python
+
+	import numpy as np
+
+	>>> x = np.array([0, 2, 4, 6, 8, 10, 12, 14, 16, 18])
+	>>> x = np.linspace(0, 18, 10)   # easiest method
+	>>> x
+	array([ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18])
+
+Now create the corresponding :math:`y`-vector:
+
+.. code-block:: python
+
+	>>> y = (x-8) ** 2 - 40  
+	>>> y
+	array([ 24.,  -4., -24., -36., -40., -36., -24.,  -4.,  24.,  60.])
+
+
+We raise a variable to a power using the ``**`` notation; the ``^`` operator means something else in Python.
+
+.. note:: Key difference 
+
+	* In MATLAB, everything is a matrix calculation, by default. 
+	* In Python's NumPy library (``numpy``), everything is an element-by-element calculation, by default.
+
+Finally, we are ready to plot these :math:`(x,y)` points.  Notice that the code is *nearly* identical between MATLAB and Python
+
+.. code-block:: matlab
+
+	plot(x, y, '.-')
+	grid on
+	xlabel('x')
+	ylabel('y')
+	title('A plot of y = (x-8)^2 - 40')
+
+.. figure:: images/Matlab-first-plot.jpg
+	:scale: 100
+	:width: 400px
+	:align: center
+
+.. code-block:: python
+
+	from matplotlib.pylab import *
+	plot(x, y, '.-')
+	grid('on')  # <--- it is a function in Python, so add ()
+	xlabel('x')
+	ylabel('y')
+	title('A plot of y = (x-8)^2 - 40')
+
+.. figure:: images/Python-first-plot.jpg
+	:scale: 100
+	:width: 400px
+	:align: center
+
+.. note:: Python users
+
+	Nearly every Python script in this tutorial will start with the following two lines:
+	
+	.. code-block:: python
+	
+		import numpy as np
+		from matplotlib.pylab import *
+
+	The reason for ``import`` is due to a technical issue related to `Python namespaces <http://bytebaker.com/2008/07/30/python-namespaces/>`_
+
+ 
 Read data into MATLAB or Python
 =================================
 
-Coming soon.
+More to come soon.
 
+.. 
+	website_raw = urlread('http://datasets.connectmv.com/file/website-traffic.csv')
+	readData = textscan(website_raw, ‘%s %s %d %d’, ‘delimiter’, ',');
