@@ -290,6 +290,9 @@ Next steps (coming soon)
 =========================
 
 * How to plot data, and add labels, grids, lines and arrows to plots
+
+  .. ucomment:: E6GnQb: B3*,
+
 * Histograms, probability, distributions, 
 * Extending R's capabilities with packages
 * Dealing with vectors and matrices 
