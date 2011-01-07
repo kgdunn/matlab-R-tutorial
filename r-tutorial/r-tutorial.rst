@@ -290,19 +290,10 @@ Next steps (coming soon)
 =========================
 
 * How to plot data, and add labels, grids, lines and arrows to plots
-
-  .. ucomment:: E6GnQb: B3*,
-
 * Histograms, probability, distributions, 
 * Extending R's capabilities with packages
 * Dealing with vectors and matrices 
-
-  .. ucomment:: E6GnQb: MY*,
-
 * Linear models in R 
 * Analysis of designed experiments using R 
-
-  .. ucomment:: SrypaW: 74*,
-
 * Principal component analysis using R
 
