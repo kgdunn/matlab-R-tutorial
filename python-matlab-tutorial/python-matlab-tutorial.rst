@@ -197,7 +197,7 @@ Spyder (Scientific PYthon Development EnviRonment) is the name of the developmen
 Mac users
 ^^^^^^^^^^^
 
-This tutorial step assumes that you have :ref:`already installed` Enthought's Python distribution.
+This tutorial step assumes that you have :ref:`already installed <matpy-mac-linux-install>` Enthought's Python distribution.
 
 #.	Start the **Terminal** program, which will bring up a command window.
  	
@@ -220,7 +220,7 @@ This tutorial step assumes that you have :ref:`already installed` Enthought's Py
 Linux users
 ^^^^^^^^^^^^
 
-This tutorial step assumes that you have :ref:`already installed` Enthought's Python distribution.
+This tutorial step assumes that you have :ref:`already installed <matpy-mac-linux-install>` Enthought's Python distribution.
 
 I expect you know how to start your shell, e.g. the ``bash`` shell.  Once you are in the shell, just type::
 
