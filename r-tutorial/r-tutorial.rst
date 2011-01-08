@@ -288,6 +288,8 @@ It returns a logical (true/false) array with TRUE where the condition is met. No
 	
 The above command gives you all data which are recorded for Mondays.  Now, what if you want to break that down further - you only want the number of visits on a Monday? Then you need to ask for column 4 only:
 
+.. ucomment:: KLrzgn: nJ*,
+
 .. code-block:: s
 
 	Mondays.visits <- website[website$DayOfWeek == "Monday", 4]
