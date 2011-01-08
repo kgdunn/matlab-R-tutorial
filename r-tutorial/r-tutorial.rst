@@ -68,6 +68,8 @@ Mac installation
 * Download and install the latest R package file from http://cran.r-project.org/bin/macosx/
 * A good text editor on a Mac's is the `TextMate editor <http://macromates.com/>`_.  This editor allows you to run your code directly from the editor, without having to start R.
 
+  .. ucomment:: FXztKJ: Qh*,
+
 Linux installation
 -------------------
 
