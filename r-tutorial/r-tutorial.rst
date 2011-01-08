@@ -433,7 +433,7 @@ Axis labels are specified using the ``plot(..., xlab="X-axis label", ylab="Y-axi
 .. code-block:: s
 
 	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", 
-											  ylab="Brittleness values")
+	                                                 ylab="Brittleness values")
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 
@@ -448,7 +448,7 @@ Axis limits may be specified manually, if you know what they are:
 .. code-block:: s
 
 	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", 
-	                                    ylab="Brittleness values", ylim=c(180, 740))
+		                                  ylab="Brittleness values", ylim=c(180, 740))
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 	
@@ -464,7 +464,7 @@ or you can calculate them automatically, with a bit of extra code.  One of sever
 	ylim <- c(min(rng.104, rng.105, rng.107), max(rng.104, rng.105, rng.107))
 	
 	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches",
-                                          ylab="Brittleness values", ylim=ylim)
+	                                          ylab="Brittleness values", ylim=ylim)
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 	
@@ -526,7 +526,7 @@ But we need to also tell the legend function what type of line and colour to sho
 .. code-block:: s
 
 	plot(brittle$TK104,  type="l", col="red", ylim=ylim, ylab="Brittleness values",
-                                                         xlab="Sequence order")
+	                                                     xlab="Sequence order")
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), 
@@ -540,9 +540,6 @@ Note that there should be a colour specification for each entry in the legend.
 	:width: 500px
 	:align: center
 	
-	
-
-
 Saving your plots manually
 ---------------------------
 
