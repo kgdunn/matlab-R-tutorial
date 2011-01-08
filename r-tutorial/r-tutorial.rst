@@ -432,7 +432,8 @@ Axis labels are specified using the ``plot(..., xlab="X-axis label", ylab="Y-axi
 
 .. code-block:: s
 
-	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", ylab="Brittleness values")
+	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", 
+											  ylab="Brittleness values")
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 
@@ -461,7 +462,8 @@ or you can calculate them automatically, with a bit of extra code.  One of sever
 	# then take the extremes of each range
 	ylim <- c(min(rng.104, rng.105, rng.107), max(rng.104, rng.105, rng.107))
 	
-	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", ylab="Brittleness values", ylim=ylim)
+	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches",
+	 									  ylab="Brittleness values", ylim=ylim)
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 	
@@ -522,10 +524,12 @@ But we need to also tell the legend function what type of line and colour to sho
 
 .. code-block:: s
 
-	plot(brittle$TK104,  type="l", col="red", ylim=ylim, ylab="Brittleness values", xlab="Sequence order")
+	plot(brittle$TK104,  type="l", col="red", ylim=ylim, ylab="Brittleness values", 
+														 xlab="Sequence order")
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
-	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), col=c("red", "black", "darkgreen"))
+	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), 
+	                    col=c("red", "black", "darkgreen"))
 	
 Note that there should be a colour specification for each entry in the legend.
 	
