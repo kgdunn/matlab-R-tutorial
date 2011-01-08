@@ -1,0 +1,35 @@
+brittle <- read.csv('http://datasets.connectmv.com/file/brittleness-index.csv')
+summary(brittle)
+
+bitmap(file='../images/brittleness-single.jpg', type="png256", res=300,  height = 5, width = 9, pointsize=12)
+plot(brittle$TK104,  type="l", col="red")
+dev.off()
+
+bitmap(file='../images/brittleness-default.jpg', type="png256", res=300,  height = 5, width = 9, pointsize=12)
+plot(brittle$TK104,  type="l", col="red")
+lines(brittle$TK105, type="l", col="black")
+lines(brittle$TK107, type="l", col="darkgreen")
+dev.off()
+
+rng.104 <- range(brittle$TK104, na.rm=TRUE)
+rng.105 <- range(brittle$TK105, na.rm=TRUE)
+rng.107 <- range(brittle$TK107, na.rm=TRUE)
+ylim <- c(min(rng.104, rng.105, rng.107), max(rng.104, rng.105, rng.107))
+bitmap(file='../images/brittleness-better.jpg', type="png256", res=300,  height = 5, width = 9, pointsize=12)
+plot(brittle$TK104,  type="l", col="red", ylim=ylim, ylab="Brittleness values", xlab="Sequence order of batches")
+lines(brittle$TK105, type="l", col="black")
+lines(brittle$TK107, type="l", col="darkgreen")
+dev.off()
+
+# Add legend
+# ----------
+rng.104 <- range(brittle$TK104, na.rm=TRUE)
+rng.105 <- range(brittle$TK105, na.rm=TRUE)
+rng.107 <- range(brittle$TK107, na.rm=TRUE)
+ylim = c(min(rng.104, rng.105, rng.107), max(rng.104, rng.105, rng.107))
+bitmap(file='../images/brittleness-best.jpg', type="png256", res=300,  height = 5, width = 9, pointsize=12)
+plot(brittle$TK104,  type="l", col="red", ylim=ylim, ylab="Brittleness values", xlab="Sequence order")
+lines(brittle$TK105, type="l", col="black")
+lines(brittle$TK107, type="l", col="darkgreen")
+legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), lwd = c(2, 2, 2), col=c("red", "black", "darkgreen"))
+dev.off()
