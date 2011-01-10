@@ -58,6 +58,7 @@ After installing Tinn-R you need to configure Tinn-R to communicate with R:
 *	Then ``Configure``
 *	Then ``Permanent``.  Answer ``OK`` when completed.
 *	Next, you must start R from Tinn-R:
+
 **	Click on ``Start/Close and connections``
 **	Select ``Rgui (start)``: this causes Tinn-R to start R.
 **	You will require internet access as it will continue to install several updates to allow Tinn-R and R to communicate.
