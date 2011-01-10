@@ -59,6 +59,9 @@ After installing Tinn-R you need to configure Tinn-R to communicate with R:
 * Then ``Permanent``
 * Answer ``Yes`` to the question
 * Choose the ``Canada (ON)`` software mirror
+
+  .. ucomment:: xBkfjv: Mk*,
+
 * The Tinn-R software will continue to install several updates
 
 
