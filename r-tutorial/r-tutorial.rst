@@ -54,15 +54,20 @@ After installing Tinn-R you need to configure Tinn-R to communicate with R:
 
   .. ucomment:: QQ8FJ4: Hu#*,
 
-* Go to the menu at the top, click on ``R``
-* Then ``Configure``
-* Then ``Permanent``
-* Answer ``Yes`` to the question
-* Choose the ``Canada (ON)`` software mirror
+*	Go to the menu at the top, click on ``R``
+*	Then ``Configure``
+*	Then ``Permanent``.  Answer ``OK`` when completed.
+*	Next, you must start R from Tinn-R:
+**	Click on ``Start/Close and connections``
+**	Select ``Rgui (start)``: this causes Tinn-R to start R.
+**	You will require internet access as it will continue to install several updates to allow Tinn-R and R to communicate.
 
-  .. ucomment:: xBkfjv: Mk,
+Your windows will be arranged as shown here; you can see the internet updates taking place in the screenshot.
 
-* The Tinn-R software will continue to install several updates
+.. figure:: images/R-and-TinnR-screenshot.jpg
+	:scale: 100
+	:width: 500px
+	:align: center
 
 
 Mac installation
