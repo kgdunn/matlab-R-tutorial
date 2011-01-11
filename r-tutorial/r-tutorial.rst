@@ -105,6 +105,8 @@ Getting started
 
 .. note:: Any line beginning with the ``#`` character is a comment and is ignored by R.  I use these comments to show the expected output from R.
 
+.. ucomment:: kjzVYq: UV*,
+
 .. note:: Any line beginning with the ``>`` character indicates the R command prompt.  You can copy and paste from this tutorials, but don't paste in the ``>`` character.  Later on we will omit this character.
 
 So start R and type the following:
