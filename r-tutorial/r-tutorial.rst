@@ -557,7 +557,7 @@ But we need to also tell the legend function what type of line and colour to sho
 	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), lwd=2,
 	                    col=c("red", "black", "darkgreen"))
 	
-.. ucomment:: L74MEQ: nu, ex, kc*,
+.. ucomment:: L74MEQ: nu, ex, kc,
 
 Note that there should be a colour specification for each entry in the legend.  The ``lwd`` input argument is the line width used in the legend.  If you omit this, then you will only get legend labels.  Also notice that we only need to specify it once: R will cycle the value of ``2`` over and over for every legend entry.
 	
