@@ -545,6 +545,8 @@ But we need to also tell the legend function what type of line and colour to sho
 	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), 
 	                    col=c("red", "black", "darkgreen"))
 	
+.. ucomment:: L74MEQ: mL*,
+
 Note that there should be a colour specification for each entry in the legend.
 	
 .. figure:: images/brittleness-best.jpg
