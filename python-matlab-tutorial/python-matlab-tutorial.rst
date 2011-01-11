@@ -1,12 +1,12 @@
 About MATLAB and Python
 ========================
 
-..rubric:: MATLAB
+.. rubric:: MATLAB
 
 
 `From Wikipedia <http://en.wikipedia.org/wiki/MATLAB>`_:  MATLAB (MATrix LABoratory) is a high level computer language/interactive software package developed and distributed by MathWorks. MATLAB was first developed in the 1970s by Cleve Molar. Cleve was later joined by John N. Little and Steve Bangert and the three went on to found MathWorks. MATLAB excels at performing matrix operations and can handle large data sets (stored as matrices) very easily. MATLAB was originally designed as a user friendly interface for `LINPACK <http://en.wikipedia.org/wiki/LINPACK>`_ and `EISPACK <http://en.wikipedia.org/wiki/EISPACK>`_ and so was intended for linear algebra application. Since then MATLAB has greatly expanded it's core abilities to encompass a large array of graphic and numeric applications. These core abilities are expanded through the addition of specialized "tool boxes".
 
-..rubric:: Python
+.. rubric:: Python
 
 
 `From Wikipedia <http://en.wikipedia.org/wiki/Python_(programming_language)>`_: Python is a high-level programming language whose design philosophy emphasizes code readability. Python aims to combine "remarkable power with very clear syntax", and its standard library of built-in functions is large and comprehensive.  
@@ -32,11 +32,11 @@ You might not be familiar with Python.  Here is a comparison with MATLAB:
 Installing MATLAB or Python
 =============================
 
-..rubric:: MATLAB
+.. rubric:: MATLAB
 
 MATLAB may be purchased from `The Mathworks <http://mathworks.com>`_ either as the commercial version or student version.  You will also require the Statistics Toolbox for this tutorial.
 
-..rubric:: Python
+.. rubric:: Python
 
 Python is freely available. The latest stable version that we recommend for this tutorial is version 2.6, because it is compatible with the external libraries that we will use.
 
@@ -91,7 +91,7 @@ However, we highly recommend you use the Enthought Python distribution, which is
 Getting started
 ==============================
 
-..rubric:: MATLAB
+.. rubric:: MATLAB
 
 When you launch MATLAB the following window will open:
 
@@ -140,7 +140,7 @@ The core MATLAB setup has 6 main sections of interest:
 
 	When the MATLAB plot tools are used the resulting graphics are displayed in separate plot windows.
 
-..rubric:: Python
+.. rubric:: Python
 
 Windows users
 ^^^^^^^^^^^^^^^^^
