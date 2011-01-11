@@ -46,6 +46,18 @@ Windows installation
 * Visit the `Tinn-R website <http://sourceforge.net/projects/tinn-r/>`_  to get the latest version; click on the "Download Now" button
 * Save and install the EXE file 
 
+..	
+	Once installed, please start the R software package:
+
+	* 	Go to the menu bar: click on ``Edit``
+	* 	Select ``GUI preferences``
+	*	In the first line, change to ``SDI``
+	*	Click ``Save``
+	* 	When asked for the directory, change to ``C:\Program Files\R\R-2.12.1\etc\`` and overwrite the existing ``Rconsole`` file
+	* 	Click ``OK`` to exit the configuration editor
+	* 	Quit the software package
+	* 	When asked to ``Save workspace image``, choose ``No``
+	
 **Configuration**
 
 After installing Tinn-R you need to configure Tinn-R to communicate with R:
@@ -542,12 +554,12 @@ But we need to also tell the legend function what type of line and colour to sho
 	                                                     xlab="Sequence order")
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
-	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), 
+	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), lwd=2,
 	                    col=c("red", "black", "darkgreen"))
 	
-.. ucomment:: L74MEQ: mL*, nu,
+.. ucomment:: L74MEQ: nu,
 
-Note that there should be a colour specification for each entry in the legend.
+Note that there should be a colour specification for each entry in the legend.  The ``lwd`` input argument is the line width used in the legend.  If you omit this, then you will only get legend labels.  Also notice that we only need to specify it once: R will cycle the value of ``2`` over and over for every legend entry.
 	
 .. figure:: images/brittleness-best.jpg
 	:alt:	code/multiple-series-plot.R
