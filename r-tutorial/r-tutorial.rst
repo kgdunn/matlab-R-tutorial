@@ -1033,8 +1033,8 @@ Installing a new package
 
 Installing a new package is easy; finding the package to install that does what you want is a little tougher: there are over 2000 packages available.  Here are 2 ways I typically discover packages.
 
-#	By browsing the hierarchy of packages at http://cran.r-project.org/web/views/
-#	Googling: for example, the other day I needed to figure out how to plot time-series data nicely.  I came across a page that recommended the ``xts`` package.
+#.	By browsing the hierarchy of packages at http://cran.r-project.org/web/views/
+#.	Googling: for example, the other day I needed to figure out how to plot time-series data nicely.  I came across a page that recommended the ``xts`` package.
 
 .. rubric:: Mac users
 
