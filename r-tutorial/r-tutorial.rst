@@ -62,13 +62,13 @@ Windows installation
 
 After installing Tinn-R you need to configure Tinn-R to communicate with R:
 
-* *Vista and Windows 7 users*: right-click on the Tinn-R icon and choose ``Run as Administrator``.  For *Windows XP users*: just start Tinn-R by clicking on the icon.
-
-  .. ucomment:: QQ8FJ4: Hu#*,
-
+*	*Vista and Windows 7 users*: right-click on the Tinn-R icon and choose ``Run as Administrator``.  For *Windows XP users*: just start Tinn-R by clicking on the icon.
 *	Go to the menu at the top, click on ``R``
 *	Then ``Configure``
 *	Then ``Permanent``.  Answer ``OK`` when completed.
+
+	.. ucomment:: xBkfjv: Mk,
+	
 *	Next, you must start ``R`` from ``Tinn-R``:
 
 	-	Click on ``Start/Close and connections``
@@ -104,8 +104,6 @@ Getting started
 ===============
 
 .. note:: Any line beginning with the ``#`` character is a comment and is ignored by R.  I use these comments to show the expected output from R.
-
-.. ucomment:: kjzVYq: UV*,
 
 .. note:: Any line beginning with the ``>`` character indicates the R command prompt.  You can copy and paste from this tutorials, but don't paste in the ``>`` character.  Later on we will omit this character.
 
@@ -603,6 +601,90 @@ Saving plots in R
 ==================
 
 More details to come.
+
+Calculating statistics from a data sample
+==================================================
+
+Load a data set, for example the `Website traffic <http://datasets.connectmv.com/info/website-traffic>`_ data:
+
+
+.. code-block:: s
+
+	# Over the internet
+	website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')  
+	
+	# or from your hard drive
+	website <- read.csv('C:/StatsCourse/Data/website-traffic.csv')                 
+	
+	
+	# Take a quick look at the data to make sure it's what we expect ...
+	summary(website)
+	     DayOfWeek        MonthDay        Year          Visits     
+	 Friday   :30    August 1 :  1   Min.   :2009   Min.   : 3.00  
+	 Monday   :31    August 10:  1   1st Qu.:2009   1st Qu.:16.25  
+	 Saturday :30    August 11:  1   Median :2009   Median :22.00  
+	 Sunday   :30    August 12:  1   Mean   :2009   Mean   :22.23  
+	 Thursday :31    August 13:  1   3rd Qu.:2009   3rd Qu.:27.75  
+	 Tuesday  :31    August 14:  1   Max.   :2009   Max.   :48.00  
+	 Wednesday:31   (Other)   :208
+
+	# Calculate the mean of the "Visits" column:
+	visits <- website$Visits
+	visits.mean <- mean(visits)
+	visits.mean
+	[1] 22.23364
+
+	# The standard deviation: use sd(...)
+	visits.sd <- sd(visits)
+	visits.sd
+	[1] 8.331826
+
+	# How do the robust equivalents compare?
+	visits.median = median(visits)
+	visits.mad = mad(visits)
+	c(visits.median, visits.mad)
+	[1] 22.0000  8.8956
+
+
+You can use these additional R commands to compute other summaries of interest for a sequence of data:
+
+.. code-block:: s
+
+	# The sum
+	sum(visits)
+	[1] 4758
+
+	# The minimum and maximum
+	c(min(visits), max(visits))
+	[1]  3 48
+
+	# Or just use the range(...) command to get the same result
+	range(visits)
+	[1]  3 48
+
+	# The summary(...) command we saw earlier gives all this, as well as the 
+	# 1st and 3rd quartiles.  Here's another way to summarize a variable:
+	quantile(visits)
+	   0%   25%   50%   75%  100% 
+	 3.00 16.25 22.00 27.75 48.00 
+
+	# It gives the 0, 0.25, 0.50, 0.75 and 1.00 sample quantiles at those 
+	# probabilities.  If you want to specify your own probability:
+	quantile(visits, 0.32)
+	32% 
+	 18
+
+	# So 32% of the observations in this data recored a value of 18 or 
+	# fewer visits to the website.
+
+	# Recall the interquartile range is the distance from the 3rd to the 1st quartile:
+	visits.iqr <- quantile(visits, 0.75) - quantile(visits, 0.25)  # 11.5
+
+	# or, you can calculate it more directly using the IQR(...) function:
+	visits.iqr <- IQR(visits)  # 11.5
+
+	# Type help(IQR) to see how to compare the IQR to the 2 other measures of spread: 
+	# the standard deviation and the median absolute deviation (MAD)
 
 Next steps (coming soon)
 =========================
