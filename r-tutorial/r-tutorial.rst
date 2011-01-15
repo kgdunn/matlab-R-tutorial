@@ -686,6 +686,85 @@ You can use these additional R commands to compute other summaries of interest f
 	# Type help(IQR) to see how to compare the IQR to the 2 other measures of spread: 
 	# the standard deviation and the median absolute deviation (MAD)
 
+Dealing with distributions
+===========================
+
+Values from various distribution functions are easily calculated in R.  There are functions in R
+
+
+Direct probability from a distribution
+----------------------------------------
+
+To calculate the probability value directly from *any* distribution in R you use a function created by combining ``d`` with the name of the distribution, that is what is meant by ``dDIST`` in the illustration here:
+
+.. figure:: images/show-dDIST.jpg
+	:alt:	code/show-dDIST.R
+	:scale: 100
+	:width: 500px
+	:align: center
+
+For the *normal* distribution:
+	``dnorm(x=...)``
+	
+For the :math:`t` distribution:
+	``dt(x=..., df=...)`` where ``df`` are the degrees of freedom in the :math:`t`-distribution
+
+For the :math:`F`-distribution:
+	``df(x=..., df1=..., df2=...)`` given the ``df1`` (numerator) and ``df2`` (denominator) degrees of freedom.
+	
+For the chi-squared distribution:
+	 ``dchisq(x=..., df=...)``
+
+
+Values from the cumulative and inverse cumulative distribution
+----------------------------------------------------------------
+
+Similar to the above, we call the function by combining ``p`` (to get the cumulative percentage area under the distribution), and ``q`` (to get the quantile).
+
+.. figure:: images/show-pDIST-and-qDIST.jpg
+	:alt:	code/show-pDIST-and-qDIST.R
+	:scale: 100
+	:width: 500px
+	:align: center
+
+*	For the *normal* distribution: ``pnorm(...)`` and ``qnorm(...)``
+
+*	For the :math:`t` distribution: ``pt(...)`` and ``qt(...)``
+
+*	For the :math:`F`-distribution: ``pf(...)`` and ``qf(...)``
+	
+*	For the chi-squared distribution: ``pchisq(...)`` and ``qchisq(...)``
+
+
+
+Obtaining random numbers from a particular distribution
+---------------------------------------------------------
+
+For example, to obtain 10 random, normally distributed values:
+
+.. code-block:: s
+
+	rnorm(10)
+	[1]  0.4604076 -0.9670948 -0.2624246 -0.2223866  0.2492692
+	[6]  0.7160273 -0.2734768  2.4437870  0.4269511 -0.4831478
+	
+where the ``r`` prefix indicates we want random numbers.
+
+Notice that R has used a default value of ``mean=0`` and standard deviation ``sd=1``.  If you'd like your random numbers centred about a different mean, with a different level of spread, then:
+
+.. code-block:: python
+
+	rnorm(n=10, mean=30, sd=4)
+	[1] 27.32350 29.11634 25.93851 22.99497 34.04363
+	[6] 27.34953 28.71921 36.75440 21.92550 24.45140
+
+
+*	For the :math:`t` distribution: ``rt(...)``
+
+*	For the :math:`F`-distribution: ``rf(...)``
+
+*	For the chi-squared distribution: ``rchisq(...)``
+
 Next steps (coming soon)
 =========================
 
