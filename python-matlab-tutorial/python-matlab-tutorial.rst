@@ -169,7 +169,7 @@ Spyder (Scientific PYthon Development EnviRonment) is the name of the developmen
 
 	The command window is where you interact with Python. Commands entered here are processed immediately. While it is technically possible to write an entire program at the command line, this is not recommended. For true programs, you should write a script in region 5 of the software.
 
-**Current Directory**
+**2. Current Directory**
 
 	The "current directory" panel lists all of the files that are located in the directory Python is currently accessing. This directory may be changed by navigating to a new directory and clicking on its name.
 

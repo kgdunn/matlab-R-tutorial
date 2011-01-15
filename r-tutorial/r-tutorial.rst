@@ -387,7 +387,7 @@ To get boxplots for each day of the week, side-by-side we rely on the fact the c
 	:align: center
 
 
-Read the help text ``help(boxplot)`` and for ``help(factor)`` to understand this more clearly.
+Read the help text, ``help(boxplot)``, and ``help(factor)`` in order to understand more clearly how this plot was generated.
 
 Plots with multiple series, colour, and legends
 ==================================================
@@ -473,7 +473,7 @@ Axis limits may be specified manually, if you know what they are:
 .. code-block:: s
 
 	plot(brittle$TK104,  type="l", col="red", xlab="Sequence order of batches", 
-		                                  ylab="Brittleness values", ylim=c(180, 740))
+		                            ylab="Brittleness values", ylim=c(180, 740))
 	lines(brittle$TK105, type="l", col="black")
 	lines(brittle$TK107, type="l", col="darkgreen")
 	
