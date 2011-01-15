@@ -171,7 +171,7 @@ This will copy the address of the data set to your clipboard.  Then in R, you ty
 
 ..  code-block:: s
 	
-	> website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
+	website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
 
 where the part between quotation marks is the web address you copied.  Use the paste function to avoid typing errors.
 
@@ -182,7 +182,7 @@ Before continuing further, if you ever need help with an R command type ``help("
 
 ..  code-block:: s
 
-	> help(read.csv)
+	help(read.csv)
 
 This will pop up a new window and tell you what ``read.csv`` does and *shows examples* of how to use it.
 
@@ -193,17 +193,17 @@ Continuing the previous example: when you loaded the ``website`` data you saw th
 
 ..  code-block:: s
 	
-	> website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
-	> ncol(website)
+	website <- read.csv('http://datasets.connectmv.com/file/website-traffic.csv')
+	ncol(website)
 	[1] 4
-	> nrow(website)
+	nrow(website)
 	[1] 214
 
 To get a summary of each column in the data frame (that is the term R uses for a collection of data):
 
 ..  code-block:: s
 
-	> summary(website)
+	summary(website)
 
 	    DayOfWeek        MonthDay        Year          Visits     
 	Friday   :30    August 1 :  1   Min.   :2009   Min.   : 3.00  
@@ -501,6 +501,8 @@ The result is:
 	:width: 500px
 	:align: center
 
+.. _r-other-plot-options:
+
 Other plot input options
 -------------------------
 
@@ -567,10 +569,237 @@ Note that there should be a colour specification for each entry in the legend.  
 	:width: 500px
 	:align: center
 	
-Saving your plots manually
+Saving your plots 
+------------------
+
+Once you have drawn your plot, you can go to the menu on the top, and click ``File``, then ``Save as``.  For example, on Mac systems, this allows you to save the plot as a PDF that can be included into another document.
+
+In many cases it is easier to write code to save the plot; that way, when you run your R-script, it saves the plot automatically to your hard drive.  Proceed as follows:
+
+.. code-block:: s
+
+	bmp(file='../images/name-of-file.bmp')
+	
+	# various plotting commands go here
+	# Add all your labels, etc
+		
+	dev.off()
+
+The above code shows that you must surround your plot with the ``bmp(...)`` function, and terminate it with ``dev.off()``.  Similar versions of this function exist for
+
+*	``png`` files: use the ``png(...)`` function
+*	``jpg`` files: use the ``jpeg(...)`` function
+
+
+**Advanced users**
+
+	Plots in this tutorial are saved using the ``bitmap(...)`` function.  This required *quite a bit more work* to set up, and the instructions below are for a Mac system.  The files can be saved to any format, and the figures often look clearer (in my opinion).
+
+	*	Install Ghostscript.
+
+	*	Edit your R settings file to tell it where you Ghostscript instance is:
+
+		.. code-block:: python
+
+			# For 32-bit systems
+			nano /Library/Frameworks/R.framework/Versions/Current/Resources/etc/i386/Renviron
+		
+			# For 64-bit systems
+			nano /Library/Frameworks/R.framework/Versions/Current/Resources/etc/x86_64/Renviron
+	
+			# and set the following line to point to Ghostscript
+			R_GSCMD=${RGSCMD-'/sw/bin/gs'}
+		
+	*	Once these settings have been added, you can verify them in R by typing: ``Sys.getenv("R_GSCMD")``
+	
+	*	To save your plots: surround your plotting code with ``bitmap(...)`` and ``dev.off()`` commands.
+
+
+Histograms
+===========
+
+Use the ``hist(...)`` command to both *calculate* and *plot* the histogram for a univariate data sequence.  This section demonstrates both aspects.
+
+.. code-block:: s
+
+	rm <- read.csv('http://datasets.connectmv.com/file/raw-material-properties.csv')
+
+	# Plot the histogram for the "density2" variable in the data:
+	hist(rm$density2)
+
+You will get this plot:
+
+.. figure:: images/default-histogram-density2.jpg
+	:alt:	images/default-histogram-density2.R
+	:scale: 100
+	:width: 750px
+	:align: center
+	
+You can change the axis labels and the main title by using the :ref:`usual plot arguments <r-other-plot-options>` described earlier.
+	
+The ``hist(...)`` command also returns a whole lot more information, in addition to drawing the plot, but only if you first create a variable:
+
+.. code-block:: s
+
+	density2.hist <- hist(rm$density2)
+	density2.hist
+	$breaks
+	[1] 10 11 12 13 14 15 16 17 18
+
+	$counts
+	[1] 1 2 8 8 3 2 1 1
+
+	$intensities
+	[1] 0.03846153 0.07692308 0.30769231 0.30769231 0.11538462 0.07692308 0.03846154 0.03846154
+
+	$density
+	[1] 0.03846153 0.07692308 0.30769231 0.30769231 0.11538462 0.07692308 0.03846154 0.03846154
+
+	$mids
+	[1] 10.5 11.5 12.5 13.5 14.5 15.5 16.5 17.5
+
+	$xname
+	[1] "rm$density2"
+
+	$equidist
+	[1] TRUE
+
+	attr(,"class")
+	[1] "histogram"
+
+The above output shows where the bin edges (``breaks``) and bin midpoints (``mids``) were automatically calculated and the number of entries (``count``) in each bin.  The ``density`` value is just ``counts/N``, in other words, the relative frequency.  You could access the count data, for example, directly as:
+
+.. code-block:: python
+
+	density2.hist$counts
+	[1] 1 2 8 8 3 2 1 1
+
+
+.. rubric:: Summary
+
+*	The frequency histogram: just use ``hist(...)``
+*	The *relative* frequency histogram, which is normalized to unit area: ``hist(rm$density2, freq=FALSE)``
+
+
+Annotating plots: grid lines, arrows, lines, and identifying interesting points
+================================================================================
+
+This part uses the `same dataset <http://datasets.connectmv.com/info/raw-material-properties>`_ from the previous section.
+
+Grid lines
+----------
+
+If we plot the ``density2`` value in sequence order:
+
+.. code-block:: python
+
+	rm <- read.csv('http://datasets.connectmv.com/file/raw-material-properties.csv')
+	plot(rm$density2)
+
+	# We can add gridlines to the plot:
+	grid()
+
+Adding lines to a plot
 ---------------------------
 
-Once you have drawn your plot, you can go to the menu on the top, and click ``File``, then ``Save as``.  We will show :ref:`later on how to save plots programmatically <r-saving-plots>`.
+Now, imagine we want to add a horizontal line at the sample *median*.
+
+.. code-block:: s
+
+	median(rm$density2)
+	[1] NA
+
+That isn't what we were expecting - why is the median given as "NA"?  In R, the NA stands for a missing value. The ``rm$density2`` data sequence has several missing values.  To force R to calculate the median, but ignoring missing values, use this:
+
+.. code-block:: s
+
+	density2.median <- median(rm$density2, na.rm=TRUE)
+	density2.median
+	[1] 13.21
+
+	# Now to add a horizontal line at this value:
+	plot(rm$density2)
+	abline(h=density2.median)
+
+	# You can add a vertical line using the "v" input option.
+	# The "col" argument (option) gives the desired colour.
+	abline(v=25, col="red")
+
+So the ``abline`` function adds vertical and horizontal lines to a plot.  You can also add sloped lines, by specifying the slope and intercept: use the ``abline(a=..., b=...)`` syntax.
+
+At this point you should have the following output:
+
+	.. figure:: images/plot-annotations-1.jpg
+		:alt:	code/plot-annotations.R
+		:scale: 100
+		:width: 450px
+		:align: center
+
+Arrows and text
+---------------------------
+
+You can also add arrows and text.  For example, these commands will draw an arrow from the median to the MAD and add some text next to the arrow:
+
+.. code-block:: python
+
+	density2.mad = mad(rm$density2, na.rm=TRUE)
+
+	# What are the y-values that are 1 median absolute deviation away from the median?
+	upper = density2.median + density2.mad  # 14.71484
+	lower = density2.median - density2.mad  # 11.70516
+
+	# Now add these as horizontal lines:
+	abline(h=upper, col="gray80")
+	abline(h=lower, col="gray80")
+
+	# Now draw an arrow at x=10, that goes from y=median to y=median+mad
+	# The (x0, y0) is the starting coordinate
+	# The (x1, y1) is the ending coordinate
+	# The code=3 indicates that arrows heads are drawn on both sides.  Also try codes 0, 1, and 2
+
+	arrows(x0=10, y0=density2.median, x1=10, y1=density2.median+density2.mad, code=3)
+
+	# Finally, let's add some text to the plot at the point (x=13, y=14)
+	text(x=13, y=14, labels="One MAD")
+
+This is the plot you should have after these steps:
+
+	.. figure:: images/plot-annotations-2.jpg
+		:alt:	code/plot-annotations.R
+		:scale: 100
+		:width: 450px
+		:align: center
+
+Identifying interesting points in a plot
+-----------------------------------------
+
+A plot should be like a paragraph of text: it should stand on its own and tell the reader something.  To help with this, it is often necessary to label  interesting points on a plot, not necessarily every point.
+
+We will first plot some data, then add labels to interesting points using the ``identify(...)`` command in R:
+
+.. code-block:: s
+	
+	# Read in some data
+	rm <- read.csv('http://datasets.connectmv.com/file/raw-material-properties.csv')  
+
+	# Plot the data as you normally would
+	plot(rm$size2, ylab="Particle size: level 2", main="Powder raw material")
+
+	# Now use the identify(...) command, with the same data as you plotted. 
+	# Add the "labels" option to let R use label names from "Sample" column.
+
+	identify(rm$size2, labels=rm$Sample)
+
+	# After issuing the "identify(...)" command, click on any interesting points in the 
+	# plot.  Right-click anywhere to stop selecting points.
+
+For example, I selected these interesting points in the plot, then in my technical report to my manager and I can refer to those points.
+
+	.. figure:: images/plot-identified-points.jpg
+		:alt:	code/plot-identified-points.R
+		:scale: 100
+		:width: 450px
+		:align: center
 
 Dealing with factors (categorical variables)
 ==============================================
@@ -689,8 +918,7 @@ You can use these additional R commands to compute other summaries of interest f
 Dealing with distributions
 ===========================
 
-Values from various distribution functions are easily calculated in R.  There are functions in R
-
+Values from various distribution functions are easily calculated in R. 
 
 Direct probability from a distribution
 ----------------------------------------
@@ -769,7 +997,9 @@ Next steps (coming soon)
 =========================
 
 * How to add labels, grids, lines and arrows to plots
-* Histograms, probability, distributions
+* Histograms,
+
+
 * Extending R's capabilities with packages
 * Dealing with vectors and matrices 
 * Linear models in R 

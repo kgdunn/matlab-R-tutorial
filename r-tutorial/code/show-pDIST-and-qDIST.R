@@ -1,5 +1,5 @@
-bitmap('../images/show-pDIST-and-qDIST.jpg', type="png256", width=10, height=7, res=300, pointsize=14)
-
+#bitmap('../images/show-pDIST-and-qDIST.jpg', type="png256", width=10, height=7, res=300, pointsize=14)
+bmp(file='../images/name-of-file.bmp', width=10, height=7, res=300, pointsize=14)
 z <- seq(-4, 4, 0.01)
 cumulative.norm = pnorm(z)
 par(mar=c(4.2, 4.2, 0.2, 1))
