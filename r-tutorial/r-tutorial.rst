@@ -67,7 +67,7 @@ After installing Tinn-R you need to configure Tinn-R to communicate with R:
 *	Then ``Configure``
 *	Then ``Permanent``.  Answer ``OK`` when completed.
 
-	.. ucomment:: xBkfjv: Mk,
+	.. ucomment:: xBkfjv: Mk, qt,
 	
 *	Next, you must start ``R`` from ``Tinn-R``:
 
