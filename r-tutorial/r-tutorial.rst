@@ -752,11 +752,11 @@ where the ``r`` prefix indicates we want random numbers.
 
 Notice that R has used a default value of ``mean=0`` and standard deviation ``sd=1``.  If you'd like your random numbers centred about a different mean, with a different level of spread, then:
 
-.. code-block:: python
+.. code-block:: s
 
 	rnorm(n=10, mean=30, sd=4)
-	[1] 27.32350 29.11634 25.93851 22.99497 34.04363
-	[6] 27.34953 28.71921 36.75440 21.92550 24.45140
+	[1] 31.62686 37.83101 28.07470 20.95000 30.47500
+	[6] 28.21797 35.81518 28.61481 30.59083 32.94051
 
 
 *	For the :math:`t` distribution: ``rt(...)``
