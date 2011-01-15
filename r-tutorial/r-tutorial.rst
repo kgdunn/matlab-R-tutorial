@@ -824,12 +824,6 @@ Now that boxplot will be ordered in a more useful way to see the weekly trends:
 
 The ``c()`` command creates a combination of items and the ``factor()`` command creates a factor variable.
 
-.. _r-saving-plots:
-
-Saving plots in R
-==================
-
-More details to come.
 
 Calculating statistics from a data sample
 ==================================================
