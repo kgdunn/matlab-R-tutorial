@@ -987,14 +987,97 @@ Notice that R has used a default value of ``mean=0`` and standard deviation ``sd
 
 *	For the chi-squared distribution: ``rchisq(...)``
 
+
+Extending R with packages
+============================
+
+The basic R installation is pretty comprehensive.  One of the advantages of R though is that it is constantly being updated with new packages.  A package is collection of functions and other information that expand R's capabilities.  
+
+For example, the built-in ``qqnorm(...)`` can be used to test if a sequence of values came from a normal distribution.  However, there is, in my opinion, a better qq-plot function in the ``car`` library, called ``qqPlot(...)``, however the ``car`` library does *not* come pre-installed with R.
+
+This section shows how to install extra packages and to keep your R installation up to date.
+
+Keeping R up to date
+-----------------------
+
+Even if you don't want to install extra packages, you should keep the built-in packages up to date.  You require an internet connection for this step.
+
+At the R command prompt, write:
+
+.. code-block:: s
+
+	update.packages()
+
+.. rubric:: Mac users
+
+*	Click on ``Packages & Data`` on the top menu
+*	Choose ``Package Installer``
+*	Click ``Get list``
+*	If this is your first time updating, then you will have to select the closest update mirror (web site).  
+*	Typically you would choose the mirror that is geographically closest to you: for example ``Canada (ON)``.  You can have R remember your choice for the future.
+* Click on the ``Update All`` button to have R check that your built-in packages are up to date at the latest version. 
+
+.. rubric:: Windows users
+
+
+*	Click on ``Packages`` on the top menu
+*	Choose ``Update packages``
+*	If this is your first time updating, then you will have to select the closest update mirror (web site).  
+*	Typically you would choose the mirror that is geographically closest to you: for example ``Canada (ON)``.  You can have R remember your choice for the future.
+*	Click ``OK`` once it shows you the list of packages that will be updated.
+
+R will fetch and install any updates it requires.
+
+Installing a new package
+--------------------------
+
+Installing a new package is easy; finding the package to install that does what you want is a little tougher: there are over 2000 packages available.  Here are 2 ways I typically discover packages.
+
+#	By browsing the hierarchy of packages at http://cran.r-project.org/web/views/
+#	Googling: for example, the other day I needed to figure out how to plot time-series data nicely.  I came across a page that recommended the ``xts`` package.
+
+.. rubric:: Mac users
+
+*	Click on ``Packages & Data`` on the top menu
+*	Choose ``Package Installer``
+*	Click ``Get list``
+*	Select the packages from the list (you can select more than one by holding down the ``Command`` key on a Mac).
+*	Make sure you select the check box ``Install dependencies``
+*	Then click "Install Selected"
+
+.. rubric:: Windows users
+
+*	Click on ``Packages`` on the top menu
+*	Choose ``Install packages``
+*	Select the package(s) you wish to install 
+*	Click ``OK``
+
+Once the library is installed, you first need to load it.  For example, to generate a nicer qq-plot using the ``car`` package:
+
+.. code-block:: s
+
+	data <- rnorm(100)  # a 100 normally distributed values
+	library(car)
+	qqPlot(data)
+	
+will generate:
+
+.. figure:: images/plot-qq-plot.jpg
+	:alt:	code//plot-qq-plot.R
+	:scale: 100
+	:width: 500px
+	:align: center
+
+To see a list of all functions that are provided by a package:
+
+.. code-block:: s
+
+	help(package="car")
+
+
 Next steps (coming soon)
 =========================
 
-* How to add labels, grids, lines and arrows to plots
-* Histograms,
-
-
-* Extending R's capabilities with packages
 * Dealing with vectors and matrices 
 * Linear models in R 
 * Analysis of designed experiments using R 
