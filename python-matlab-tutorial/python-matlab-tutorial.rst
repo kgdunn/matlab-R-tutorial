@@ -41,7 +41,7 @@ MATLAB may be purchased from `The Mathworks <http://mathworks.com>`_ either as t
 Python is freely available. The latest stable version that we recommend for this tutorial is version 2.6, because it is compatible with the external libraries that we will use.
 
 Windows users
-^^^^^^^^^^^^^^^
+-----------------------
 
 Python is an open source software. Because of this, various groups have "packaged" the official Python distribution to meet certain needs. For example:
 
@@ -69,7 +69,7 @@ For this tutorial we recommend you use the version distributed from http://www.p
 .. _matpy-mac-linux-install:
 
 Mac and Linux users
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 Python is already installed on all Mac computers and most (all?) Linux computers. If you go to your command prompt (the program is called "Terminal" on Macs), you can type ``python`` and it will start a bare-bones Python session.
 
@@ -80,8 +80,6 @@ However, we highly recommend you use the Enthought Python distribution, which is
 	.. figure:: images/enthought-download.png
 		:scale: 100
 		:align: center
-
-	.. ucomment:: bJJ9Jd: Ut*,
 
 #.	Download and install the software.
 #.	It will take some time, because it installs Python and a large collection of libraries (modules).
@@ -143,7 +141,7 @@ The core MATLAB setup has 6 main sections of interest:
 .. rubric:: Python
 
 Windows users
-^^^^^^^^^^^^^^^^^
+-----------------------
 
 When starting Python(x,y) you will be presented with the following window.
 
@@ -193,7 +191,7 @@ Spyder (Scientific PYthon Development EnviRonment) is the name of the developmen
 	
 
 Mac users
-^^^^^^^^^^^
+-----------------------
 
 This tutorial step assumes that you have :ref:`already installed <matpy-mac-linux-install>` Enthought's Python distribution.
 
@@ -216,7 +214,7 @@ This tutorial step assumes that you have :ref:`already installed <matpy-mac-linu
 			:align: center
 			
 Linux users
-^^^^^^^^^^^^
+-----------------------
 
 This tutorial step assumes that you have :ref:`already installed <matpy-mac-linux-install>` Enthought's Python distribution.
 
@@ -408,3 +406,106 @@ MATLAB and Python are very capable at reading other files formats, such as XML f
 * MATLAB: `see documentation for all formats <http://www.mathworks.com/help/techdoc/ref/f16-5702.html>`_.
 * Python: separate pages for `XML <http://docs.python.org/library/xml.sax.html>`_ files, `CSV <http://docs.python.org/library/csv.html>`_ files, `arbitrary databases <http://www.sqlalchemy.org/>`_, and `Excel files <http://www.python-excel.org/>`_.
 
+
+Dealing with distributions
+===========================
+
+Values from various distribution functions are easily calculated in MATLAB or Python.
+
+Direct probability from a distribution
+----------------------------------------
+
+MATLAB
+
+	To calculate the probability value directly from *any* distribution you use a function created by adding ``pdf`` to the  name of the distribution, that is what is meant by ``DISTpdf`` in the illustration here:
+
+	.. figure:: images/show-DISTpdf.jpg
+		:alt:	code/show-DISTpdf.R
+		:scale: 100
+		:width: 500px
+		:align: center
+
+	For the *normal* distribution:
+		``normpdf(x)``
+	
+	For the :math:`t` distribution:
+		``tpdf(x, df)`` where ``df`` are the degrees of freedom in the :math:`t`-distribution
+
+	For the :math:`F`-distribution:
+		``fpdf(x, df1, df2)`` given the ``df1`` (numerator) and ``df2`` (denominator) degrees of freedom.
+	
+	For the chi-squared distribution:
+		 ``chi2pdf(x, df)`` given the ``df`` degrees of freedom.
+
+Python
+
+	Python instructions go here.
+
+Values from the cumulative and inverse cumulative distribution
+----------------------------------------------------------------
+
+MATLAB
+
+	Similar to the above, we call the function by adding ``cdf`` - to get the cumulative percentage area under the distribution, and ``inv`` - to get the inverse cumulative distribution.
+
+	.. figure:: images/show-DISTcdf-and-DISTinv.jpg
+		:alt:	code/show-DISTcdf-and-DISTinv.R
+		:scale: 100
+		:width: 500px
+		:align: center
+
+	*	For the *normal* distribution: ``normcdf(...)`` and ``norminv(...)``
+
+	*	For the :math:`t` distribution: ``tcdf(...)`` and ``tinv(...)``
+
+	*	For the :math:`F`-distribution: ``fcdf(...)`` and ``finv(...)``
+	
+	*	For the chi-squared distribution: ``chi2cdf(...)`` and ``chi2inv(...)``
+
+Python
+
+	Python instructions go here.
+
+
+Obtaining random numbers from a particular distribution
+---------------------------------------------------------
+
+.. note::
+
+	Please pay attention to the fact that these functions accept the *standard deviation* and not the variance for the normal distribution.  The usual notation in statistics is to say :math:`x \sim \mathcal{N}(30, 16)` that is, we specify the variance, but the normal random number generator requires you specify the standard deviation.
+
+MATLAB
+
+	For example, to obtain 10 random, normally distributed values, with a mean of 0 and *standard deviation* of 1 
+
+	.. code-block:: matlab
+
+		normrnd(0, 1, 1, 10)
+		ans =
+		  Columns 1 through 5
+		    0.6565   -1.1678   -0.4606   -0.2624   -1.2132
+		  Columns 6 through 10
+		   -1.3194    0.9312    0.0112   -0.6451    0.8057
+
+	
+	where the ``rnd`` suffix indicates we want random numbers.
+
+	If you'd like your random numbers centred about a different mean, say 30, with a different level of spread, say a standard deviation of 4 units, then:
+
+	.. code-block:: matlab
+
+		normrnd(30, 4, 1, 10)
+		ans =
+		  Columns 1 through 5
+		   29.2717   36.0841   29.8462   34.9098   27.2152
+		  Columns 6 through 10
+		   30.0301   26.8684   32.3478   28.9952   31.9205
+
+
+	
+
+	*	For the :math:`t` distribution: ``trnd(...)``
+
+	*	For the :math:`F`-distribution: ``frnd(...)``
+
+	*	For the chi-squared distribution: ``chi2rnd(...)``

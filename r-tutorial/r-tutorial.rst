@@ -129,7 +129,7 @@ Data on your hard drive
 Go to the `datasets website <http://datasets.connectmv.com>`_ and download any data set, for example the **Website traffic** datasets.  Save the file, 
 and remember the location.  For example:  ``C:/Courses/ConnectMV/data/website-traffic.csv``
 
-.. note:: You must use "``/``" character in R to separate directories (folders), not the "``\``" character, even in Windows.
+.. note:: You must use the "``/``" character in R to separate directories (folders), not the "``\``" character, even in Windows.
 
 We will use the ``read.csv`` command to read these comma-separated values (CSV) files. If you look inside the ``website-traffic.csv`` file you will how the data is stored: each column is separated by a comma, and each row is a new line.
 
@@ -935,13 +935,13 @@ For the :math:`F`-distribution:
 	``df(x=..., df1=..., df2=...)`` given the ``df1`` (numerator) and ``df2`` (denominator) degrees of freedom.
 	
 For the chi-squared distribution:
-	 ``dchisq(x=..., df=...)``
+	 ``dchisq(x=..., df=...)``  given the ``df`` degrees of freedom.
 
 
 Values from the cumulative and inverse cumulative distribution
 ----------------------------------------------------------------
 
-Similar to the above, we call the function by combining ``p`` (to get the cumulative percentage area under the distribution), and ``q`` (to get the quantile).
+Similar to the above, we call the function by combining ``p`` - to get the cumulative percentage area under the distribution, and ``q`` - to get the quantile.
 
 .. figure:: images/show-pDIST-and-qDIST.jpg
 	:alt:	code/show-pDIST-and-qDIST.R
@@ -972,7 +972,7 @@ For example, to obtain 10 random, normally distributed values:
 	
 where the ``r`` prefix indicates we want random numbers.
 
-Notice that R has used a default value of ``mean=0`` and standard deviation ``sd=1``.  If you'd like your random numbers centred about a different mean, with a different level of spread, then:
+Notice that R has used a default value of ``mean=0`` and *standard deviation* ``sd=1``.  If you'd like your random numbers centred about a different mean, with a different level of spread, then:
 
 .. code-block:: s
 
@@ -980,6 +980,7 @@ Notice that R has used a default value of ``mean=0`` and standard deviation ``sd
 	[1] 31.62686 37.83101 28.07470 20.95000 30.47500
 	[6] 28.21797 35.81518 28.61481 30.59083 32.94051
 
+Please pay attention to the fact that this function accepts the *standard deviation* and not the variance.  In the previous example, the usual notation in statistics is to say :math:`x \sim \mathcal{N}(30, 16)` that is, we specify the variance, but the random number generator requires you specify the standard deviation.
 
 *	For the :math:`t` distribution: ``rt(...)``
 

@@ -194,7 +194,7 @@ html_add_permalinks = None
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Tutorials.tex', u'Tutorials Documentation',
+  ('contents', 'Tutorials.tex', u'Tutorials Documentation',
    u'Kevin Dunn', 'manual'),
 ]
 
