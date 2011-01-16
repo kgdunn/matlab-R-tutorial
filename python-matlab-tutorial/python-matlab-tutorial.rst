@@ -416,7 +416,6 @@ Direct probability from a distribution
 ----------------------------------------
 
 MATLAB
-
 	To calculate the probability value directly from *any* distribution you use a function created by adding ``pdf`` to the  name of the distribution, that is what is meant by ``DISTpdf`` in the illustration here:
 
 	.. figure:: images/show-DISTpdf.jpg
@@ -438,14 +437,12 @@ MATLAB
 		 ``chi2pdf(x, df)`` given the ``df`` degrees of freedom.
 
 Python
-
 	Python instructions go here.
 
 Values from the cumulative and inverse cumulative distribution
 ----------------------------------------------------------------
 
 MATLAB
-
 	Similar to the above, we call the function by adding ``cdf`` - to get the cumulative percentage area under the distribution, and ``inv`` - to get the inverse cumulative distribution.
 
 	.. figure:: images/show-DISTcdf-and-DISTinv.jpg
@@ -475,7 +472,6 @@ Obtaining random numbers from a particular distribution
 	Please pay attention to the fact that these functions accept the *standard deviation* and not the variance for the normal distribution.  The usual notation in statistics is to say :math:`x \sim \mathcal{N}(30, 16)` that is, we specify the variance, but the normal random number generator requires you specify the standard deviation.
 
 MATLAB
-
 	For example, to obtain 10 random, normally distributed values, with a mean of 0 and *standard deviation* of 1 
 
 	.. code-block:: matlab
