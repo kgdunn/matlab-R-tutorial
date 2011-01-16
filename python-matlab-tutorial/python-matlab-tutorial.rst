@@ -545,8 +545,6 @@ MATLAB
 		   30.0301   26.8684   32.3478   28.9952   31.9205
 
 
-	
-
 	*	For the :math:`t` distribution: ``trnd(...)``
 
 	*	For the :math:`F`-distribution: ``frnd(...)``
@@ -573,3 +571,12 @@ Python
 	*	For the :math:`F`-distribution: ``stats.f.rvs(...)``
 
 	*	For the chi-squared distribution: ``stats.chi2.rvs(...)``
+
+
+Coming soon
+============
+
+MATLAB functions
+	* ``boxplot`` function
+	* ``quantile`` function
+	* ``qqplot`` function

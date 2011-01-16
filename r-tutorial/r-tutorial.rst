@@ -959,8 +959,6 @@ Similar to the above, we call the function by combining ``p`` - to get the cumul
 	
 *	For the chi-squared distribution: ``pchisq(...)`` and ``qchisq(...)``
 
-
-
 Obtaining random numbers from a particular distribution
 ---------------------------------------------------------
 
@@ -1075,6 +1073,8 @@ To see a list of all functions that are provided by a package:
 .. code-block:: s
 
 	help(package="car")
+	
+
 
 Next steps (coming soon)
 =========================
