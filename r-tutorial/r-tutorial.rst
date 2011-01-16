@@ -1056,7 +1056,7 @@ Once the library is installed, you first need to load it.  For example, to gener
 
 .. code-block:: s
 
-	data <- rnorm(100)  # a 100 normally distributed values
+	data <- rnorm(100)  # create 100 normally distributed values
 	library(car)
 	qqPlot(data)
 	
@@ -1074,10 +1074,10 @@ To see a list of all functions that are provided by a package:
 
 	help(package="car")
 
-
 Next steps (coming soon)
 =========================
 
+* For-loop, if- and while-loops in R
 * Dealing with vectors and matrices 
 * Linear models in R 
 * Analysis of designed experiments using R 
