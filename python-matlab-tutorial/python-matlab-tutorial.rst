@@ -412,6 +412,11 @@ Dealing with distributions
 
 Values from various distribution functions are easily calculated in MATLAB or Python.
 
+.. note::
+
+	In this section you will require the `Statistics Toolbox for MATLAB <http://www.mathworks.com/products/statistics/>`_, and in Python you will require the `Scipy module <http://scipy.org/>`_.
+
+
 Direct probability from a distribution
 ----------------------------------------
 
@@ -426,6 +431,8 @@ MATLAB
 
 	For the *normal* distribution:
 		``normpdf(x)``
+		
+		For example, ``normpdf(1)`` returns 0.2420, the point of inflection on the normal distribution curve.
 	
 	For the :math:`t` distribution:
 		``tpdf(x, df)`` where ``df`` are the degrees of freedom in the :math:`t`-distribution
@@ -437,7 +444,35 @@ MATLAB
 		 ``chi2pdf(x, df)`` given the ``df`` degrees of freedom.
 
 Python
-	Python instructions go here.
+
+	All Python steps below assume that you have imported the ``scipy`` library. This import is only required once, at the top of your script.  For example:
+	
+	.. code-block:: python
+	
+		from scipy import stats
+		
+		stats.norm.pdf(1)    # returns 0.24197072451914337, as expected
+		
+	In the rest of the examples we omit the ``from scipy import stats`` import statement.
+		
+	For the :math:`t` distribution:	
+		.. code-block:: python
+	
+			stats.t.pdf(0, 10)      # the t-distribution with 10 degrees of freedom
+		
+	For the :math:`F`-distribution:
+		.. code-block:: python
+			
+			# The F-distribution with ``dfn`` (numerator) and ``dfd`` (denominator)
+			# degrees of freedom.
+			stats.f.pdf(1.2, 10, 150)   # 0.65199502676831167
+
+	For the chi-squared distribution:
+		 .. code-block:: python
+
+			# The chi-squared distribution with ``df=8`` degrees of freedom:
+			stats.chi2.pdf(3, 8)    # 0.062755357541745882
+
 
 Values from the cumulative and inverse cumulative distribution
 ----------------------------------------------------------------
@@ -505,3 +540,7 @@ MATLAB
 	*	For the :math:`F`-distribution: ``frnd(...)``
 
 	*	For the chi-squared distribution: ``chi2rnd(...)``
+
+Python
+
+	Python instructions go here.

@@ -926,7 +926,9 @@ To calculate the probability value directly from *any* distribution in R you use
 	:align: center
 
 For the *normal* distribution:
-	``dnorm(x=...)``
+	``dnorm(x=...)`` 
+	
+	For example, ``dnorm(1)`` returns 0.2419707, the point of inflection on the normal distribution curve.
 	
 For the :math:`t` distribution:
 	``dt(x=..., df=...)`` where ``df`` are the degrees of freedom in the :math:`t`-distribution
