@@ -729,11 +729,11 @@ So the ``abline`` function adds vertical and horizontal lines to a plot.  You ca
 
 At this point you should have the following output:
 
-	.. figure:: images/plot-annotations-1.jpg
-		:alt:	code/plot-annotations.R
-		:scale: 100
-		:width: 450px
-		:align: center
+.. figure:: images/plot-annotations-1.jpg
+	:alt:	code/plot-annotations.R
+	:scale: 100
+	:width: 450px
+	:align: center
 
 Arrows and text
 ---------------------------
@@ -764,11 +764,11 @@ You can also add arrows and text.  For example, these commands will draw an arro
 
 This is the plot you should have after these steps:
 
-	.. figure:: images/plot-annotations-2.jpg
-		:alt:	code/plot-annotations.R
-		:scale: 100
-		:width: 450px
-		:align: center
+.. figure:: images/plot-annotations-2.jpg
+	:alt:	code/plot-annotations.R
+	:scale: 100
+	:width: 450px
+	:align: center
 
 Identifying interesting points in a plot
 -----------------------------------------
@@ -795,11 +795,11 @@ We will first plot some data, then add labels to interesting points using the ``
 
 For example, I selected these interesting points in the plot, then in my technical report to my manager and I can refer to those points.
 
-	.. figure:: images/plot-identified-points.jpg
-		:alt:	code/plot-identified-points.R
-		:scale: 100
-		:width: 450px
-		:align: center
+.. figure:: images/plot-identified-points.jpg
+	:alt:	code/plot-identified-points.R
+	:scale: 100
+	:width: 450px
+	:align: center
 
 Dealing with factors (categorical variables)
 ==============================================
