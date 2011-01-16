@@ -597,7 +597,7 @@ The above code shows that you must surround your plot with the ``bmp(...)`` func
 
 	*	Install Ghostscript.
 
-	*	Edit your R settings file to tell it where you Ghostscript instance is:
+	*	Edit your R settings file to tell it where your Ghostscript instance is:
 
 		.. code-block:: python
 
@@ -610,9 +610,9 @@ The above code shows that you must surround your plot with the ``bmp(...)`` func
 			# and set the following line to point to Ghostscript
 			R_GSCMD=${RGSCMD-'/sw/bin/gs'}
 		
-	*	Once these settings have been added, you can verify them in R by typing: ``Sys.getenv("R_GSCMD")``
+	*	Verify the settings in R: ``Sys.getenv("R_GSCMD")``
 	
-	*	To save your plots: surround your plotting code with ``bitmap(...)`` and ``dev.off()`` commands.
+	*	Surround your plotting code with ``bitmap(...)`` and ``dev.off()`` commands as shown above.
 
 
 Histograms
@@ -1018,7 +1018,6 @@ At the R command prompt, write:
 * Click on the ``Update All`` button to have R check that your built-in packages are up to date at the latest version. 
 
 .. rubric:: Windows users
-
 
 *	Click on ``Packages`` on the top menu
 *	Choose ``Update packages``
