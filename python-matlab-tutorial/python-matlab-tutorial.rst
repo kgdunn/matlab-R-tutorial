@@ -444,7 +444,6 @@ MATLAB
 		 ``chi2pdf(x, df)`` given the ``df`` degrees of freedom.
 
 Python
-
 	All Python steps below assume that you have imported the ``scipy`` library. This import is only required once, at the top of your script.  For example:
 	
 	.. code-block:: python
@@ -495,9 +494,22 @@ MATLAB
 	*	For the chi-squared distribution: ``chi2cdf(...)`` and ``chi2inv(...)``
 
 Python
+	The Python steps below require that you first import the ``scipy.stats`` library as ``from scipy import stats``
+	
+	.. figure:: images/show-DISTcdf-and-DISTppf.jpg
+		:alt:	code/show-DISTcdf-and-DISTppf.R
+		:scale: 100
+		:width: 500px
+		:align: center
+	
+	*	For the *normal* distribution: ``stats.norm.cdf(1.0)`` will return 0.8413, as expected and ``stats.norm.ppf(0.025)`` returns -1.95996.  Note that ``ppf`` stands for *percent point function*, the inverse of the cumulative distribution function.
+	
+	*	For the :math:`t` distribution: ``stats.t.cdf(...)`` and ``stats.t.ppf(...)``
 
-	Python instructions go here.
-
+	*	For the :math:`F`-distribution: ``stats.f.cdf(...)`` and ``stats.f.ppf(...)``
+	
+	*	For the chi-squared distribution: ``stats.chi2.cdf(...)`` and ``stats.chi2.ppf(...)``
+	
 
 Obtaining random numbers from a particular distribution
 ---------------------------------------------------------
@@ -542,5 +554,22 @@ MATLAB
 	*	For the chi-squared distribution: ``chi2rnd(...)``
 
 Python
+	The Python steps below require that you first import the ``scipy.stats`` library as ``from scipy import stats``
+	
+	Use the ``rvs`` function for each distribution to generate random variates from that distribution.  For example:
 
-	Python instructions go here.
+	*	For the *normal* distribution: ``stats.norm.rvs()`` will return a single random number with location of zero and spread of 1.0.  If you want a different location and scale: ``stats.norm.rvs(loc=30, scale=4)``. 
+	
+		If you need more than one random variate:
+		
+		.. code-block:: python
+		
+			stats.norm.rvs(loc=30, scale=4, size=(2, 5))  # returns a 2 x 5 array:
+			array([[ 33.5509502 ,  26.39496621,  34.27222728,  32.66492142, 33.50399315],
+			       [ 21.39065988,  28.69765834,  30.78684564,  35.48724883, 23.98894266]])
+			
+	*	For the :math:`t` distribution: ``stats.t.rvs(...)`` 
+
+	*	For the :math:`F`-distribution: ``stats.f.rvs(...)``
+
+	*	For the chi-squared distribution: ``stats.chi2.rvs(...)``
