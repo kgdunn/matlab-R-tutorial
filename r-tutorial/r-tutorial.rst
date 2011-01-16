@@ -599,7 +599,7 @@ The above code shows that you must surround your plot with the ``bmp(...)`` func
 
 	*	Edit your R settings file to tell it where your Ghostscript instance is:
 
-		.. code-block:: python
+		.. code-block:: s
 
 			# For 32-bit systems
 			nano /Library/Frameworks/R.framework/Versions/Current/Resources/etc/i386/Renviron
@@ -669,7 +669,7 @@ The ``hist(...)`` command also returns a whole lot more information, in addition
 
 The above output shows where the bin edges (``breaks``) and bin midpoints (``mids``) were automatically calculated and the number of entries (``count``) in each bin.  The ``density`` value is just ``counts/N``, in other words, the relative frequency.  You could access the count data, for example, directly as:
 
-.. code-block:: python
+.. code-block:: s
 
 	density2.hist$counts
 	[1] 1 2 8 8 3 2 1 1
@@ -691,7 +691,7 @@ Grid lines
 
 If we plot the ``density2`` value in sequence order:
 
-.. code-block:: python
+.. code-block:: s
 
 	rm <- read.csv('http://datasets.connectmv.com/file/raw-material-properties.csv')
 	plot(rm$density2)
@@ -740,7 +740,7 @@ Arrows and text
 
 You can also add arrows and text.  For example, these commands will draw an arrow from the median to the MAD and add some text next to the arrow:
 
-.. code-block:: python
+.. code-block:: s
 
 	density2.mad = mad(rm$density2, na.rm=TRUE)
 
