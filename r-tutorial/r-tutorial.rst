@@ -1110,8 +1110,10 @@ The looping variable, called ``i`` in the above example, started at ``1`` and en
 
 .. code-block:: s
 	
-	for (i in seq(2, 10, 3))
-	{
+	# You can put the opening brace for the loop one
+	# line up, if you prefer
+	
+	for (i in seq(2, 10, 3)){
 	    print(i)
 	}
 	# Printed output
@@ -1141,8 +1143,7 @@ Returning back to the previous example: let's say we want to store the mean valu
 
 	n_loops <- 10
 	x.means <- numeric(n_loops)  # create a vector of zeros to store the results in
-	for (i in 1:n_loops)
-	{	    
+	for (i in 1:n_loops){
 	    x <- as.integer(runif(100, 1, 7))  # uniformly distributed numbers between 1 and 6
 	    x.means[i] <- mean(x)
 	}	
@@ -1176,8 +1177,6 @@ Branching your code (controlling its flow) if if-else blocks is given by this sy
 	}
 	
 	
-
-
 ..	Comments
 	
 	_r-programming-functions:
@@ -1236,7 +1235,7 @@ There is yet another way to create a matrix or vector of only *zero entries*:
 	mat.or.vec(2, 3)
 	
 	
-**Creating a matrix from several vectors**
+.. rubric:: Creating a matrix from several vectors
 
 If you have a some equal-length vectors you might want to stack them together to create a matrix.
 
@@ -1539,13 +1538,10 @@ Use the example below as a guide to using the ``svd`` function in R:
 .. Cholesky decomposition: ``chol(X)``
 
 
-
 Next steps (coming soon)
 =========================
 
 * Describe R data frames.
-* For-loop, if- and while-loops in R
-* Dealing with vectors and matrices 
 * Linear models in R 
 * Analysis of designed experiments using R 
 * Principal component analysis using R
