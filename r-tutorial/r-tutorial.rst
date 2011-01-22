@@ -1453,7 +1453,7 @@ Use the ``solve(a, b, ...)`` function in R. The ``solve()`` function solves the 
 Matrix inverse: ``solve(X)``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Recall that only square matrices, :math:`n \times n`, can be inverted.  We use the ``solve(...)``  function in R, which solves the system :math:`Ax = b`, but if we replace ``b`` with successive columns from the identity matrix, we can successively build up a solution to `AA^{-1} = I`.
+Recall that only square matrices, :math:`n \times n`, can be inverted.  We use the ``solve(...)``  function in R, which solves the system :math:`Ax = b`, but if we replace ``b`` with successive columns from the identity matrix, we can successively build up a solution to :math:`AA^{-1} = I`.
 
 Fortunately in R, all this work is done for you automatically.  The ``solve()`` function creates an identity matrix if you don't supply the ``b`` argument.  So to invert a matrix :math:`X`:
 
