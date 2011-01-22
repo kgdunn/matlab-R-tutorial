@@ -1110,8 +1110,8 @@ The looping variable, called ``i`` in the above example, started at ``1`` and en
 
 .. code-block:: s
 	
-	# You can put the opening brace for the loop one
-	# line up, if you prefer
+	# You can put the opening brace for the loop one line
+	# up, if you prefer. Compare to previous example.
 	
 	for (i in seq(2, 10, 3)){
 	    print(i)
@@ -1199,7 +1199,7 @@ An vector of zeros is created using the ``numeric`` function.  This is used, for
 	numeric(6)
 	[1] 0 0 0 0 0 0
 	
-An matrix or vector can be created using the ``matrix`` function.  The advantage of the ``matrix`` function is that it can set the values to a non-zero, or missing values (``NA``):
+A matrix or vector can be created using the ``matrix`` function.  The advantage of the ``matrix`` function is that it can set the values to a non-zero, or missing values (``NA``):
 
 .. code-block:: s
 
@@ -1235,7 +1235,8 @@ There is yet another way to create a matrix or vector of only *zero entries*:
 	mat.or.vec(2, 3)
 	
 	
-.. rubric:: Creating a matrix from several vectors
+Creating a matrix from several vectors
+-------------------------------------------
 
 If you have a some equal-length vectors you might want to stack them together to create a matrix.
 
@@ -1293,13 +1294,12 @@ Reshaping a vector into a matrix
 
 There are occasions when we need to create subgroups of data from a vector. This happens, for example, when constructing control charts:
 
-*	we need to create the subgroups from  *non-overlapping* segments in the vector
+*	we need to create the subgroups from *non-overlapping* segments in the vector
 *	we need to do calculations on these subgroups
 
+One way to construct the subgroups is to use 2 nested :ref:`for-loops <r-programming-loops-for-loop>` to extract the necessary data.  This works, but can get messy.  There is an alternative way: by rearranging your vector into a matrix and then doing your calculations on each column of the matrix.
 
-Once way to construct the subgroups is to use two for-loops to extract the necessary data.  This works, but can get messy.  There is an alternative way: by rearranging your vector into a matrix.
-
-Let the raw data be given by this vector:
+Let the raw data be given by this random vector:
 
 .. code-block:: s
 
@@ -1317,7 +1317,7 @@ Let's say our subgroup size is 9.  Now 5000 is not neatly divisible by 9, but th
 	# In matrix(raw, N.sub, N.raw/N.sub) :
 	#   data length [5000] is not a sub-multiple or multiple of the number of rows [9]
 
-Notice that R gives a warning, not an error message.  You can see what size matrix it created: 9 rows and 555 columns, so there are 4995 elements in the array.  That's good enough.
+Notice that R gives a warning, not an error message.  You can see what size matrix it created: 9 rows and 555 columns, so there are 4995 elements in the array.  That's usually good enough: we throw away the last 5 entries that don't form a complete subgroup.
 
 .. code-block:: s
 	
@@ -1327,10 +1327,12 @@ Notice that R gives a warning, not an error message.  You can see what size matr
 	nrow(subgroups)
 	[1] 9
 
-The next step is to calculate the mean and standard deviation of each sub-group.  For that we will use the ``apply(...)`` command, which applies any R function to a matrix along a particular direction.
+The next step is to calculate the mean and standard deviation of each subgroup, i.e. for each column in the new matrix.  For that we will use the ``apply(...)`` command, which applies any R function to a matrix along a particular direction.
 
-For example: ``apply(X, 1, sd)`` will apply the ``sd`` function to matrix ``X`` along the rows (that's what the ``1`` is for: the first dimension).  So to calculate the standard deviation and mean of each subgroup (down the column direction) you can use:
+*	``apply(X, 1, sd)`` will apply the ``sd`` function to matrix ``X`` across the row direction (that's what the ``1`` is for: the first dimension)
+*	``apply(X, 2, sd)`` will apply the ``sd`` function to matrix ``X`` across the column direction (that's what the ``2`` is for: the second array dimension)
 
+In our example the subgroups appear in each column.  So calculate the standard deviation and mean for each column:
 .. code-block:: s
 
 	subgroups.S <- apply(subgroups, 2, sd)
@@ -1343,10 +1345,13 @@ For example: ``apply(X, 1, sd)`` will apply the ``sd`` function to matrix ``X`` 
 	dim(subgroups.S)
 	NULL
 	
+**Note**: there are built-in R functions, called ``colMeans(X)`` and ``rowMeans(X)`` which will perform the specific task of applying the ``mean`` function along the column or row direction.  The ``apply`` function is more general though.
+
+
 Matrix operations
 -------------------------------------------------
 
-Once you've got your matrices created it is time to work with them: addition and subtraction, multiplication, transposes, inversion and determinants can be calculated in R.
+Once you've got your matrices created it is time to work with them: addition and subtraction, multiplication, transposes, inverses and determinants can all be calculated in R.
 
 Matrix addition and subtraction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1426,8 +1431,8 @@ Matrix transpose: ``t(X)``
 	[4,]   56   12   56   12
 	[5,]   56   12   56   12
 	
-Solving a system of equations :math:`Ax = b`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Solving a system of equations :math:`Ax = b`: ``solve(A, b)``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the ``solve(a, b, ...)`` function in R. The ``solve()`` function solves the linear system of equations :math:`Ax = b` and returns :math:`x`.  
 
@@ -1449,7 +1454,7 @@ Use the ``solve(a, b, ...)`` function in R. The ``solve()`` function solves the 
 	check <- A %*% x - b
 
 	
-Matrix inverse: ``solve(X)``
+Matrix inverse: ``solve(A)``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Recall that only square matrices, :math:`n \times n`, can be inverted.  We use the ``solve(...)``  function in R, which solves the system :math:`Ax = b`, but if we replace ``b`` with successive columns from the identity matrix, we can successively build up a solution to :math:`AA^{-1} = I`.
@@ -1459,8 +1464,8 @@ Fortunately in R, all this work is done for you automatically.  The ``solve()`` 
 .. code-block:: s
 
 	n = 4
-	X <- matrix(rnorm(n*n), n, n)
-	X.inv <- solve(X)
+	A <- matrix(rnorm(n*n), n, n)
+	A.inv <- solve(A)
 	          [,1]       [,2]      [,3]       [,4]
 	[1,] 0.6564071 0.09397735  0.769666  -0.836499
 	[2,] 6.5235936 3.83526471 15.547712 -24.572593
@@ -1468,7 +1473,7 @@ Fortunately in R, all this work is done for you automatically.  The ``solve()`` 
 	[4,] 0.7537863 0.97065805  1.759342  -3.509522
 	
 	# Should be the identity matrix
-	check <- X %*% X.inv
+	check <- A %*% A.inv
 	
 	# which it is, within machine precision:
 	              [,1]          [,2]          [,3]          [,4]
@@ -1477,6 +1482,7 @@ Fortunately in R, all this work is done for you automatically.  The ``solve()`` 
 	[3,] -5.551115e-17  0.000000e+00  1.000000e+00  0.000000e+00
 	[4,] -2.775558e-17 -4.440892e-16  5.551115e-17  1.000000e+00
 	
+The `generalized matrix inverse <http://en.wikipedia.org/wiki/Generalized_inverse>`_ can also be calculated, after loading the built-in ``MASS`` package, use the ``ginv(...)`` function.
 	
 Matrix determinant: ``det(X)``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1512,31 +1518,19 @@ Use the example below as a guide to using the ``svd`` function in R:
 	U <- decomp$u
 	V <- decomp$v
 	
-.. comment: 
+Other matrix operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	_r-vectors-matrices-qr-decomposition:
-	
-	QR decomposition: ``qr(X)``
-	
+Other important matrix operations that can be performed efficiently in R are:
 
-.. From the R manual:
+*	`Eigenvalue and eigenvector decomposition <http://en.wikipedia.org/wiki/Eigendecomposition_(matrix)>`_: ``eigen(...)``
+*	`QR decomposition <http://en.wikipedia.org/wiki/QR_decomposition>`_: ``qr(...)``
+*	`Cholesky decomposition <http://en.wikipedia.org/wiki/Cholesky_decomposition>`_: ``chol(...)``
+*	`LU decomposition <http://en.wikipedia.org/wiki/LU_decomposition>`_: ``lu(...)``, but it requires the ``Matrix`` package.
 
+.. rubric:: The ``Matrix`` package
 
-	The QR decomposition plays an important role in many statistical techniques. In particular it can be used to solve the equation \bold{Ax} = \bold{b} for given matrix \bold{A}, and vector \bold{b}. It is useful for computing regression coefficients and in applying the Newton-Raphson algorithm.
-
-	The functions qr.coef, qr.resid, and qr.fitted return the coefficients, residuals and fitted values obtained when fitting y to the matrix with QR decomposition qr. (If pivoting is used, some of the coefficients will be NA.) qr.qy and qr.qty return Q %*% y and t(Q) %*% y, where Q is the (complete) \bold{Q} matrix.
-
-	All the above functions keep dimnames (and names) of x and y if there are.
-
-	solve.qr is the method for solve for qr objects. qr.solve solves systems of equations via the QR decomposition: if a is a QR decomposition it is the same as solve.qr, but if a is a rectangular matrix the QR decomposition is computed first. Either will handle over- and under-determined systems, providing a least-squares fit if appropriate.
-
-	is.qr returns TRUE if x is a list with components named qr, rank and qraux and FALSE otherwise.
-
-	It is not possible to coerce objects to mode "qr". Objects either are QR decompositions or they are not.
-
-
-.. Cholesky decomposition: ``chol(X)``
-
+Enhanced matrix capability is provided by the ``Matrix`` package, which is not loaded by default.  To start using it, load the library as usual: ``library(Matrix)``.  Type ``help(package="Matrix")`` for more details.
 
 Next steps (coming soon)
 =========================
