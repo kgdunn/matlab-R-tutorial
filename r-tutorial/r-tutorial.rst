@@ -1077,24 +1077,26 @@ To see a list of all functions that are provided by a package:
 	
 .. r-programming-loops
 
-Programming in R: loops
-===========================
+Programming in R: loops and flow control
+=========================================
 
-R is also a general programming language.  This section is a *very* brief introduction to creating ``for`` loop and ``if-else`` loops.
+R is also a general programming language.  This section is a *very* brief introduction to creating ``for`` loops, and ``if-else`` flow control.
+
+.. _r-programming-loops-for-loop:
 
 For loops
 -----------
 
-A ``for`` loop will repeat a chunk of code a certain number of times.  The number of times it will execute is determined by the *looping variable*. In the example below we want to calculate the average of 100 uniformly distributed random numbers, and display that average 4 times (the looping variable).
+A ``for`` loop will repeat a chunk of code a certain number of times.  The number of times it will execute is determined by the *looping variable*. In this example we calculate the average of 100 uniformly distributed random numbers, and display that average 4 times (the looping variable is ``1, 2, 3, 4``).
 
 .. code-block:: s
 
 	n_loops <- 4
 	for (i in 1:n_loops)
 	{
-		# 100 uniformly distributed numbers between 1 and 6
-		x <- as.integer(runif(100, 1, 7))
-		print(mean(x))
+	    # 100 uniformly distributed numbers between 1 and 6
+	    x <- as.integer(runif(100, 1, 7))
+	    print(mean(x))
 	}
 	# Printed output
 	[1] 3.58
@@ -1103,14 +1105,14 @@ A ``for`` loop will repeat a chunk of code a certain number of times.  The numbe
 	[1] 3.71
 
 
-The looping variable, called ``i`` in the above example started at ``1`` and ended at ``n_loops``.  But we can use an arbitrary sequence of numbers in a vector to loop on:
+The looping variable, called ``i`` in the above example, started at ``1`` and ended at ``n_loops``.  But we can use an arbitrary sequence of numbers in a vector to loop on:
 
 
 .. code-block:: s
-
+	
 	for (i in seq(2, 10, 3))
 	{
-		print(i)
+	    print(i)
 	}
 	# Printed output
 	[1] 2
@@ -1121,7 +1123,7 @@ The looping variable, called ``i`` in the above example started at ``1`` and end
 	idx <- c(2, 5, 7, 3, 1)	
 	
 	# One-line for-loops can be written more compactly
-	# but become harder to read, in my opinion.
+	# but may become hard to read and debug
 	for (i in idx)  print(i)
 	
 	# Printed output
@@ -1131,10 +1133,412 @@ The looping variable, called ``i`` in the above example started at ``1`` and end
 	[1] 3
 	[1] 1
 	
-.. r-programming-functions
+Most often though we want to store the results of our ``for``-loop calculation.  You might want to read the section on creating empty :ref:`vectors and matrices <r-vectors-matrices>` first and then come back here.
 
-Programming in R: functions
-===========================
+Returning back to the previous example: let's say we want to store the mean values from the uniform distribution, instead of printing them to the screen:
+
+.. code-block:: s
+
+	n_loops <- 10
+	x.means <- numeric(n_loops)  # create a vector of zeros to store the results in
+	for (i in 1:n_loops)
+	{	    
+	    x <- as.integer(runif(100, 1, 7))  # uniformly distributed numbers between 1 and 6
+	    x.means[i] <- mean(x)
+	}	
+	x.means
+	
+	# Printed output
+	[1] 3.21 3.73 3.41 3.61 3.39 3.91 3.60 3.32 3.52 3.49
+
+.. While loops
+
+	A ``while`` loop while execute the chunk of code as long as the condition in the loop is true.  A ``while`` loop can run an infinite number of times if poorly coded, or may run zero times (intentionally).
+
+if-else flow control loops
+---------------------------
+
+Branching your code (controlling its flow) if if-else blocks is given by this syntax in R:
+
+.. code-block:: s
+
+	if (...condition 1...){
+	     .... statements ....
+	}
+	elseif(...other condition 2...){
+	     .... other statements ....
+	}
+	elseif(...other condition etc...){
+	     .... more statements ....
+	}	
+	else{
+	     .... and yet more statements ....
+	}
+	
+	
+
+
+..	Comments
+	
+	_r-programming-functions:
+
+	Programming in R: functions
+
+.. _r-vectors-matrices:
+
+Vectors and matrices
+=====================
+
+
+Creating matrices and vectors 
+-------------------------------------------
+
+An vector of zeros is created using the ``numeric`` function.  This is used, for example, to initialize a vector of zeros before calling a :ref:`for loop <r-programming-loops-for-loop>` to fill the entries in that vector.  This is called *preallocation*, and is good programming practice in any language: rather preallocate the matrix for storage than incrementally add entries to an existing matrix.
+
+.. code-block:: s
+
+	numeric(6)
+	[1] 0 0 0 0 0 0
+	
+An matrix or vector can be created using the ``matrix`` function.  The advantage of the ``matrix`` function is that it can set the values to a non-zero, or missing values (``NA``):
+
+.. code-block:: s
+
+	# Matrix of zeros:
+	matrix(data=0, nrow=2, ncol=3)
+	     [,1] [,2] [,3]
+	[1,]    0    0    0
+	[2,]    0    0    0
+	
+	# Column vector of missing values:
+	matrix(nrow=4)
+	     [,1]
+	[1,]   NA
+	[2,]   NA
+	[3,]   NA
+	[4,]   NA
+	
+	# Row vector of seven 7's
+	matrix(data=7, ncol=7)
+	     [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+	[1,]    7    7    7    7    7    7    7
+	
+I prefer to allocate matrices with missing entries, ``NA``, because it is easy to check after the loop if you have missed any entries. For example, for matrix ``X``, we can check: ``any(is.na(X))``
+	
+There is yet another way to create a matrix or vector of only *zero entries*:
+
+.. code-block:: s
+
+	# 3x1 vector of zeros
+	mat.or.vec(3, 1)
+	
+	# 2x3 matrix of zeros
+	mat.or.vec(2, 3)
+	
+	
+**Creating a matrix from several vectors**
+
+If you have a some equal-length vectors you might want to stack them together to create a matrix.
+
+Stacking vectors side-by-side: ``cbind`` 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``cbind`` function will put each vector in a column and return the matrix.  Let's say we wanted to use only a subset of the columns from a given data frame:
+
+.. code-block:: s
+
+	bio <- read.csv('http://datasets.connectmv.com/file/bioreactor-yields.csv')
+	bio
+	   temperature duration speed baffles yield
+	1           82      260  4300      No    51
+	2           90      260  3700     Yes    30
+	..         ...      ...  ....     ...    ..
+	13         101      260  4400      No    42
+	14          92      260  4900     Yes    38
+	
+	data <- cbind(bio$temperature, bio$ speed)
+	data
+	      [,1] [,2]
+	 [1,]   82 4300
+	 [2,]   90 3700
+	.....  ... .... 
+	[13,]  101 4400
+	[14,]   92 4900
+
+
+Stacking top-to-bottom: ``rbind``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the ``rbind`` function to join existing matrices or vectors, one on top of another:
+
+Create a matrix with 2 rows and 4 columns filled with random numbers, and another matrix containing 3 rows and 4 columns, filled with the number 2.6.  Then to stack them:
+
+.. code-block:: s
+	
+	X <- matrix(rnorm(2*4), 2, 4)
+	Y <- matrix(data=2.6, nrow=3, ncol=4)
+
+	rbind(X,Y)
+	
+	          [,1]       [,2]       [,3]        [,4]
+	[1,] 0.6096289 -0.3730975 -1.0376647 -0.01033531
+	[2,] 0.6305808 -0.6768284  0.4918309 -0.44430265
+	[3,] 2.6000000  2.6000000  2.6000000  2.60000000
+	[4,] 2.6000000  2.6000000  2.6000000  2.60000000
+	[5,] 2.6000000  2.6000000  2.6000000  2.60000000
+
+Reshaping a vector into a matrix
+-------------------------------------------
+
+.. TODO:KGD : link to PID book here later on
+
+There are occasions when we need to create subgroups of data from a vector. This happens, for example, when constructing control charts:
+
+*	we need to create the subgroups from  *non-overlapping* segments in the vector
+*	we need to do calculations on these subgroups
+
+
+Once way to construct the subgroups is to use two for-loops to extract the necessary data.  This works, but can get messy.  There is an alternative way: by rearranging your vector into a matrix.
+
+Let the raw data be given by this vector:
+
+.. code-block:: s
+
+	N.raw = 5000 
+	raw <- rnorm(N.raw, mean=220, sd=50)  
+	plot(raw)
+
+Let's say our subgroup size is 9.  Now 5000 is not neatly divisible by 9, but this doesn't matter.  We create a matrix with 9 rows and as many columns as we can (roughly 5000/9).
+
+.. code-block:: s
+	
+	N.sub = 9
+	subgroups <- matrix(raw, N.sub, N.raw/N.sub)
+	# Warning message:
+	# In matrix(raw, N.sub, N.raw/N.sub) :
+	#   data length [5000] is not a sub-multiple or multiple of the number of rows [9]
+
+Notice that R gives a warning, not an error message.  You can see what size matrix it created: 9 rows and 555 columns, so there are 4995 elements in the array.  That's good enough.
+
+.. code-block:: s
+	
+	dim(subgroups)
+	[1]   9 555  
+	
+	nrow(subgroups)
+	[1] 9
+
+The next step is to calculate the mean and standard deviation of each sub-group.  For that we will use the ``apply(...)`` command, which applies any R function to a matrix along a particular direction.
+
+For example: ``apply(X, 1, sd)`` will apply the ``sd`` function to matrix ``X`` along the rows (that's what the ``1`` is for: the first dimension).  So to calculate the standard deviation and mean of each subgroup (down the column direction) you can use:
+
+.. code-block:: s
+
+	subgroups.S <- apply(subgroups, 2, sd)
+	subgroups.xbar <- apply(subgroups, 2, mean)
+
+	length(subgroups.S)
+	[1] 555
+	
+	# "subgroups.S" is not a matrix, so the "dim" function isn't valid
+	dim(subgroups.S)
+	NULL
+	
+Matrix operations
+-------------------------------------------------
+
+Once you've got your matrices created it is time to work with them: addition and subtraction, multiplication, transposes, inversion and determinants can be calculated in R.
+
+Matrix addition and subtraction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: s
+
+	X <- matrix(data=56, nrow=4, ncol=5)
+	Y <- matrix(data=32, nrow=4, ncol=5)
+	X+Y
+	     [,1] [,2] [,3] [,4] [,5]
+	[1,]   88   88   88   88   88
+	[2,]   88   88   88   88   88
+	[3,]   88   88   88   88   88
+	[4,]   88   88   88   88   88
+
+	X-Y
+	     [,1] [,2] [,3] [,4] [,5]
+	[1,]   24   24   24   24   24
+	[2,]   24   24   24   24   24
+	[3,]   24   24   24   24   24
+	[4,]   24   24   24   24   24
+
+Matrix multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Element-by-element multiplication**
+
+.. code-block:: s
+
+	a <- matrix(data=5, nrow=4, ncol=5)
+	b <- matrix(data=6, nrow=4, ncol=5)
+	
+	a*b
+	     [,1] [,2] [,3] [,4] [,5]
+	[1,]   30   30   30   30   30
+	[2,]   30   30   30   30   30
+	[3,]   30   30   30   30   30
+	[4,]   30   30   30   30   30
+
+
+**The usual algebraic matrix multiplication** - which is probably what you are expecting when multiplying matrices:
+
+.. code-block:: s
+
+	a <- matrix(data=5, nrow=4, ncol=5)
+	b <- matrix(data=6, nrow=5, ncol=3)
+	dim(a)
+	[1] 4 5
+	dim(b)
+	[1] 5 3
+
+	a %*% b
+	     [,1] [,2] [,3]
+	[1,]  150  150  150
+	[2,]  150  150  150
+	[3,]  150  150  150
+	[4,]  150  150  150
+
+Matrix transpose: ``t(X)`` 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: s
+
+	X <- matrix(data=c(56,12), nrow=4, ncol=5)
+	X
+	     [,1] [,2] [,3] [,4] [,5]
+	[1,]   56   56   56   56   56
+	[2,]   12   12   12   12   12
+	[3,]   56   56   56   56   56
+	[4,]   12   12   12   12   12
+	
+	t(X)
+	     [,1] [,2] [,3] [,4]
+	[1,]   56   12   56   12
+	[2,]   56   12   56   12
+	[3,]   56   12   56   12
+	[4,]   56   12   56   12
+	[5,]   56   12   56   12
+	
+Solving a system of equations :math:`Ax = b`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the ``solve(a, b, ...)`` function in R. The ``solve()`` function solves the linear system of equations :math:`Ax = b` and returns :math:`x`.  
+
+..	Also see the discussion :ref:`in the QR decomposition section <r-vectors-matrices-qr-decomposition>` later on.
+
+.. code-block:: s
+
+	A <- matrix(data = c(2,4,6, 5, 2, 7, 6, 2, 2), 3, 3)
+	b <- matrix(data = c(6, 2, 2), nrow=3) 
+	x <- solve(A, b)
+	
+	x	
+	     [,1]
+	[1,]    0
+	[2,]    0
+	[3,]    1
+	
+	# Should be a vector of zeros:
+	check <- A %*% x - b
+
+	
+Matrix inverse: ``solve(X)``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Recall that only square matrices, :math:`n \times n`, can be inverted.  We use the ``solve(...)``  function in R, which solves the system :math:`Ax = b`, but if we replace ``b`` with successive columns from the identity matrix, we can successively build up a solution to `AA^{-1} = I`.
+
+Fortunately in R, all this work is done for you automatically.  The ``solve()`` function creates an identity matrix if you don't supply the ``b`` argument.  So to invert a matrix :math:`X`:
+
+.. code-block:: s
+
+	n = 4
+	X <- matrix(rnorm(n*n), n, n)
+	X.inv <- solve(X)
+	          [,1]       [,2]      [,3]       [,4]
+	[1,] 0.6564071 0.09397735  0.769666  -0.836499
+	[2,] 6.5235936 3.83526471 15.547712 -24.572593
+	[3,] 3.4061013 2.48309826  8.647189 -13.329604
+	[4,] 0.7537863 0.97065805  1.759342  -3.509522
+	
+	# Should be the identity matrix
+	check <- X %*% X.inv
+	
+	# which it is, within machine precision:
+	              [,1]          [,2]          [,3]          [,4]
+	[1,]  1.000000e+00  0.000000e+00 -1.110223e-16 -8.881784e-16
+	[2,] -9.714451e-17  1.000000e+00  1.387779e-17  5.551115e-17
+	[3,] -5.551115e-17  0.000000e+00  1.000000e+00  0.000000e+00
+	[4,] -2.775558e-17 -4.440892e-16  5.551115e-17  1.000000e+00
+	
+	
+Matrix determinant: ``det(X)``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Recall that the determinant is only computable for a square, :math:`n \times n` matrix.
+
+.. code-block:: s
+
+	N = 4
+	X <- diag(x=3, N, N)
+	det(X)
+	[1] 81
+	
+
+Singular value decomposition: ``svd(X)``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The singular value decomposition (SVD) is useful for solving certain principal component analysis models, amongst other uses.  The SVD is given by:
+
+.. math::
+
+	\bf X = U D V'
+	
+where matrices :math:`\bf{U}` and :math:`\bf{V}` are orthogonal, and matrix :math:`\bf{D}` is a diagonal matrix, containing the singular values.  For efficiency, the entries in :math:`\bf{D}` are returned as a vector.
+
+Use the example below as a guide to using the ``svd`` function in R:
+
+.. code-block:: s
+
+	X <- matrix(data=rnorm(10*5), 10, 5)
+	decomp <- svd(X)
+	d.vector <- decomp$d
+	U <- decomp$u
+	V <- decomp$v
+	
+.. comment: 
+
+	_r-vectors-matrices-qr-decomposition:
+	
+	QR decomposition: ``qr(X)``
+	
+
+.. From the R manual:
+
+
+	The QR decomposition plays an important role in many statistical techniques. In particular it can be used to solve the equation \bold{Ax} = \bold{b} for given matrix \bold{A}, and vector \bold{b}. It is useful for computing regression coefficients and in applying the Newton-Raphson algorithm.
+
+	The functions qr.coef, qr.resid, and qr.fitted return the coefficients, residuals and fitted values obtained when fitting y to the matrix with QR decomposition qr. (If pivoting is used, some of the coefficients will be NA.) qr.qy and qr.qty return Q %*% y and t(Q) %*% y, where Q is the (complete) \bold{Q} matrix.
+
+	All the above functions keep dimnames (and names) of x and y if there are.
+
+	solve.qr is the method for solve for qr objects. qr.solve solves systems of equations via the QR decomposition: if a is a QR decomposition it is the same as solve.qr, but if a is a rectangular matrix the QR decomposition is computed first. Either will handle over- and under-determined systems, providing a least-squares fit if appropriate.
+
+	is.qr returns TRUE if x is a list with components named qr, rank and qraux and FALSE otherwise.
+
+	It is not possible to coerce objects to mode "qr". Objects either are QR decompositions or they are not.
+
+
+.. Cholesky decomposition: ``chol(X)``
+
+
 
 Next steps (coming soon)
 =========================
