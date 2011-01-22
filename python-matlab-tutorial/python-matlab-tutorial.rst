@@ -157,11 +157,11 @@ Spyder (Scientific PYthon Development EnviRonment) is the name of the developmen
 
 * Python(x,y) has a layout similar to that shown below 
 
-	.. figure:: images/layout-pythonxy-low.jpg
-		:scale: 100
-		:width: 500
-		:align: center
-	
+.. figure:: images/layout-pythonxy-low.jpg
+	:scale: 100
+	:width: 500
+	:align: center
+
 	
 **1. Command Window**
 
@@ -208,11 +208,11 @@ This tutorial step assumes that you have :ref:`already installed <matpy-mac-linu
 
 	and you should get something similar to this window
 	
-		.. figure:: images/Ipython-mac-screenshot.jpg	
-			:scale: 100
-			:width: 400px
-			:align: center
-			
+	.. figure:: images/Ipython-mac-screenshot.jpg	
+		:scale: 100
+		:width: 400px
+		:align: center
+		
 Linux users
 -----------------------
 
@@ -224,10 +224,10 @@ I expect you know how to start your shell, e.g. the ``bash`` shell.  Once you ar
 
 and you should get something similar to this window (screen shot from Ubuntu Linux):
 
-	.. figure:: images/Ipython-ubuntu-screenshot.jpg
-		:scale: 100
-		:width: 400px
-		:align: center
+.. figure:: images/Ipython-ubuntu-screenshot.jpg
+	:scale: 100
+	:width: 400px
+	:align: center
 
 where you can type in Python commands.
 

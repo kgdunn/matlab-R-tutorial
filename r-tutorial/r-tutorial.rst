@@ -9,7 +9,7 @@ R is a software package for statistical computing and graphics.  It has become a
 * The software can be installed on a local desktop, or in a networked environment and run remotely.
 * It is free (both for academic and commercial use), so it can be used in any academic or corporate environment.
 * Installation is straightforward,
-* The license is not restrictive: you can legally modify and improve the software.
+* The :index:`open-source` license is not restrictive: you can legally modify and improve the software.
 * There are excellent add-on libraries for almost anything related to data analysis.
 * It promotes good statistical practice of writing a code file, and then running it (like MATLAB). The code file documents what you have done, and you can always repeat your analysis on a new data set, or share the code with colleagues. Other software packages tend to promote a more point-and-click approach, so you can't always retrace your steps.
 * There are multicore and 64-bit versions of R available to process large data sets, and do parallel data processing.
@@ -589,6 +589,7 @@ The above code shows that you must surround your plot with the ``bmp(...)`` func
 
 *	``png`` files: use the ``png(...)`` function
 *	``jpg`` files: use the ``jpeg(...)`` function
+*	``pdf`` files: use the ``pdf(...)`` function
 
 
 **Advanced users**
@@ -1074,11 +1075,71 @@ To see a list of all functions that are provided by a package:
 
 	help(package="car")
 	
+.. r-programming-loops
 
+Programming in R: loops
+===========================
+
+R is also a general programming language.  This section is a *very* brief introduction to creating ``for`` loop and ``if-else`` loops.
+
+For loops
+-----------
+
+A ``for`` loop will repeat a chunk of code a certain number of times.  The number of times it will execute is determined by the *looping variable*. In the example below we want to calculate the average of 100 uniformly distributed random numbers, and display that average 4 times (the looping variable).
+
+.. code-block:: s
+
+	n_loops <- 4
+	for (i in 1:n_loops)
+	{
+		# 100 uniformly distributed numbers between 1 and 6
+		x <- as.integer(runif(100, 1, 7))
+		print(mean(x))
+	}
+	# Printed output
+	[1] 3.58
+	[1] 3.67
+	[1] 3.13
+	[1] 3.71
+
+
+The looping variable, called ``i`` in the above example started at ``1`` and ended at ``n_loops``.  But we can use an arbitrary sequence of numbers in a vector to loop on:
+
+
+.. code-block:: s
+
+	for (i in seq(2, 10, 3))
+	{
+		print(i)
+	}
+	# Printed output
+	[1] 2
+	[1] 5
+	[1] 8
+	
+	# We can create the vector ahead of time
+	idx <- c(2, 5, 7, 3, 1)	
+	
+	# One-line for-loops can be written more compactly
+	# but become harder to read, in my opinion.
+	for (i in idx)  print(i)
+	
+	# Printed output
+	[1] 2
+	[1] 5
+	[1] 7
+	[1] 3
+	[1] 1
+	
+.. r-programming-functions
+
+Programming in R: functions
+===========================
 
 Next steps (coming soon)
 =========================
 
+* Describe R data frames.
 * For-loop, if- and while-loops in R
 * Dealing with vectors and matrices 
 * Linear models in R 
