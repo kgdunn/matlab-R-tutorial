@@ -1061,7 +1061,7 @@ Once the library is installed, you first need to load it.  For example, to gener
 	library(car)
 	qqPlot(data)
 	
-.. ucomment:: H7Xatt: Xg*, 6x*,
+.. ucomment:: H7Xatt: Xg, 6x*,
 
 will generate:
 
