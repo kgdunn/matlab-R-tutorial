@@ -954,7 +954,7 @@ Similar to the above, we call the function by combining ``p`` - to get the cumul
 
 *	For the *normal* distribution: ``pnorm(...)`` and ``qnorm(...)``
 
-*	For the :math:`t` distribution: ``pt(...)`` and ``qt(...)``
+*	For the :math:`t`-distribution: ``pt(...)`` and ``qt(...)``
 
 *	For the :math:`F`-distribution: ``pf(...)`` and ``qf(...)``
 	
@@ -962,6 +962,13 @@ Similar to the above, we call the function by combining ``p`` - to get the cumul
 
 Obtaining random numbers from a particular distribution
 ---------------------------------------------------------
+
+To obtain a single random number from the normal distribution with mean of 0 and standard deviation of 1.0:
+
+.. code-block:: s
+
+	rnorm(1)
+	[1]  -0.3451397
 
 For example, to obtain 10 random, normally distributed values:
 
@@ -1161,7 +1168,7 @@ Returning back to the previous example: let's say we want to store the mean valu
 if-else flow control loops
 ---------------------------
 
-Branching your code (controlling its flow) if if-else blocks is given by this syntax in R:
+Branching your code (controlling its flow) using if-else blocks is given by this syntax in R:
 
 .. code-block:: s
 
@@ -1184,6 +1191,25 @@ Branching your code (controlling its flow) if if-else blocks is given by this sy
 	_r-programming-functions:
 
 	Programming in R: functions
+	
+	Example:
+	
+	# We are going to repeatedly have to calculate the phase 1 limits.  Create a function.
+	shewhart_limits <- function(xbar, S, subgroup.size, N.stdev=3){
+	    # Give the xbar and S vector containing the subgroup means and standard deviations.
+	    # Also give the subgroup size used.  Returns the lower and upper control limits
+	    # for the Shewhart chart (UCL and LCL) which are N.stdev away from the target.
+
+	    x.double.bar <- mean(xbar)     
+	    s.bar <- mean(S)
+	    an = c(NA, 0.793, 0.886, 0.921, 0.940, 0.952, 0.959, 0.965)
+	    LCL <- x.double.bar - 3*s.bar/an[subgroup.size]/sqrt(subgroup.size)
+	    UCL <- x.double.bar + 3*s.bar/an[subgroup.size]/sqrt(subgroup.size)
+	    c(LCL, UCL)
+
+	return(list(LCL, x.double.bar, UCL))
+	}
+	
 
 .. _r-vectors-matrices:
 
@@ -1335,6 +1361,7 @@ The next step is to calculate the mean and standard deviation of each subgroup, 
 *	``apply(X, 2, sd)`` will apply the ``sd`` function to matrix ``X`` across the column direction (that's what the ``2`` is for: the second array dimension)
 
 In our example the subgroups appear in each column.  So calculate the standard deviation and mean for each column:
+
 .. code-block:: s
 
 	subgroups.S <- apply(subgroups, 2, sd)
