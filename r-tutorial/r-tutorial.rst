@@ -633,7 +633,7 @@ You will get this plot:
 .. figure:: images/default-histogram-density2.jpg
 	:alt:	images/default-histogram-density2.R
 	:scale: 100
-	:width: 750px
+	:width: 500px
 	:align: center
 	
 You can change the axis labels and the main title by using the :ref:`usual plot arguments <r-other-plot-options>` described earlier.
@@ -1035,6 +1035,8 @@ At the R command prompt, write:
 *	Click ``OK`` once it shows you the list of packages that will be updated.
 
 R will fetch and install any updates it requires.
+
+..  _r-installing-packages:
 
 Installing a new package
 --------------------------
@@ -1561,11 +1563,613 @@ Other important matrix operations that can be performed efficiently in R are:
 
 Enhanced matrix capability is provided by the ``Matrix`` package, which is not loaded by default.  To start using it, load the library as usual: ``library(Matrix)``.  Type ``help(package="Matrix")`` for more details.
 
+Building a least squares model in R
+========================================
+
+.. note:: A particularly useful tutorial for the theory of least squares are Chapters 5, 9 and 10 of the book http://dx.doi.org/10.1007/b97671 Introductory Statistics with R by Dalgaard. Students can often access the PDF version from their university computers.
+
+
+The ``lm(...)`` function is the primary tool to build a linear model in R.  The input for this function must be a formula object (type ``help(formula)`` for further info).  In the example below the formula is ``y ~ x``.
+
+.. code-block:: s
+
+	x <- c(1, 2, 3, 4, 5)
+	y <- c(2, 3, 4, 4, 5)
+	model <- lm(y~x)
+
+The output from ``lm`` is a linear model *object*, also called an ``lm`` object.  In R you can get a description of most objects when using the ``summary(...)`` command.
+
+.. code-block:: s
+
+	summary(model)
+	Call:
+	lm(formula = y ~ x)
+
+	Residuals:
+	        1         2         3         4         5 
+	-2.00e-01  1.00e-01  4.00e-01 -3.00e-01  2.29e-16 
+
+	Coefficients:
+	            Estimate Std. Error t value Pr(>|t|)   
+	(Intercept)   1.5000     0.3317   4.523  0.02022 * 
+	x             0.7000     0.1000   7.000  0.00599 **
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+	Residual standard error: 0.3162 on 3 degrees of freedom
+	Multiple R-squared: 0.9423,	Adjusted R-squared: 0.9231 
+	F-statistic:    49 on 1 and 3 DF,  p-value: 0.005986
+
+This output gives you the intercept and slope for the equation :math:`y = b_0 + b_1 x` and in this case it is :math:`y = 1.5 + 0.7x`.  The residual standard error, :math:`S_E = 0.3162` and :math:`R^2 = 0.9423`.  
+
+Extracting information from a linear model in R
+================================================
+
+Getting the model coefficients: ``coef(model)``
+-------------------------------------------------
+
+Once the model is built, :math:`y = b_0 + b_1 x + e`, you can see that the :math:`b_0` coefficient is 1.50 and :math:`b_1` coefficient is 0.70 from the above ``summary(...)`` output.  What if you want the coefficients directly?
+
+.. code-block:: s
+
+	model.cf <- coef(model)
+	model.cf
+	# (Intercept)           x 
+	#         1.5         0.7
+	b.0 <- model.cf[1]
+	b.1 <- model.cf[2]
+
+	# Use the model to calculate predictions for some new x-values
+	# (although we show a better way to do this further down!)
+	x.new = c(1.5, 2, 4)
+	y.new = b.0 + b.1 * x.new
+	y.new
+	# [1] 2.55 2.90 4.30
+
+Getting the model's residuals, standard error, and predicted values 
+--------------------------------------------------------------------
+
+The linear model object, ``model``, in this example, contains several attributes (sub-entries) that you can access.  For example, the residuals:
+
+.. code-block:: s
+
+	model$residuals
+	#             1             2             3             4             5 
+	# -2.000000e-01  1.000000e-01  4.000000e-01 -3.000000e-01  2.289835e-16
+
+There are several other attributes; use the ``names(...)`` function to get a complete list of attributes.
+
+.. code-block:: s
+
+	names(model)
+	# [1] "coefficients"  "residuals"     "effects"       "rank"          "fitted.values" "assign"       
+	# [7] "qr"            "df.residual"   "xlevels"       "call"          "terms"         "model"
+
+Another example is ``model$df.residual``, which will give you the number of degrees of freedom associated with the residuals (3 in this case).
+
+However, there is a preferred way to access most of the common attributes.  These are called accessor functions.
+
+====================================    ===========================    ============================= 
+Item type                               Sub-entry in linear model      Preferred way to access it    
+====================================    ===========================    ============================= 
+Model coefficients                      ``model$coefficients``         ``coef(model)``               
+Residuals                               ``model$residuals``            ``residuals(model)``          
+Predicted outputs, :math:`\hat{y}`      ``model$fitted.values``        ``fitted(model)``             
+====================================    ===========================    ============================= 
+
+.. <syntaxhighlight lang="R">
+.. (Intercept)           x 
+..         1.5         0.7
+.. </syntaxhighlight>
+.. 
+.. <syntaxhighlight lang="R">
+..             1             2             3             4             5 
+.. -2.000000e-01  1.000000e-01  4.000000e-01 -3.000000e-01  2.289835e-16
+.. </syntaxhighlight>
+.. 
+.. <syntaxhighlight lang="R">
+..   1   2   3   4   5 
+.. 2.2 2.9 3.6 4.3 5.0
+.. </syntaxhighlight>
+.. 
+
+Unfortunately there is no standard way to get access to the standard error (that I am aware of). This approach will work though:
+
+.. code-block:: s
+
+	SE <- sqrt( sum( residuals(model)^2 ) / model$df.residual )
+	
+The above is just a direct implementation of :math:`S_E = \sqrt{\frac{\displaystyle \sum{e_i^2}}{\displaystyle n - k }}`
+
+Checking if the residuals are normally distributed: ``qqPlot(model)``
+-----------------------------------------------------------------------
+
+Here's another example of the object nature of a linear model.  Certain functions in R will work on these objects and do something sensible with them.  For example, the ``qqplot(...)`` function will check that the residuals are normally distributed.  You :ref:`first need to install <r-installing-packages>` and load the ``car`` library though:
+
+.. code-block:: s
+
+	library(car)
+	qqPlot(model)
+	# Don't be surprised if the plot looks strange - there are only 5 observations in this model.
+	
+Calculating confidence intervals for the model parameters: ``confint(model)``
+--------------------------------------------------------------------------------------------------
+
+We know that the confidence intervals for :math:`\beta_0` and :math:`\beta_1` are given by:
+
+.. math::
+
+	\begin{array}{rccclrcccl} 
+		b_0 - c_t S_E(b_0)   &\leq& \beta_0                         &\leq&	b_0 + c_t S_E(b_0)  &\qquad b_1 - c_t S_E(b_1)   &\leq& \beta_1                         &\leq&	b_1 + c_t S_E(b_1)
+	\end{array}
+
+where the :math:`c_t` value is the critical value from the t-distribution at the particular confidence level, e.g. 95%.
+
+.. math::
+
+	\begin{array}{rcl} 
+	S_E^2(b_0) &=& \mathcal{V}\{b_0\} = S_E^2 \left(\dfrac{1}{n} + \dfrac{\bar{\mathrm{x}}^2}{\sum_j{\left( x_j - \bar{\mathrm{x}} \right)^2}} \right)\\
+	S_E^2(b_1) &=& \mathcal{V}\{b_1\} = \dfrac{S_E^2}{\sum_j{\left( x_j - \bar{\mathrm{x}} \right)^2}}
+	\end{array}
+
+Fortunately you don't need to perform these tedious calculations by hand in R every time.  Use the ``confint(...)`` function instead.  Below we calculate the 99% confidence intervals for the intercept and slope.  Note that the intercept CI crosses zero in this example.
+
+.. code-block:: s
+
+	confint(model, level=0.99)
+	#                  0.5 %   99.5 %
+	# (Intercept) -0.4372105 3.437210
+	# x            0.1159091 1.284091
+
+
+Using a linear model with new :math:`x`-values: ``predict(model, ...)``
+----------------------------------------------------------------------------
+
+Other than learning more about our system (i.e. interpreting the model parameter confidence intervals), we also build models to make predictions from future :math:`x` data.  We use the ``predict(model, ...)`` function in R.  With no additional options, it will return the model training predictions, the same output as ``fitted(model)``.
+
+.. code-block:: s
+
+	predict(model)
+	#   1   2   3   4   5 
+	# 2.2 2.9 3.6 4.3 5.0
+
+But we must first create a prediction data set to use the model on new :math:`x` data.  I'm going to create a new model for this section.
+
+.. code-block:: python
+
+	density <- c(800, 1100, 1200, 1000, 1150)
+	viscosity <- c(96, 73, 53, 72, 53)
+	model <- lm(viscosity ~ density)
+
+Now create a new data set containing 6 ``density.new`` values.  The key point is that the column name in this new data frame *must be the same* one that was used to build the model (i.e. ``density``).
+
+.. code-block:: s
+
+	density.new <- data.frame(density = c(750, 850, 950, 1050, 1150, 1250))
+	density.new
+	#   density
+	# 1     750
+	# 2     850
+	# 3     950
+	# 4    1050
+	# 5    1150
+	# 6    1250
+
+Now use this new data frame in the ``predict(model, ...)`` function as the ``newdata`` argument:
+
+.. code-block:: s
+
+	y.hat.new <- predict(model, newdata=density.new)
+	y.hat.new
+	#     1     2     3     4     5     6 
+	# 101.5  90.8  80.1  69.4  58.7  48.0
+
+Let's visualize this: these predictions are shown in red, and the least squares line in green.
+
+.. code-block:: python
+
+	plot(density, viscosity, ylim=range(y.hat.new))
+	points(density.new$density, y.hat.new, col="red", lwd=2)
+	abline(model, col="darkgreen")
+
+.. figure:: images/least-squares-prediction-plot.jpg
+	:scale: 100
+	:width: 500px
+	:align: center
+
+Recall that the prediction interval for :math:`\hat{y}` from a new x measurement :math:`x_\text{new}` is given by: :math:`\hat{y}_i \pm c_t \sqrt{V\{\hat{y}_i\}}` where :math:`\mathcal{V}\{\hat{y}_i\} = S_E^2\left(1 + \dfrac{1}{n} + \dfrac{(x_i - \bar{\mathrm{x}})^2}{\sum_j{\left( x_j - \bar{\mathrm{x}} \right)^2}}\right)`
+
+Again, this is tedious to calculate by hand.  For example, to get the 90% prediction intervals (PI).
+
+.. code-block:: s
+
+	y.hat.new.PI <- predict(model, newdata=density.new, interval="p", level=0.90)
+	y.hat.new.PI
+	#     fit      lwr       upr
+	# 1 101.5 79.90412 123.09588
+	# 2  90.8 71.94957 109.65043
+	# 3  80.1 63.10846  97.09154
+	# 4  69.4 53.07505  85.72495
+	# 5  58.7 41.70846  75.69154
+	# 6  48.0 29.14957  66.85043
+
+The lower and upper bounds are the last two columns, while the fitted (prediction) values are in the first column. So now add the prediction interval to our visualization.  Notice the expected quadratic curvature.
+
+.. code-block:: s
+
+	plot(density, viscosity, ylim=range(y.hat.new.PI))
+	points(density.new$density, y.hat.new.PI[,1], col="red", lwd=2)
+	abline(model, col="darkgreen")
+	lines(density.new$density, y.hat.new.PI[,2], col="red", lty=2)
+	lines(density.new$density, y.hat.new.PI[,3], col="red", lty=2)
+
+.. figure:: images/least-squares-prediction-plot-with-PI.jpg
+	:scale: 100
+	:width: 500px
+	:align: center
+
+
+Testing a linear model in R
+============================
+
+In this section we show how to build a model from some data, and then test it on the rest.  Construct an x-vector ``input`` and a y-vector ``response`` both with 200 observations. Use 150 observation to build the model, then use the remaining 50 to test the model.
+
+.. code-block:: python
+
+	input <- rnorm(200, mean=50, sd=12)
+	response <- 0.7*input + 50 + rnorm(200, sd=10)
+
+	# Create index vectors that indicate observations for building and testing:
+	build.index = seq(1, 150)
+	test.index  = seq(151, 200)
+
+	# Build the model:
+	model <- lm(response ~ input, subset=build.index)
+	summary(model)
+
+	# Test model. Create data frame from the rest of the "input" x-variable.
+	x.new <- data.frame(input = input[test.index])
+	y.hat.new <- predict(model, newdata=x.new)
+
+	# Get the actual y-values from the testing data
+	y.actual = response[test.index]
+
+	# Plot the errors first, looking for structure. 
+	errors <- (y.actual - y.hat.new)
+	plot(errors)
+
+	# Calculate RMSEP, and compare to model's standard error, and residuals.
+	RMSEP <- sqrt(mean(errors^2))
+	summary(residuals(model))
+
+.. remove observations from an existing model and rebuild it: lm(model, subset=build) to update the model 
+
+	Transformation of data in a linear model
+	----------------------------------------------------------------------------
+
+	This is shown by example for a few cases:
+	{| class="wikitable"
+	|-
+	!
+	! Desired model
+	! Formula function in R
+	|-
+	| Standard, univariate model
+	| :math:`y = b_0 + b_1 x`
+	| ``y ~ x``
+	|-
+	| Force intercept to zero (check the degrees of freedom!)
+	| :math:`y = b_1 x`
+	| ``y ~ x + 0``
+	|-
+	| Transformation of an x
+	| :math:`y = b_0 + \sqrt{x}`
+	| ``y ~ sqrt(x)``
+	|-
+	| Transformation of y
+	| :math:`\log(y) = b_0 + b_1 x`
+	| ``log(y) ~ x``
+	|-
+	| Transformation of y
+	| :math:`100/y= b_0 + b_1 x`
+	| ``100/y ~ x``
+	|-
+	| Transformation of x: '''+, -, /, * and ^ do not work on the right hand side!'''
+	| :math:`y= b_0 + b_1 \times 20/x`
+	| ``y ~ 20/x``: gives an error
+	|-
+	| Most transformations of x must be wrapped in an AsIs ``I()`` operation:
+	| :math:`y= b_0 + b_1 \times 20/x`
+	| ``y ~ I(20/x)``
+	|-
+	| Most transformations of x must be wrapped in an AsIs ``I()`` operation:
+	| :math:`y= b_0 + b_1 x^2`
+	| ``y ~ I(x^2)``
+	|-
+	| Another use of the AsIs ``I()`` operation
+	| :math:`y= b_0 + b_1 (x - \bar{x})`
+	| ``y ~ I(x - mean(x))``
+	|}
+
+	Finding outliers, discrepancies and other influential points: ``influencePlot(model)``
+	------------------------------------------------------------------------------------------
+
+	[[Correlation,_covariance_and_least_squares | From class]], recall that influence measures give a number for each observation in the model building data set.  We use plots of these numbers to decide how to treat outliers.
+
+	For this section we will use a data set that is built into R, the stack-loss data set. It is 21 days of plant data from oxidizing ammonia to nitric acid.
+	<syntaxhighlight lang="R">
+	attach(stackloss)
+	summary(stackloss)
+	#     Air.Flow       Water.Temp      Acid.Conc.      stack.loss   
+	#  Min.   :50.00   Min.   :17.00   Min.   :72.00   Min.   : 7.00  
+	#  1st Qu.:56.00   1st Qu.:18.00   1st Qu.:82.00   1st Qu.:11.00  
+	#  Median :58.00   Median :20.00   Median :87.00   Median :15.00  
+	#  Mean   :60.43   Mean   :21.10   Mean   :86.29   Mean   :17.52  
+	#  3rd Qu.:62.00   3rd Qu.:24.00   3rd Qu.:89.00   3rd Qu.:19.00  
+	#  Max.   :80.00   Max.   :27.00   Max.   :93.00   Max.   :42.00
+	</syntaxhighlight>
+
+	We will consider only the effect of air flow and stack loss (stack loss here in an inverse measure of plant efficiency).  Type ``help(stackloss)`` for more details about the data. Build the model and investigate the normality of the residuals. 
+	<syntaxhighlight lang="R">
+	model <- lm(stack.loss ~ Air.Flow)
+	library(car)
+	qq.plot(model)  # Use the mouse to click on the outliers and ID them
+	</syntaxhighlight>
+
+	From clicking on the points we see that observations 1, 2, 3 and 21 are quite unusual.  These observations have residuals larger than what would be expected from a normal distribution.  We don't exclude them yet.  Let's first examine if they appear is some of the other plots.
+
+	{| class="wikitable"
+	|-
+	| '''''Leverage''''': a plot of the hat-values
+	<syntaxhighlight lang="R">
+	plot(hatvalues(model))
+	hat.avg <- model$rank/length(stack.loss)
+	abline(h=c(2,3)*hat.avg, lty=2, col=c("orange", "red"))
+	identify(hatvalues(model))
+	# [1] 1 2
+	</syntaxhighlight>
+	The average hat value is at :math:`k/n`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.
+	| ''Click on image to enlarge'' 
+	[[Image:tutorial-5-hats-plot.png|250px]]
+	|-
+	| '''''Discrepancy''''': a plot of the studentized residuals
+	<syntaxhighlight lang="R">
+	plot(rstudent(model))
+	abline(h=0, lty=2)
+	abline(h=c(-2,2), lty=2, col="red")
+	identify(rstudent(model))
+	[1] 4 21
+	</syntaxhighlight>
+	Recall the cut-offs are at :math:`\pm 2` contain 95% of the data (1 in 20 observations will naturally lie outside these limits).  Observations 4 and 21 lie outside the limits.
+	| ''Click on image to enlarge'' 
+	[[Image:tutorial-5-rstudent.png|250px]]
+	|-
+	| '''''Influence''''': a plot of the Cook's D values:
+	<syntaxhighlight lang="R">
+	plot(cooks.distance(model))
+	cutoff <- 4/model$df.residual
+	abline(h=cutoff, lty=2, col=c("orange", "red"))
+	identify(cooks.distance(model))
+	[1] 1 21
+	</syntaxhighlight>
+	The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff.
+	| ''Click on image to enlarge'' 
+	[[Image:tutorial-5-CooksD.png|250px]]
+	|-
+	| '''''Combine all three to understand outliers''''': leverage, discrepancy and influence
+	<syntaxhighlight lang="R">
+	library(car)
+	# Let the function auto-identify the outliers, and tell if which labels to use
+	influencePlot(model, identify="auto", labels=row.names(stackloss))
+	</syntaxhighlight>
+	The auto-identify function marks only observations with large Cook's distance values.  You should still investigate the other points.
+	| ''Click on image to enlarge'' 
+	[[Image:tutorial-5-influencePlot.png|250px]]
+	|}
+
+	Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
+
+	=== Removing outliers and rebuilding the model ===
+
+	After investigation of the above points, we decide to remove point 1 and 21 and rebuild the model:
+	<syntaxhighlight lang="R">
+	remove = -c(1, 21)
+	model.rebuild <- lm(model, subset=remove)
+	</syntaxhighlight>
+	Note how easy it is rebuild the model: you give it the existing ``model`` and the observations to remove (note the "``-``" in front of the ``c()``).
+
+	{| class="wikitable"
+	|-
+	| Then re-investigate the influence plot:
+	<syntaxhighlight lang="R">
+	influencePlot(model.rebuild, identify="auto", labels=row.names(stackloss)[remove])
+	</syntaxhighlight>
+	| ''Click on image to enlarge'' 
+	[[Image:tutorial-5-influencePlot-rebuild.png|250px]]
+	|}
+
+	== Linear models with multiple X-variables (MLR) ==
+	<!-- vcov(model) -->
+
+	Including multiple variables in a linear model in R is straightforward.  Just extend the formula to the ``lm(...)`` function with extra terms.  For example:
+	{| class="wikitable"
+	|-
+	!
+	! Desired model
+	! Formula function in R
+	|-
+	| Standard, univariate model
+	| :math:`y = b_0 + b_1 x`
+	| ``y ~ x``
+	|-
+	| Add an additional explanatory variable:
+	| :math:`y = b_0 + b_1 x_1 + b_2 x_2`
+	| ``y ~ x1 + x2``
+	|}
+
+	Using the stackloss example from earlier:
+	<syntaxhighlight lang="R">
+	attach(stackloss)
+	colnames(stackloss)
+	# [1] "Air.Flow"   "Water.Temp" "Acid.Conc." "stack.loss"
+	model <- lm(stack.loss ~ Air.Flow +  Acid.Conc. + Water.Temp)
+	summary(model)
+	# Call:
+	# lm(formula = stack.loss ~ Air.Flow + Acid.Conc. + Water.Temp)
+	# 
+	# Residuals:
+	#     Min      1Q  Median      3Q     Max 
+	# -7.2377 -1.7117 -0.4551  2.3614  5.6978 
+	# 
+	# Coefficients:
+	#             Estimate Std. Error t value Pr(>|t|)    
+	# (Intercept) -39.9197    11.8960  -3.356  0.00375 ** 
+	# Air.Flow      0.7156     0.1349   5.307  5.8e-05 ***
+	# Acid.Conc.   -0.1521     0.1563  -0.973  0.34405    
+	# Water.Temp    1.2953     0.3680   3.520  0.00263 ** 
+	# ---
+	# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+	# 
+	# Residual standard error: 3.243 on 17 degrees of freedom
+	# Multiple R-squared: 0.9136,	Adjusted R-squared: 0.8983 
+	# F-statistic:  59.9 on 3 and 17 DF,  p-value: 3.016e-09
+	</syntaxhighlight>
+
+	We can interrogate this ``model`` object in the same way as we did for the single x-variable case.
+	* ``residuals(model)``
+	* ``fitted(model)``: predicted values of the model-building data
+	* ``coef(model)``
+	 # (Intercept)    Air.Flow  Acid.Conc.  Water.Temp 
+	 # -39.9196744   0.7156402  -0.1521225   1.2952861
+	* ``confint(model)``: provides the ''marginal'' confidence intervals (recall there are joint and marginal confidence intervals)
+	* ``predict(model)``: can be used to get new predictions.  For example, create a new data frame with 2 observations:
+	<syntaxhighlight lang="R">
+	x.new = data.frame(Air.Flow = c(56, 62), Water.Temp = c(18, 24), Acid.Conc. = c(82, 89))
+	x.new
+	#   Air.Flow Water.Temp Acid.Conc.
+	# 1       56         18         82
+	# 2       62         24         89
+	y.new = predict(model, newdata=x.new)
+	y.new
+	#        1        2 
+	# 10.99728 21.99798
+	</syntaxhighlight>
+
+	== Linear models with integer variables ==
+
+	The only additional step required to include an integer variable is to tell R that the variable a ``factor`` or categorical type variable.  R will then take care of expanding it into the extra columns required to fit the linear model.  The rest of the tools for linear models are then used as normal, e.g. ``confint(model)``, ``predict(model, ...)``  and so on.
+
+	Let's start by creating a factor variable ourself.  Create a vector of "Pass" and "Fail" entries and convert it to a factor variable:
+	<syntaxhighlight lang="R">
+	pass.fail <- c("Pass", "Fail", "Fail", "Fail", "Fail", "Pass", "Pass")
+	# What type of variable is this currently (i.e. what type of class of variable)?
+	class(pass.fail)
+	# [1] "character"    <--- so just of a bunch of character strings
+
+	# Force it to be a factor type variable
+	pass.fail <- as.factor(pass.fail)
+	pass.fail
+	# [1] Pass Fail Fail Fail Fail Pass Pass
+	# Levels: Fail Pass
+
+	class(pass.fail)
+	# [1] "factor"
+	</syntaxhighlight>
+
+	Another example of creating a factor variable
+	<syntaxhighlight lang="R">
+	operator <- c(10, 12, 11, 10, 11, 10, 12, 11, 10)
+	op.names <- factor(operator, levels=c("10", "11", "12"), labels=c("Pat", "Sarah", "Stef"))
+	# [1] Pat   Stef  Sarah Pat   Sarah Pat   Stef  Sarah Pat  
+	# Levels: Pat Sarah Stef
+	is.factor(op.names)
+	[1] TRUE
+	</syntaxhighlight>
+
+	You may not even need to create a factor variable in many cases.  When you import a data set R will detect and create factors automatically - usually it gets it right - like the "Yes"/"No" baffles variable used in [[Assignment_5_-_2010]]:
+	<syntaxhighlight lang="R">
+	bio <- read.csv('http://stats4.eng.mcmaster.ca/datasets/bioreactor-yields.csv')
+	bio
+	#    temperature duration speed baffles   yield
+	# 1           82      260  4300      No      51
+	# 2           90      260  3700     Yes      30
+	# 3           88      260  4200     Yes      40
+	# 4           86      260  3300     Yes      28
+	# 5           80      260  4300      No      49
+	# 6           78      260  4300     Yes      49
+	# 7           82      260  3900     Yes      44
+	# 8           83      260  4300      No      59
+	# 9           64      260  4300      No      60
+	# 10          73      260  4400      No      59
+	# 11          60      260  4400      No      57
+	# 12          60      260  4400      No      62
+	# 13         101      260  4400      No      42
+	# 14          92      260  4900     Yes      38
+	</syntaxhighlight>
+
+	Fitting a linear model with this integer variable:
+	<syntaxhighlight lang="R">
+	attach(bio)
+	model <- lm(yield ~ temperature + speed + baffles)
+	coef(model)
+	#  (Intercept)  temperature        speed   bafflesYes 
+	# 52.483652163 -0.470996834  0.008710973 -9.090699955
+	</syntaxhighlight>
+
+	So the -9.09 is the model coefficient for when the ``baffles`` variable is at the ``"Yes"`` level.  You can view the underlying :math:`\mathbf{X}` matrix for this linear model quite easily:
+	<syntaxhighlight lang="R">
+	model.matrix(model)
+	#    (Intercept) temperature speed bafflesYes
+	# 1            1          82  4300          0
+	# 2            1          90  3700          1
+	# 3            1          88  4200          1
+	# 4            1          86  3300          1
+	# 5            1          80  4300          0
+	# 6            1          78  4300          1
+	# 7            1          82  3900          1
+	# 8            1          83  4300          0
+	# 9            1          64  4300          0
+	# 10           1          73  4400          0
+	# 11           1          60  4400          0
+	# 12           1          60  4400          0
+	# 13           1         101  4400          0
+	# 14           1          92  4900          1
+	# attr(,"assign")
+	# [1] 0 1 2 3
+	# attr(,"contrasts")
+	# attr(,"contrasts")$baffles
+	# [1] "contr.treatment"
+	</syntaxhighlight>
+
+	These would be the column in the :math:`\mathbf{X}` matrix, confirming that the coefficient for ``baffles`` is the effect of going from ``No`` to ``Yes``.  
+
+	I point this out, because R will by default create the factors in alphabetical order (0 = "No", "1"="Yes").  But in other cases this default leads to the opposite of what you might want, for example 0="Accept", 1="Reject".  You can always reorder an existing factor:
+	<syntaxhighlight lang="R">
+	disp <- c("Accept", "Accept", "Reject", "Accept", "Accept", "Reject")
+	disp <- factor(disp, levels=c("Reject", "Accept"))  # switch the default order around
+	</syntaxhighlight>
+
+	=== Predictions when integer variables are in the model ===
+
+	As before, we use the ``predict()`` function, once we have a data frame containing the new data.  Create two observations where the only difference is the baffle indicator:
+	<syntaxhighlight lang="R">
+	x.new = data.frame(temperature=82, speed=4200, baffles=c("Yes", "No"))
+	x.new
+	#   temperature speed baffles
+	# 1          82  4200     Yes
+	# 2          82  4200      No
+	y.new = predict(model, newdata=x.new, interval="p")
+	y.new
+	      fit      lwr      upr
+	1 41.3573 30.03813 52.67647
+	2 50.4480 39.23712 61.65888
+	</syntaxhighlight>
+	The above output shows the effect of a baffle, together with the prediction intervals.  Does this output match the interpretation of the model coefficient for the ``baffle`` variable?
+
 Next steps (coming soon)
 =========================
 
 * Describe R data frames.
-* Linear models in R 
 * Analysis of designed experiments using R 
 * Principal component analysis using R
 
