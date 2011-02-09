@@ -1566,10 +1566,10 @@ Enhanced matrix capability is provided by the ``Matrix`` package, which is not l
 Building a least squares model in R
 ========================================
 
-.. note:: A particularly useful tutorial for the theory of least squares are Chapters 5, 9 and 10 of the book http://dx.doi.org/10.1007/b97671 Introductory Statistics with R by Dalgaard. Students can often access the PDF version from their university computers.
+.. note:: A particularly useful tutorial for the theory of least squares are Chapters 5, 9 and 10 of the book http://dx.doi.org/10.1007/b97671 *Introductory Statistics with R* by Dalgaard. You might be able access the PDF version from your company or university's subscription.
 
 
-The ``lm(...)`` function is the primary tool to build a linear model in R.  The input for this function must be a formula object (type ``help(formula)`` for further info).  In the example below the formula is ``y ~ x``.
+The ``lm(...)`` function is the primary tool to build a linear model in R.  The input for this function must be a formula object (type ``help(formula)`` for further info).  In the example below the formula is ``y ~ x``.  This says: "calculate for me the linear model that relates :math:`x` to :math:`y`"; or alternatively and equivalently: "build the linear model where :math:`y` is regressed on :math:`x`".
 
 .. code-block:: s
 
@@ -1608,7 +1608,7 @@ Extracting information from a linear model in R
 Getting the model coefficients: ``coef(model)``
 -------------------------------------------------
 
-Once the model is built, :math:`y = b_0 + b_1 x + e`, you can see that the :math:`b_0` coefficient is 1.50 and :math:`b_1` coefficient is 0.70 from the above ``summary(...)`` output.  What if you want the coefficients directly?
+Once the model is built, :math:`y = b_0 + b_1 x + e`, you can see that the :math:`b_0` coefficient is 1.50 and :math:`b_1` coefficient is 0.70 from the  ``summary(...)`` output.  What if you want the coefficients directly?
 
 .. code-block:: s
 
@@ -1681,26 +1681,27 @@ Unfortunately there is no standard way to get access to the standard error (that
 	
 The above is just a direct implementation of :math:`S_E = \sqrt{\frac{\displaystyle \sum{e_i^2}}{\displaystyle n - k }}`
 
-Checking if the residuals are normally distributed: ``qqPlot(model)``
+Checking if the residuals are normally distributed
 -----------------------------------------------------------------------
 
-Here's another example of the object nature of a linear model.  Certain functions in R will work on these objects and do something sensible with them.  For example, the ``qqplot(...)`` function will check that the residuals are normally distributed.  You :ref:`first need to install <r-installing-packages>` and load the ``car`` library though:
+Here's another example of the object nature of a linear model.  Certain functions in R will work on these objects and do something sensible with them.  For example, the ``qqPlot(...)`` function will check that the residuals are normally distributed.  You :ref:`first need to install <r-installing-packages>` and load the ``car`` library though:
 
 .. code-block:: s
 
 	library(car)
 	qqPlot(model)
-	# Don't be surprised if the plot looks strange - there are only 5 observations in this model.
+	# Don't be surprised by the strange plot - there are only 5 observations in the model
 	
-Calculating confidence intervals for the model parameters: ``confint(model)``
+Calculating confidence intervals for the model parameters
 --------------------------------------------------------------------------------------------------
 
 We know that the confidence intervals for :math:`\beta_0` and :math:`\beta_1` are given by:
 
 .. math::
 
-	\begin{array}{rccclrcccl} 
-		b_0 - c_t S_E(b_0)   &\leq& \beta_0                         &\leq&	b_0 + c_t S_E(b_0)  &\qquad b_1 - c_t S_E(b_1)   &\leq& \beta_1                         &\leq&	b_1 + c_t S_E(b_1)
+	\begin{array}{rcccl} 
+		b_0 - c_t S_E(b_0)   &\leq& \beta_0  &\leq&b_0 + c_t S_E(b_0) \\
+		b_1 - c_t S_E(b_1)   &\leq& \beta_1  &\leq&	b_1 + c_t S_E(b_1)
 	\end{array}
 
 where the :math:`c_t` value is the critical value from the t-distribution at the particular confidence level, e.g. 95%.
@@ -1722,7 +1723,7 @@ Fortunately you don't need to perform these tedious calculations by hand in R ev
 	# x            0.1159091 1.284091
 
 
-Using a linear model with new :math:`x`-values: ``predict(model, ...)``
+Using a linear model with new :math:`x`-values
 ----------------------------------------------------------------------------
 
 Other than learning more about our system (i.e. interpreting the model parameter confidence intervals), we also build models to make predictions from future :math:`x` data.  We use the ``predict(model, ...)`` function in R.  With no additional options, it will return the model training predictions, the same output as ``fitted(model)``.
@@ -1779,7 +1780,7 @@ Let's visualize this: these predictions are shown in red, and the least squares 
 
 Recall that the prediction interval for :math:`\hat{y}` from a new x measurement :math:`x_\text{new}` is given by: :math:`\hat{y}_i \pm c_t \sqrt{V\{\hat{y}_i\}}` where :math:`\mathcal{V}\{\hat{y}_i\} = S_E^2\left(1 + \dfrac{1}{n} + \dfrac{(x_i - \bar{\mathrm{x}})^2}{\sum_j{\left( x_j - \bar{\mathrm{x}} \right)^2}}\right)`
 
-Again, this is tedious to calculate by hand.  For example, to get the 90% prediction intervals (PI).
+Again, this is tedious to calculate by hand.  For example, to get the 90% prediction intervals:
 
 .. code-block:: s
 
