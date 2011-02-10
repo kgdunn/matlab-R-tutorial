@@ -1605,13 +1605,17 @@ This output gives you the intercept and slope for the equation :math:`y = b_0 + 
 Extracting information from a linear model in R
 ================================================
 
-Getting the model coefficients: ``coef(model)``
+Getting the model coefficients
 -------------------------------------------------
 
 Once the model is built, :math:`y = b_0 + b_1 x + e`, you can see that the :math:`b_0` coefficient is 1.50 and :math:`b_1` coefficient is 0.70 from the  ``summary(...)`` output.  What if you want the coefficients directly?
 
 .. code-block:: s
-
+	
+	x <- c(1, 2, 3, 4, 5)
+	y <- c(2, 3, 4, 4, 5)
+	model <- lm(y~x)
+	
 	model.cf <- coef(model)
 	model.cf
 	# (Intercept)           x 
