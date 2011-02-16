@@ -1679,7 +1679,7 @@ Predicted outputs, :math:`\hat{y}`      ``model$fitted.values``        ``fitted(
 
 Unfortunately there is no standard way to get access to the standard error (that I am aware of). This approach will work though:
 
-.. ucomment:: qL8u72: ef*, WL,
+.. ucomment:: qL8u72: ef*, WL, UA,
 
 .. code-block:: s
 
