@@ -1954,7 +1954,7 @@ This is a plot of the hat-values:
 	abline(h=c(2,3)*hat.avg, lty=2, col=c("orange", "red"))
 	identify(hatvalues(model))
 
-The average hat value is at :math:`\overline{h} = \frac{k}{n}`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.  We are more concerned with points that have hat values beyond 3 times the average.
+The average hat value is at :math:`\overline{h} = k/n`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.  We are more concerned with points that have hat values beyond 3 times the average.
 
 .. figure:: images/hats-plot-stackloss.png
 	:alt:	images/hats-plot-stackloss.png
