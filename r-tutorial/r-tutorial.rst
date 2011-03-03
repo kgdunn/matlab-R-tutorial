@@ -1931,8 +1931,8 @@ We will consider only the effect of air flow and stack loss (stack loss here in 
 
 From clicking on the points we see that observations 1, 3, 4 and 21 are quite unusual.
 
-.. figure:: images/residuals-stackloss-data.png
-	:alt:	images/residuals-stackloss-data.png
+.. figure:: images/residuals-stackloss-data.jpg
+	:alt:	images/residuals-stackloss-data.jpg
 	:scale: 100
 	:width: 500px
 	:align: center
@@ -1956,8 +1956,8 @@ This is a plot of the hat-values:
 
 The average hat value is at :math:`\overline{h} = k/n`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.  We are more concerned with points that have hat values beyond 3 times the average.
 
-.. figure:: images/hats-plot-stackloss.png
-	:alt:	images/hats-plot-stackloss.png
+.. figure:: images/hats-plot-stackloss.jpg
+	:alt:	images/hats-plot-stackloss.jpg
 	:scale: 100
 	:width: 500px
 	:align: center
@@ -1978,8 +1978,8 @@ Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 ob
 
 Was there anything extra going on with those observations?  Can another variable be included into the model that will reduce the size of the residuals for those points?
 
-.. figure:: images/rstudent-stackloss.png
-	:alt:	images/rstudent-stackloss.png
+.. figure:: images/rstudent-stackloss.jpg
+	:alt:	images/rstudent-stackloss.jpg
 	:scale: 100
 	:width: 500px
 	:align: center
@@ -2004,8 +2004,8 @@ though Cook's D calculates them slightly differently.
 
 The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff in this data set.  Why did observation 1 show up, but not observation 2 (*answer*: both originally had high leverage, but observation 1 has higher residual error than observation 2).
 
-.. figure:: images/CooksD-stackloss.png
-	:alt:	images/CooksD-stackloss.png
+.. figure:: images/CooksD-stackloss.jpg
+	:alt:	images/CooksD-stackloss.jpg
 	:scale: 100
 	:width: 500px
 	:align: center
@@ -2025,8 +2025,8 @@ Combine leverage, discrepancy and influence to understand outliers
 
 The auto-identify function marks only observations with large Cook's distance values.  You should still investigate the other points.
 
-.. figure:: images/influencePlot-stackloss.png
-	:alt:	images/influencePlot-stackloss.png
+.. figure:: images/influencePlot-stackloss.jpg
+	:alt:	images/influencePlot-stackloss.jpg
 	:scale: 100
 	:width: 500px
 	:align: center
@@ -2053,8 +2053,8 @@ Then re-investigate the influence plot:
 
 	influencePlot(model.rebuild, labels=row.names(stackloss)[remove])
 	
-.. figure:: images/influencePlot-rebuild-stackloss.png
-	:alt:	images/influencePlot-rebuild-stackloss.png	
+.. figure:: images/influencePlot-rebuild-stackloss.jpg
+	:alt:	images/influencePlot-rebuild-stackloss.jpg	
 	:scale: 100
 	:width: 500px
 	:align: center
