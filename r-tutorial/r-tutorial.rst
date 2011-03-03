@@ -1748,7 +1748,7 @@ Other than learning more about our system (i.e. interpreting the model parameter
 
 But we must first create a prediction data set to use the model on new :math:`x` data.  I'm going to create a new model for this section.
 
-.. code-block:: python
+.. code-block:: s
 
 	density <- c(800, 1100, 1200, 1000, 1150)
 	viscosity <- c(96, 73, 53, 72, 53)
@@ -1779,7 +1779,7 @@ Now use this new data frame in the ``predict(model, ...)`` function as the ``new
 
 Let's visualize this: these predictions are shown in red, and the least squares line in green.
 
-.. code-block:: python
+.. code-block:: s
 
 	plot(density, viscosity, ylim=range(y.hat.new))
 	points(density.new$density, y.hat.new, col="red", lwd=2)
@@ -1929,7 +1929,7 @@ We will consider only the effect of air flow and stack loss (stack loss here in 
 	# Now use the mouse to click on the outliers and ID them
 	# Right-click to stop adding points
 
-From clicking on the points we see that observations 1, 2, 3 and 21 are quite unusual. 
+From clicking on the points we see that observations 1, 3, 4 and 21 are quite unusual.
 
 .. figure:: images/residuals-stackloss-data.png
 	:alt:	images/residuals-stackloss-data.png
@@ -1974,7 +1974,9 @@ The discrepancy of each data point is found by plotting the studentized residual
 	abline(h=c(-2,2), lty=2, col="red")
 	identify(rstudent(model))
 
-Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 observations will naturally lie outside these limits).  Observations 4 and 21 lie outside the limits and should be investigated.  Was there anything extra going on with those observations?  Can another variable be included into the model that will reduce the size of the residuals for those points?
+Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 observations will naturally lie outside these limits).  Observations 4 and 21 lie outside the limits and should be investigated.  Specifically observation 4 is under-predicted (error = observed - predicted), while observation 21 is over-predicted.
+
+Was there anything extra going on with those observations?  Can another variable be included into the model that will reduce the size of the residuals for those points?
 
 .. figure:: images/rstudent-stackloss.png
 	:alt:	images/rstudent-stackloss.png
@@ -2000,7 +2002,7 @@ though Cook's D calculates them slightly differently.
 	abline(h=cutoff, lty=2, col=c("orange", "red"))
 	identify(cooks.distance(model))
 
-The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff in this data set.
+The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff in this data set.  Why did observation 1 show up, but not observation 2 (*answer*: both originally had high leverage, but observation 1 has higher residual error than observation 2).
 
 .. figure:: images/CooksD-stackloss.png
 	:alt:	images/CooksD-stackloss.png
@@ -2031,12 +2033,12 @@ The auto-identify function marks only observations with large Cook's distance va
 
 Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
 
-Also, the ``influenceIndexPlot(model)`` shows 4 different metrics of influence in 4 subplots and is useful for smallish data sets.
+Also, the ``influenceIndexPlot(model)`` function from the ``car`` library shows 4 different metrics of influence in 4 subplots and is useful for smallish data sets.
 
 Removing outliers and rebuilding the model
 --------------------------------------------------------------------
 
-After investigation of the points, we decide to remove point 1 and 21 and rebuild the model:
+After investigation of the points, we may decide to remove point 1 and 21 and rebuild the model:
 
 .. code-block:: s
 
@@ -2047,9 +2049,9 @@ Note how easy it is rebuild the model: you give it the existing ``model`` and th
 
 Then re-investigate the influence plot:
 
-.. code-block:: python
+.. code-block:: s
 
-	influencePlot(model.rebuild, id.method="noteworthy", labels=row.names(stackloss)[remove])
+	influencePlot(model.rebuild, labels=row.names(stackloss)[remove])
 	
 .. figure:: images/influencePlot-rebuild-stackloss.png
 	:alt:	images/influencePlot-rebuild-stackloss.png	
@@ -2061,7 +2063,9 @@ Then re-investigate the influence plot:
 Linear models with multiple X-variables (MLR)
 =================================================
 
-Including multiple variables in a linear model in R is straightforward.  Just extend the formula to the ``lm(...)`` function with extra terms.  For example:
+Including multiple variables in a linear model in R is straightforward.  This case is called multiple linear regression, MLR.
+
+Just extend the formula you normally provide to the ``lm(...)`` function with extra terms.  For example:
 
 * 	Standard, univariate model, :math:`y = b_0 + b_1 x` is represented as: ``y ~ x``
 
@@ -2102,13 +2106,15 @@ We can interrogate this ``model`` object in the same way as we did for the singl
 
 *	``resid(model)``: get a list of residuals
 *	``fitted(model)``: predicted values of the model-building data
-*	``coef(model)``
+*	``coef(model)``: the model coefficients
 *	``confint(model)``: provides the ''marginal'' confidence intervals (recall there are joint and marginal confidence intervals)
 *	``predict(model)``: can be used to get new predictions.  For example, create a new data frame with 2 observations:
 
 .. code-block:: s
 
-	x.new = data.frame(Air.Flow = c(56, 62), Water.Temp = c(18, 24), Acid.Conc. = c(82, 89))
+	x.new = data.frame(Air.Flow = c(56, 62), 
+	                   Water.Temp = c(18, 24), 
+	                   Acid.Conc. = c(82, 89))
 	x.new
 	#   Air.Flow Water.Temp Acid.Conc.
 	# 1       56         18         82
@@ -2149,7 +2155,9 @@ Another example of creating a factor variable:
 .. code-block:: s
 
 	operator.id <- c(10, 12, 11, 10, 11, 10, 12, 11, 10)
-	op.names <- factor(operator.id, levels=c("10", "11", "12"), labels=c("Pat", "Sarah", "Stef"))
+	op.names <- factor(operator.id, 
+	                   levels=c("10", "11", "12"), 
+	                   labels=c("Pat", "Sarah", "Stef"))
 	# [1] Pat   Stef  Sarah Pat   Sarah Pat   Stef  Sarah Pat  
 	# Levels: Pat Sarah Stef
 	is.factor(op.names)
