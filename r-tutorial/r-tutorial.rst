@@ -1856,7 +1856,7 @@ In this section we show how to build a model from some data, and then test it on
 .. remove observations from an existing model and rebuild it: lm(model, subset=build) to update the model 
 
 Transformation of data in a linear model
-----------------------------------------------------------------------------
+========================================================
 
 This is shown by example for a few different types of transformations:
 
@@ -1895,8 +1895,8 @@ This is shown by example for a few different types of transformations:
      - :math:`y= b_0 + b_1 (x - \bar{x})`
      - ``y ~ I(x - mean(x))``
 
-Finding outliers, discrepancies and other influential points: ``influencePlot(model)``
-------------------------------------------------------------------------------------------
+Investigating outliers, discrepancies and other influential points
+================================================================================================================
 
 Recall that **influence** is a measure of how each observation affects the model.  We use plots of these numbers to decide on how we should treat an outlier.
 
