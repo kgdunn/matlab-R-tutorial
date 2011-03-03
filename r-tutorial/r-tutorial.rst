@@ -1,3 +1,9 @@
+.. Heading order
+
+	======
+	------
+	~~~~~~
+
 About R
 ========
 
@@ -1566,7 +1572,7 @@ Enhanced matrix capability is provided by the ``Matrix`` package, which is not l
 Building a least squares model in R
 ========================================
 
-.. note:: A particularly useful tutorial for the theory of least squares are Chapters 5, 9 and 10 of the book http://dx.doi.org/10.1007/b97671 *Introductory Statistics with R* by Dalgaard. You might be able access the PDF version from your company or university's subscription.
+.. note:: A particularly useful tutorial for the theory of least squares are Chapters 5, 9 and 10 of the book `Introductory Statistics with R <http://dx.doi.org/10.1007/b97671>`_ by Dalgaard. You might be able access the PDF version from your company or university's subscription.
 
 
 The ``lm(...)`` function is the primary tool to build a linear model in R.  The input for this function must be a formula object (type ``help(formula)`` for further info).  In the example below the formula is ``y ~ x``.  This says: "calculate for me the linear model that relates :math:`x` to :math:`y`"; or alternatively and equivalently: "build the linear model where :math:`y` is regressed on :math:`x`".
@@ -1819,7 +1825,7 @@ Testing a linear model in R
 
 In this section we show how to build a model from some data, and then test it on the rest.  Construct an x-vector ``input`` and a y-vector ``response`` both with 200 observations. Use 150 observation to build the model, then use the remaining 50 to test the model.
 
-.. code-block:: python
+.. code-block:: s
 
 	input <- rnorm(200, mean=50, sd=12)
 	response <- 0.7*input + 50 + rnorm(200, sd=10)
@@ -1849,62 +1855,58 @@ In this section we show how to build a model from some data, and then test it on
 
 .. remove observations from an existing model and rebuild it: lm(model, subset=build) to update the model 
 
-	Transformation of data in a linear model
-	----------------------------------------------------------------------------
+Transformation of data in a linear model
+----------------------------------------------------------------------------
 
-	This is shown by example for a few cases:
-	{| class="wikitable"
-	|-
-	!
-	! Desired model
-	! Formula function in R
-	|-
-	| Standard, univariate model
-	| :math:`y = b_0 + b_1 x`
-	| ``y ~ x``
-	|-
-	| Force intercept to zero (check the degrees of freedom!)
-	| :math:`y = b_1 x`
-	| ``y ~ x + 0``
-	|-
-	| Transformation of an x
-	| :math:`y = b_0 + \sqrt{x}`
-	| ``y ~ sqrt(x)``
-	|-
-	| Transformation of y
-	| :math:`\log(y) = b_0 + b_1 x`
-	| ``log(y) ~ x``
-	|-
-	| Transformation of y
-	| :math:`100/y= b_0 + b_1 x`
-	| ``100/y ~ x``
-	|-
-	| Transformation of x: '''+, -, /, * and ^ do not work on the right hand side!'''
-	| :math:`y= b_0 + b_1 \times 20/x`
-	| ``y ~ 20/x``: gives an error
-	|-
-	| Most transformations of x must be wrapped in an AsIs ``I()`` operation:
-	| :math:`y= b_0 + b_1 \times 20/x`
-	| ``y ~ I(20/x)``
-	|-
-	| Most transformations of x must be wrapped in an AsIs ``I()`` operation:
-	| :math:`y= b_0 + b_1 x^2`
-	| ``y ~ I(x^2)``
-	|-
-	| Another use of the AsIs ``I()`` operation
-	| :math:`y= b_0 + b_1 (x - \bar{x})`
-	| ``y ~ I(x - mean(x))``
-	|}
+This is shown by example for a few different types of transformations:
 
-	Finding outliers, discrepancies and other influential points: ``influencePlot(model)``
-	------------------------------------------------------------------------------------------
+.. list-table::
+   :widths: 15 10 30
+   :header-rows: 1
 
-	[[Correlation,_covariance_and_least_squares | From class]], recall that influence measures give a number for each observation in the model building data set.  We use plots of these numbers to decide how to treat outliers.
+   * - Description
+     - Desired model
+     - Formula function in R
+   * - Standard, univariate model
+     - :math:`y = b_0 + b_1 x`
+     - ``y ~ x``
+   * - Force intercept to zero (check the degrees of freedom!)
+     - :math:`y = b_1 x`
+     - ``y ~ x + 0``
+   * - Transformation of an :math:`x`  
+     - :math:`y = b_0 + \sqrt{x}`
+     - ``y ~ sqrt(x)``
+   * - Transformation of :math:`y`
+     - :math:`\log(y) = b_0 + b_1 x`
+     - ``log(y) ~ x``
+   * - Transformation of :math:`y`
+     - :math:`100/y= b_0 + b_1 x`
+     - ``100/y ~ x``
+   * - Transformation of :math:`x`: **+, -, /, and ^ do not work on the right hand side!**
+     - :math:`y= b_0 + b_1 \times 20/x`
+     - ``y ~ 20/x`` *will give an error*
+   * - Most transformations of :math:`x` must be wrapped in an AsIs ``I()`` operation:
+     - :math:`y= b_0 + b_1 \times 20/x`
+     - ``y ~ I(20/x)``  *will work*
+   * - Another use of the AsIs ``I()`` operation
+     - :math:`y= b_0 + b_1 x^2`
+     - ``y ~ I(x^2)``
+   * - Another use of the AsIs ``I()`` operation
+     - :math:`y= b_0 + b_1 (x - \bar{x})`
+     - ``y ~ I(x - mean(x))``
 
-	For this section we will use a data set that is built into R, the stack-loss data set. It is 21 days of plant data from oxidizing ammonia to nitric acid.
-	<syntaxhighlight lang="R">
+Finding outliers, discrepancies and other influential points: ``influencePlot(model)``
+------------------------------------------------------------------------------------------
+
+Recall that **influence** is a measure of how each observation affects the model.  We use plots of these numbers to decide on how we should treat an outlier.
+
+For this section we will use a data set that is built into R, the stack-loss data set. It is 21 days of plant data from oxidizing ammonia to nitric acid.
+
+.. code-block:: s
+
 	attach(stackloss)
 	summary(stackloss)
+	
 	#     Air.Flow       Water.Temp      Acid.Conc.      stack.loss   
 	#  Min.   :50.00   Min.   :17.00   Min.   :72.00   Min.   : 7.00  
 	#  1st Qu.:56.00   1st Qu.:18.00   1st Qu.:82.00   1st Qu.:11.00  
@@ -1912,67 +1914,114 @@ In this section we show how to build a model from some data, and then test it on
 	#  Mean   :60.43   Mean   :21.10   Mean   :86.29   Mean   :17.52  
 	#  3rd Qu.:62.00   3rd Qu.:24.00   3rd Qu.:89.00   3rd Qu.:19.00  
 	#  Max.   :80.00   Max.   :27.00   Max.   :93.00   Max.   :42.00
-	</syntaxhighlight>
 
-	We will consider only the effect of air flow and stack loss (stack loss here in an inverse measure of plant efficiency).  Type ``help(stackloss)`` for more details about the data. Build the model and investigate the normality of the residuals. 
-	<syntaxhighlight lang="R">
+We will consider only the effect of air flow and stack loss (stack loss here in an inverse measure of plant efficiency).  Type ``help(stackloss)`` for more details about the data. Build the model and investigate the normality of the residuals. 
+
+.. code-block:: s
+
 	model <- lm(stack.loss ~ Air.Flow)
 	library(car)
-	qq.plot(model)  # Use the mouse to click on the outliers and ID them
-	</syntaxhighlight>
+	
+	qqPlot(resid(model), id.method = "identify")  
+	
+	# Now use the mouse to click on the outliers and ID them
+	# Right-click to stop adding points
 
-	From clicking on the points we see that observations 1, 2, 3 and 21 are quite unusual.  These observations have residuals larger than what would be expected from a normal distribution.  We don't exclude them yet.  Let's first examine if they appear is some of the other plots.
+From clicking on the points we see that observations 1, 2, 3 and 21 are quite unusual. 
 
-	{| class="wikitable"
-	|-
-	| '''''Leverage''''': a plot of the hat-values
-	<syntaxhighlight lang="R">
+.. figure:: images/residuals-stackloss-data.png
+	:alt:	images/residuals-stackloss-data.png
+	:scale: 100
+	:width: 750px
+	:align: center
+
+
+These observations have residuals larger than what would be expected from a normal distribution.  We don't exclude them yet.  Let's examine if they appear in some of the other plots.  
+
+
+Leverage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is a plot of the hat-values::
+
+.. code-block:: s
+	
 	plot(hatvalues(model))
-	hat.avg <- model$rank/length(stack.loss)
+	K <- length(coef(model))
+	N <- nrow(stackloss)
+	hat.avg <-  K/N 
 	abline(h=c(2,3)*hat.avg, lty=2, col=c("orange", "red"))
 	identify(hatvalues(model))
-	# [1] 1 2
-	</syntaxhighlight>
-	The average hat value is at :math:`k/n`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.
-	| ''Click on image to enlarge'' 
-	[[Image:tutorial-5-hats-plot.png|250px]]
-	|-
-	| '''''Discrepancy''''': a plot of the studentized residuals
-	<syntaxhighlight lang="R">
+
+The average hat value is at :math:`\overline{h} = \frac{k}{n}`.  Observations 1 and 2 lie beyond only the 2 times the average hat value.  We are more concerned with points that have hat values beyond 3 times the average.
+
+.. figure:: images/hats-plot-stackloss.png
+	:alt:	images/hats-plot-stackloss.png
+	:scale: 100
+	:width: 500px
+	:align: center
+
+Discrepancy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The discrepancy of each data point is found by plotting the studentized residuals:
+
+.. code-block:: s
+
 	plot(rstudent(model))
 	abline(h=0, lty=2)
 	abline(h=c(-2,2), lty=2, col="red")
 	identify(rstudent(model))
-	[1] 4 21
-	</syntaxhighlight>
-	Recall the cut-offs are at :math:`\pm 2` contain 95% of the data (1 in 20 observations will naturally lie outside these limits).  Observations 4 and 21 lie outside the limits.
-	| ''Click on image to enlarge'' 
-	[[Image:tutorial-5-rstudent.png|250px]]
-	|-
-	| '''''Influence''''': a plot of the Cook's D values:
-	<syntaxhighlight lang="R">
+
+Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 observations will naturally lie outside these limits).  Observations 4 and 21 lie outside the limits and should be investigated.  Was there anything extra going on with those observations?  Can another variable be included into the model that will reduce the size of the residuals for those points?
+
+.. figure:: images/rstudent-stackloss.png
+	:alt:	images/rstudent-stackloss.png
+	:scale: 100
+	:width: 550px
+	:align: center
+
+Influence
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A plot of the Cook's D values shows influence.  We loosely can describe influence as:
+
+.. math::
+
+	\text{Influence} = \text{Leverage} \times \text{Discrepancy}
+
+though Cook's D calculates them slightly differently.
+
+.. code-block:: s
+
 	plot(cooks.distance(model))
 	cutoff <- 4/model$df.residual
 	abline(h=cutoff, lty=2, col=c("orange", "red"))
 	identify(cooks.distance(model))
-	[1] 1 21
-	</syntaxhighlight>
-	The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff.
-	| ''Click on image to enlarge'' 
-	[[Image:tutorial-5-CooksD.png|250px]]
-	|-
-	| '''''Combine all three to understand outliers''''': leverage, discrepancy and influence
-	<syntaxhighlight lang="R">
-	library(car)
-	# Let the function auto-identify the outliers, and tell if which labels to use
-	influencePlot(model, identify="auto", labels=row.names(stackloss))
-	</syntaxhighlight>
-	The auto-identify function marks only observations with large Cook's distance values.  You should still investigate the other points.
-	| ''Click on image to enlarge'' 
-	[[Image:tutorial-5-influencePlot.png|250px]]
-	|}
 
-	Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
+The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond only the cutoff in this data set.
+
+.. figure:: images/CooksD-stackloss.png
+	:alt:	images/CooksD-stackloss.png
+	:scale: 100
+	:width: 550px
+	:align: center
+
+
+Combine leverage, discrepancy and influence to understand outliers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<syntaxhighlight lang="R">
+library(car)
+# Let the function auto-identify the outliers, and tell if which labels to use
+influencePlot(model, identify="auto", labels=row.names(stackloss))
+</syntaxhighlight>
+The auto-identify function marks only observations with large Cook's distance values.  You should still investigate the other points.
+| ''Click on image to enlarge'' 
+[[Image:tutorial-5-influencePlot.png|250px]]
+|}
+
+Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
 
 	=== Removing outliers and rebuilding the model ===
 
