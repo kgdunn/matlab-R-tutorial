@@ -2078,25 +2078,25 @@ Using the stackloss example from earlier:
 	model <- lm(stack.loss ~ Air.Flow +  Acid.Conc. + Water.Temp)
 	summary(model)
 	
-	# Call:
-	# lm(formula = stack.loss ~ Air.Flow + Acid.Conc. + Water.Temp)
-	# 
-	# Residuals:
-	#     Min      1Q  Median      3Q     Max 
-	# -7.2377 -1.7117 -0.4551  2.3614  5.6978 
-	# 
-	# Coefficients:
-	#             Estimate Std. Error t value Pr(>|t|)    
-	# (Intercept) -39.9197    11.8960  -3.356  0.00375 ** 
-	# Air.Flow      0.7156     0.1349   5.307  5.8e-05 ***
-	# Acid.Conc.   -0.1521     0.1563  -0.973  0.34405    
-	# Water.Temp    1.2953     0.3680   3.520  0.00263 ** 
-	# ---
-	# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-	# 
-	# Residual standard error: 3.243 on 17 degrees of freedom
-	# Multiple R-squared: 0.9136,	Adjusted R-squared: 0.8983 
-	# F-statistic:  59.9 on 3 and 17 DF,  p-value: 3.016e-09
+	Call:
+	lm(formula = stack.loss ~ Air.Flow + Acid.Conc. + Water.Temp)
+	
+	Residuals:
+	    Min      1Q  Median      3Q     Max 
+	-7.2377 -1.7117 -0.4551  2.3614  5.6978 
+	
+	Coefficients:
+	            Estimate Std. Error t value Pr(>|t|)    
+	(Intercept) -39.9197    11.8960  -3.356  0.00375 ** 
+	Air.Flow      0.7156     0.1349   5.307  5.8e-05 ***
+	Acid.Conc.   -0.1521     0.1563  -0.973  0.34405    
+	Water.Temp    1.2953     0.3680   3.520  0.00263 ** 
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+	
+	Residual standard error: 3.243 on 17 degrees of freedom
+	Multiple R-squared: 0.9136,	Adjusted R-squared: 0.8983 
+	F-statistic:  59.9 on 3 and 17 DF,  p-value: 3.016e-09
 
 We can interrogate this ``model`` object in the same way as we did for the single x-variable case.
 
@@ -2161,21 +2161,22 @@ You may not even need to create a factor variable in many cases.  When you impor
 
 	bio <- read.csv('http://datasets.connectmv.com/file/bioreactor-yields.csv')
 	bio
-	#    temperature duration speed baffles   yield
-	# 1           82      260  4300      No      51
-	# 2           90      260  3700     Yes      30
-	# 3           88      260  4200     Yes      40
-	# 4           86      260  3300     Yes      28
-	# 5           80      260  4300      No      49
-	# 6           78      260  4300     Yes      49
-	# 7           82      260  3900     Yes      44
-	# 8           83      260  4300      No      59
-	# 9           64      260  4300      No      60
-	# 10          73      260  4400      No      59
-	# 11          60      260  4400      No      57
-	# 12          60      260  4400      No      62
-	# 13         101      260  4400      No      42
-	# 14          92      260  4900     Yes      38
+	
+	   temperature duration speed baffles   yield
+	1           82      260  4300      No      51
+	2           90      260  3700     Yes      30
+	3           88      260  4200     Yes      40
+	4           86      260  3300     Yes      28
+	5           80      260  4300      No      49
+	6           78      260  4300     Yes      49
+	7           82      260  3900     Yes      44
+	8           83      260  4300      No      59
+	9           64      260  4300      No      60
+	10          73      260  4400      No      59
+	11          60      260  4400      No      57
+	12          60      260  4400      No      62
+	13         101      260  4400      No      42
+	14          92      260  4900     Yes      38
 	
 	is.factor(bio$baffles)
 	[1] TRUE
@@ -2194,26 +2195,27 @@ So the -9.09 is the model coefficient for when the ``baffles`` variable is at th
 .. code-block:: s
 
 	model.matrix(model)
-	#    (Intercept) temperature speed bafflesYes
-	# 1            1          82  4300          0
-	# 2            1          90  3700          1
-	# 3            1          88  4200          1
-	# 4            1          86  3300          1
-	# 5            1          80  4300          0
-	# 6            1          78  4300          1
-	# 7            1          82  3900          1
-	# 8            1          83  4300          0
-	# 9            1          64  4300          0
-	# 10           1          73  4400          0
-	# 11           1          60  4400          0
-	# 12           1          60  4400          0
-	# 13           1         101  4400          0
-	# 14           1          92  4900          1
-	# attr(,"assign")
-	# [1] 0 1 2 3
-	# attr(,"contrasts")
-	# attr(,"contrasts")$baffles
-	# [1] "contr.treatment"
+	
+	   (Intercept) temperature speed bafflesYes
+	1            1          82  4300          0
+	2            1          90  3700          1
+	3            1          88  4200          1
+	4            1          86  3300          1
+	5            1          80  4300          0
+	6            1          78  4300          1
+	7            1          82  3900          1
+	8            1          83  4300          0
+	9            1          64  4300          0
+	10           1          73  4400          0
+	11           1          60  4400          0
+	12           1          60  4400          0
+	13           1         101  4400          0
+	14           1          92  4900          1
+	attr(,"assign")
+	[1] 0 1 2 3
+	attr(,"contrasts")
+	attr(,"contrasts")$baffles
+	[1] "contr.treatment"
 
 These would be the column in the :math:`\mathbf{X}` matrix, confirming that the coefficient for ``baffles`` is the effect of going from ``No`` to ``Yes``.  
 
