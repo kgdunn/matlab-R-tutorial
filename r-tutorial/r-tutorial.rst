@@ -1934,7 +1934,7 @@ From clicking on the points we see that observations 1, 2, 3 and 21 are quite un
 .. figure:: images/residuals-stackloss-data.png
 	:alt:	images/residuals-stackloss-data.png
 	:scale: 100
-	:width: 750px
+	:width: 500px
 	:align: center
 
 
@@ -1979,7 +1979,7 @@ Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 ob
 .. figure:: images/rstudent-stackloss.png
 	:alt:	images/rstudent-stackloss.png
 	:scale: 100
-	:width: 550px
+	:width: 500px
 	:align: center
 
 Influence
@@ -2005,7 +2005,7 @@ The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond on
 .. figure:: images/CooksD-stackloss.png
 	:alt:	images/CooksD-stackloss.png
 	:scale: 100
-	:width: 550px
+	:width: 500px
 	:align: center
 
 
@@ -2026,7 +2026,7 @@ The auto-identify function marks only observations with large Cook's distance va
 .. figure:: images/influencePlot-stackloss.png
 	:alt:	images/influencePlot-stackloss.png
 	:scale: 100
-	:width: 550px
+	:width: 500px
 	:align: center
 
 Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
@@ -2054,7 +2054,7 @@ Then re-investigate the influence plot:
 .. figure:: images/influencePlot-rebuild-stackloss.png
 	:alt:	images/influencePlot-rebuild-stackloss.png	
 	:scale: 100
-	:width: 750px
+	:width: 500px
 	:align: center
 
 
