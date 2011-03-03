@@ -1871,31 +1871,31 @@ This is shown by example for a few different types of transformations:
      - Formula function in R
    * - Standard, univariate model
      - :math:`y = b_0 + b_1 x`
-     - ``y ~ x``
+     - ``lm(y ~ x)``
    * - Force intercept to zero (check the degrees of freedom!)
      - :math:`y = b_1 x`
-     - ``y ~ x + 0``
+     - ``lm(y ~ x + 0))``
    * - Transformation of an :math:`x`  
      - :math:`y = b_0 + \sqrt{x}`
-     - ``y ~ sqrt(x)``
+     - ``lm(y ~ sqrt(x))``
    * - Transformation of :math:`y`
      - :math:`\log(y) = b_0 + b_1 x`
-     - ``log(y) ~ x``
+     - ``lm(log(y) ~ x)``
    * - Transformation of :math:`y`
      - :math:`100/y= b_0 + b_1 x`
-     - ``100/y ~ x``
+     - ``lm(100/y ~ x)``
    * - Transformation of :math:`x`: **+, -, /, and ^ do not work on the right hand side!**
      - :math:`y= b_0 + b_1 \times 20/x`
-     - ``y ~ 20/x`` *will give an error*
+     - ``lm(y ~ 20/x)`` *will give an error*
    * - Most transformations of :math:`x` must be wrapped in an AsIs ``I()`` operation:
      - :math:`y= b_0 + b_1 \times 20/x`
-     - ``y ~ I(20/x)``  *will work*
+     - ``lm(y ~ I(20/x))``  *will work*
    * - Another use of the AsIs ``I()`` operation
      - :math:`y= b_0 + b_1 x^2`
-     - ``y ~ I(x^2)``
+     - ``lm(y ~ I(x^2))``
    * - Another use of the AsIs ``I()`` operation
      - :math:`y= b_0 + b_1 (x - \bar{x})`
-     - ``y ~ I(x - mean(x))``
+     - ``lm(y ~ I(x - mean(x)))``
 
 Investigating outliers, discrepancies and other influential points
 ================================================================================================================
