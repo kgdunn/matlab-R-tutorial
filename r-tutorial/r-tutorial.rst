@@ -1938,16 +1938,15 @@ From clicking on the points we see that observations 1, 2, 3 and 21 are quite un
 	:align: center
 
 
-These observations have residuals larger than what would be expected from a normal distribution.  We don't exclude them yet.  Let's examine if they appear in some of the other plots.  
-
+These observations have residuals larger than what would be expected from a normal distribution.  We don't exclude them yet.  Let's examine if they appear in some of the other plots.
 
 Leverage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
 
-This is a plot of the hat-values::
+This is a plot of the hat-values:
 
 .. code-block:: s
-	
+
 	plot(hatvalues(model))
 	K <- length(coef(model))
 	N <- nrow(stackloss)
@@ -1964,7 +1963,7 @@ The average hat value is at :math:`\overline{h} = \frac{k}{n}`.  Observations 1 
 	:align: center
 
 Discrepancy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 The discrepancy of each data point is found by plotting the studentized residuals:
 
@@ -1984,7 +1983,7 @@ Recall the cut-offs are at :math:`\pm 2` and contain 95% of the data (1 in 20 ob
 	:align: center
 
 Influence
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 A plot of the Cook's D values shows influence.  We loosely can describe influence as:
 
@@ -2011,65 +2010,74 @@ The cutoff for Cook's D is :math:`4/(n-k)`.  Observations 1 and 21 lie beyond on
 
 
 Combine leverage, discrepancy and influence to understand outliers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------------------------
 
-<syntaxhighlight lang="R">
-library(car)
-# Let the function auto-identify the outliers, and tell if which labels to use
-influencePlot(model, identify="auto", labels=row.names(stackloss))
-</syntaxhighlight>
+.. code-block:: s
+
+	library(car)
+	# Let the function auto-identify the outliers, and tell if which labels to use
+	influencePlot(model, id.method="noteworthy", labels=row.names(stackloss))
+
+	# Manually identify outliers with your mouse
+	influencePlot(model, id.method="identify", labels=row.names(stackloss))
+
 The auto-identify function marks only observations with large Cook's distance values.  You should still investigate the other points.
-| ''Click on image to enlarge'' 
-[[Image:tutorial-5-influencePlot.png|250px]]
-|}
+
+.. figure:: images/influencePlot-stackloss.png
+	:alt:	images/influencePlot-stackloss.png
+	:scale: 100
+	:width: 550px
+	:align: center
 
 Also see ``influence(model)`` and ``influence.measures(model)`` for other metrics used to assess influence on a model from each observation.
 
-	=== Removing outliers and rebuilding the model ===
+Also, the ``influenceIndexPlot(model)`` shows 4 different metrics of influence in 4 subplots and is useful for smallish data sets.
 
-	After investigation of the above points, we decide to remove point 1 and 21 and rebuild the model:
-	<syntaxhighlight lang="R">
+Removing outliers and rebuilding the model
+--------------------------------------------------------------------
+
+After investigation of the points, we decide to remove point 1 and 21 and rebuild the model:
+
+.. code-block:: s
+
 	remove = -c(1, 21)
 	model.rebuild <- lm(model, subset=remove)
-	</syntaxhighlight>
-	Note how easy it is rebuild the model: you give it the existing ``model`` and the observations to remove (note the "``-``" in front of the ``c()``).
 
-	{| class="wikitable"
-	|-
-	| Then re-investigate the influence plot:
-	<syntaxhighlight lang="R">
-	influencePlot(model.rebuild, identify="auto", labels=row.names(stackloss)[remove])
-	</syntaxhighlight>
-	| ''Click on image to enlarge'' 
-	[[Image:tutorial-5-influencePlot-rebuild.png|250px]]
-	|}
+Note how easy it is rebuild the model: you give it the existing ``model`` and the observations to remove (note the "``-``" in front of the ``c()``).
 
-	== Linear models with multiple X-variables (MLR) ==
-	<!-- vcov(model) -->
+Then re-investigate the influence plot:
 
-	Including multiple variables in a linear model in R is straightforward.  Just extend the formula to the ``lm(...)`` function with extra terms.  For example:
-	{| class="wikitable"
-	|-
-	!
-	! Desired model
-	! Formula function in R
-	|-
-	| Standard, univariate model
-	| :math:`y = b_0 + b_1 x`
-	| ``y ~ x``
-	|-
-	| Add an additional explanatory variable:
-	| :math:`y = b_0 + b_1 x_1 + b_2 x_2`
-	| ``y ~ x1 + x2``
-	|}
+.. code-block:: python
 
-	Using the stackloss example from earlier:
-	<syntaxhighlight lang="R">
+	influencePlot(model.rebuild, id.method="noteworthy", labels=row.names(stackloss)[remove])
+	
+.. figure:: images/influencePlot-rebuild-stackloss.png
+	:alt:	images/influencePlot-rebuild-stackloss.png	
+	:scale: 100
+	:width: 750px
+	:align: center
+
+
+Linear models with multiple X-variables (MLR)
+=================================================
+
+Including multiple variables in a linear model in R is straightforward.  Just extend the formula to the ``lm(...)`` function with extra terms.  For example:
+
+* 	Standard, univariate model, :math:`y = b_0 + b_1 x` is represented as: ``y ~ x``
+
+*	Adding extra explanatory variables, as in :math:`y = b_0 + b_1 x_1 + b_2 x_2` is represented by: ``y ~ x1 + x2``
+
+Using the stackloss example from earlier:
+
+.. code-block:: s
+
 	attach(stackloss)
-	colnames(stackloss)
+	colnames(stackloss)	
 	# [1] "Air.Flow"   "Water.Temp" "Acid.Conc." "stack.loss"
+	
 	model <- lm(stack.loss ~ Air.Flow +  Acid.Conc. + Water.Temp)
 	summary(model)
+	
 	# Call:
 	# lm(formula = stack.loss ~ Air.Flow + Acid.Conc. + Water.Temp)
 	# 
@@ -2089,17 +2097,17 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 	# Residual standard error: 3.243 on 17 degrees of freedom
 	# Multiple R-squared: 0.9136,	Adjusted R-squared: 0.8983 
 	# F-statistic:  59.9 on 3 and 17 DF,  p-value: 3.016e-09
-	</syntaxhighlight>
 
-	We can interrogate this ``model`` object in the same way as we did for the single x-variable case.
-	* ``residuals(model)``
-	* ``fitted(model)``: predicted values of the model-building data
-	* ``coef(model)``
-	 # (Intercept)    Air.Flow  Acid.Conc.  Water.Temp 
-	 # -39.9196744   0.7156402  -0.1521225   1.2952861
-	* ``confint(model)``: provides the ''marginal'' confidence intervals (recall there are joint and marginal confidence intervals)
-	* ``predict(model)``: can be used to get new predictions.  For example, create a new data frame with 2 observations:
-	<syntaxhighlight lang="R">
+We can interrogate this ``model`` object in the same way as we did for the single x-variable case.
+
+*	``resid(model)``: get a list of residuals
+*	``fitted(model)``: predicted values of the model-building data
+*	``coef(model)``
+*	``confint(model)``: provides the ''marginal'' confidence intervals (recall there are joint and marginal confidence intervals)
+*	``predict(model)``: can be used to get new predictions.  For example, create a new data frame with 2 observations:
+
+.. code-block:: s
+
 	x.new = data.frame(Air.Flow = c(56, 62), Water.Temp = c(18, 24), Acid.Conc. = c(82, 89))
 	x.new
 	#   Air.Flow Water.Temp Acid.Conc.
@@ -2109,15 +2117,20 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 	y.new
 	#        1        2 
 	# 10.99728 21.99798
-	</syntaxhighlight>
 
-	== Linear models with integer variables ==
+Linear models with integer variables
+=======================================
 
-	The only additional step required to include an integer variable is to tell R that the variable a ``factor`` or categorical type variable.  R will then take care of expanding it into the extra columns required to fit the linear model.  The rest of the tools for linear models are then used as normal, e.g. ``confint(model)``, ``predict(model, ...)``  and so on.
+The only additional step required to include an integer variable is to tell R that the variable a ``factor`` or categorical type variable.  R will then take care of expanding it into the extra columns required to fit the linear model.  
 
-	Let's start by creating a factor variable ourself.  Create a vector of "Pass" and "Fail" entries and convert it to a factor variable:
-	<syntaxhighlight lang="R">
+The rest of the tools for linear models are then used as normal, e.g. ``confint(model)``, ``predict(model, ...)``  and so on.
+
+Let's start by creating a factor variable ourself.  Create a vector of "Pass" and "Fail" entries and convert it to a factor variable:
+
+.. code-block:: s
+
 	pass.fail <- c("Pass", "Fail", "Fail", "Fail", "Fail", "Pass", "Pass")
+	
 	# What type of variable is this currently (i.e. what type of class of variable)?
 	class(pass.fail)
 	# [1] "character"    <--- so just of a bunch of character strings
@@ -2130,21 +2143,23 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 
 	class(pass.fail)
 	# [1] "factor"
-	</syntaxhighlight>
 
-	Another example of creating a factor variable
-	<syntaxhighlight lang="R">
-	operator <- c(10, 12, 11, 10, 11, 10, 12, 11, 10)
-	op.names <- factor(operator, levels=c("10", "11", "12"), labels=c("Pat", "Sarah", "Stef"))
+Another example of creating a factor variable:
+
+.. code-block:: s
+
+	operator.id <- c(10, 12, 11, 10, 11, 10, 12, 11, 10)
+	op.names <- factor(operator.id, levels=c("10", "11", "12"), labels=c("Pat", "Sarah", "Stef"))
 	# [1] Pat   Stef  Sarah Pat   Sarah Pat   Stef  Sarah Pat  
 	# Levels: Pat Sarah Stef
 	is.factor(op.names)
 	[1] TRUE
-	</syntaxhighlight>
 
-	You may not even need to create a factor variable in many cases.  When you import a data set R will detect and create factors automatically - usually it gets it right - like the "Yes"/"No" baffles variable used in [[Assignment_5_-_2010]]:
-	<syntaxhighlight lang="R">
-	bio <- read.csv('http://stats4.eng.mcmaster.ca/datasets/bioreactor-yields.csv')
+You may not even need to create a factor variable in many cases.  When you import a data set R will detect and create factors automatically - usually it gets it right - like the "Yes"/"No" baffles variable:
+
+.. code-block:: s
+
+	bio <- read.csv('http://datasets.connectmv.com/file/bioreactor-yields.csv')
 	bio
 	#    temperature duration speed baffles   yield
 	# 1           82      260  4300      No      51
@@ -2161,19 +2176,23 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 	# 12          60      260  4400      No      62
 	# 13         101      260  4400      No      42
 	# 14          92      260  4900     Yes      38
-	</syntaxhighlight>
+	
+	is.factor(bio$baffles)
+	[1] TRUE
 
-	Fitting a linear model with this integer variable:
-	<syntaxhighlight lang="R">
-	attach(bio)
-	model <- lm(yield ~ temperature + speed + baffles)
+Fitting a linear model with this integer variable:
+
+.. code-block:: s
+
+	model <- lm(bio$yield ~ bio$temperature + bio$speed + bio$baffles)
 	coef(model)
 	#  (Intercept)  temperature        speed   bafflesYes 
 	# 52.483652163 -0.470996834  0.008710973 -9.090699955
-	</syntaxhighlight>
 
-	So the -9.09 is the model coefficient for when the ``baffles`` variable is at the ``"Yes"`` level.  You can view the underlying :math:`\mathbf{X}` matrix for this linear model quite easily:
-	<syntaxhighlight lang="R">
+So the -9.09 is the model coefficient for when the ``baffles`` variable is at the ``"Yes"`` level.  You can view the underlying :math:`\mathbf{X}` matrix for this linear model quite easily:
+
+.. code-block:: s
+
 	model.matrix(model)
 	#    (Intercept) temperature speed bafflesYes
 	# 1            1          82  4300          0
@@ -2195,20 +2214,27 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 	# attr(,"contrasts")
 	# attr(,"contrasts")$baffles
 	# [1] "contr.treatment"
-	</syntaxhighlight>
 
-	These would be the column in the :math:`\mathbf{X}` matrix, confirming that the coefficient for ``baffles`` is the effect of going from ``No`` to ``Yes``.  
+These would be the column in the :math:`\mathbf{X}` matrix, confirming that the coefficient for ``baffles`` is the effect of going from ``No`` to ``Yes``.  
 
-	I point this out, because R will by default create the factors in alphabetical order (0 = "No", "1"="Yes").  But in other cases this default leads to the opposite of what you might want, for example 0="Accept", 1="Reject".  You can always reorder an existing factor:
-	<syntaxhighlight lang="R">
-	disp <- c("Accept", "Accept", "Reject", "Accept", "Accept", "Reject")
-	disp <- factor(disp, levels=c("Reject", "Accept"))  # switch the default order around
-	</syntaxhighlight>
+We point this out, because R will by default create the factors in alphabetical order (0 = "No", "1"="Yes").  But in other cases this default leads to the opposite of what you might want, for example 0="Accept", 1="Reject".  You can always reorder an existing factor:
 
-	=== Predictions when integer variables are in the model ===
+.. code-block:: s
 
-	As before, we use the ``predict()`` function, once we have a data frame containing the new data.  Create two observations where the only difference is the baffle indicator:
-	<syntaxhighlight lang="R">
+	result <- c("Accept", "Accept", "Reject", "Accept", "Accept", "Reject")
+	result <- factor(result, levels=c("Reject", "Accept"))  # switch the default order around
+	result
+	[1] Accept Accept Reject Accept Accept Reject
+	Levels: Reject Accept
+	
+	
+Predictions when integer variables are in the model
+-----------------------------------------------------
+
+As before, we use the ``predict()`` function, once we have a data frame containing the new data.  Create two observations where the only difference is the baffle indicator:
+
+.. code-block:: s
+
 	x.new = data.frame(temperature=82, speed=4200, baffles=c("Yes", "No"))
 	x.new
 	#   temperature speed baffles
@@ -2219,8 +2245,8 @@ Also see ``influence(model)`` and ``influence.measures(model)`` for other metric
 	      fit      lwr      upr
 	1 41.3573 30.03813 52.67647
 	2 50.4480 39.23712 61.65888
-	</syntaxhighlight>
-	The above output shows the effect of a baffle, together with the prediction intervals.  Does this output match the interpretation of the model coefficient for the ``baffle`` variable?
+
+The above output shows the effect of a baffle, together with the prediction intervals.  Does this output match the interpretation of the model coefficient for the ``baffle`` variable?
 
 Next steps (coming soon)
 =========================
