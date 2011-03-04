@@ -1874,7 +1874,7 @@ This is shown by example for a few different types of transformations:
      - ``lm(y ~ x)``
    * - Force intercept to zero (check the degrees of freedom!)
      - :math:`y = b_1 x`
-     - ``lm(y ~ x + 0))``
+     - ``lm(y ~ x + 0)``
    * - Transformation of an :math:`x`  
      - :math:`y = b_0 + \sqrt{x}`
      - ``lm(y ~ sqrt(x))``
@@ -1993,7 +1993,7 @@ A plot of the Cook's D values shows influence.  We loosely can describe influenc
 
 	\text{Influence} = \text{Leverage} \times \text{Discrepancy}
 
-though Cook's D calculates them slightly differently.
+though Cook's D calculates leverage and discrepancy slightly differently from shown previously.
 
 .. code-block:: s
 
@@ -2017,7 +2017,7 @@ Combine leverage, discrepancy and influence to understand outliers
 .. code-block:: s
 
 	library(car)
-	# Let the function auto-identify the outliers, and tell if which labels to use
+	# Let the function auto-identify the outliers; tell it which labels to use
 	influencePlot(model, id.method="noteworthy", labels=row.names(stackloss))
 
 	# Manually identify outliers with your mouse
@@ -2069,7 +2069,7 @@ Just extend the formula you normally provide to the ``lm(...)`` function with ex
 
 * 	Standard, univariate model, :math:`y = b_0 + b_1 x` is represented as: ``y ~ x``
 
-*	Adding extra explanatory variables, as in :math:`y = b_0 + b_1 x_1 + b_2 x_2` is represented by: ``y ~ x1 + x2``
+*	To add extra explanatory variables, for example :math:`y = b_0 + b_1 x_1 + b_2 x_2`, is represented by: ``y ~ x1 + x2``
 
 Using the stackloss example from earlier:
 
@@ -2102,7 +2102,7 @@ Using the stackloss example from earlier:
 	Multiple R-squared: 0.9136,	Adjusted R-squared: 0.8983 
 	F-statistic:  59.9 on 3 and 17 DF,  p-value: 3.016e-09
 
-We can interrogate this ``model`` object in the same way as we did for the single x-variable case.
+We can interrogate this ``model`` object in the same way as we did for the single :math:`x`-variable case.
 
 *	``resid(model)``: get a list of residuals
 *	``fitted(model)``: predicted values of the model-building data
