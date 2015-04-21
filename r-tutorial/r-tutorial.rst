@@ -565,6 +565,17 @@ But we need to also tell the legend function what type of line and colour to sho
 	legend(x=15, y=720, legend=c("TK104", "TK105", "TK107"), lwd=2,
 	                    col=c("red", "black", "darkgreen"))
 	
+.. ucomment:: L74MEQ: hW*,
+
+<<<<<<< local
+.. ucomment:: L74MEQ: P2*,
+
+<<<<<<< local
+<<<<<<< local
+.. ucomment:: L74MEQ: uy*, WN*, pA*,
+=======
+=======
+>>>>>>> other
 .. ucomment:: L74MEQ: PS*,
 
 <<<<<<< local
@@ -580,7 +591,16 @@ But we need to also tell the legend function what type of line and colour to sho
 >>>>>>> other
 =======
 >>>>>>> other
+<<<<<<< local
+=======
+>>>>>>> other
+=======
+>>>>>>> other
 .. ucomment:: L74MEQ: uy*, WN*,
+<<<<<<< local
+<<<<<<< local
+=======
+>>>>>>> other
 <<<<<<< local
 <<<<<<< local
 >>>>>>> other
@@ -591,6 +611,12 @@ But we need to also tell the legend function what type of line and colour to sho
 <<<<<<< local
 >>>>>>> other
 =======
+>>>>>>> other
+=======
+>>>>>>> other
+=======
+>>>>>>> other
+<<<<<<< local
 >>>>>>> other
 =======
 >>>>>>> other
